@@ -1,0 +1,5 @@
+* * * * * /bin/sh /www/wwwroot/app/Console/Commands/Mysql.sh
+* * * * *  /usr/bin/php /www/wwwroot/artisan command:RunCron 1
+* * * * *  /usr/bin/php /www/wwwroot/artisan command:RunCron 3
+
+0 0 * * *  /usr/bin/php /www/wwwroot/artisan command:CancellationClaimOrder  # 每天0点执行一次
