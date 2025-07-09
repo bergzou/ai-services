@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Web;
 
 
 use App\Exceptions\BusinessException;
+use App\Helpers\AopProxy;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -16,13 +17,15 @@ class ReturnedOrderController extends BaseController
      * 退件单列表
      * @param Request $request
      * @return JsonResponse
+     * @var ReturnedOrderService $service
      */
     public function list(Request $request): JsonResponse
     {
         $requestData = $request->all();
         $this->setInputKeyValue($requestData,['order','date','','sku']);
         $this->setInputDate($requestData,['created_at','submit_at','receiving_at','completion_at']);
-        $service = new ReturnedOrderService();
+
+        $service = AopProxy::make(ReturnedOrderService::class);
         $responseData = $service->getList($requestData);
         return Response::success($responseData);
     }

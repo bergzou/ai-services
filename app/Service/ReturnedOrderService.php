@@ -106,10 +106,10 @@ class ReturnedOrderService extends BaseService
             $returnedDetailMap = [];
             if (!empty($returnedDetail)) $returnedDetailMap = array_column($returnedDetail,null,'returned_order_code');
 
-            $warehouseMap = $this->getListWarehouseNameMap($modelData['list']);
+//            $warehouseMap = $this->getListWarehouseNameMap($modelData['list']);
 
 
-            $roleData = (new RoleClient())->getSellerCodeAgent(['seller_code_set' => array_column($modelData['list'],'seller_code')]);
+//            $roleData = (new RoleClient())->getSellerCodeAgent(['seller_code_set' => array_column($modelData['list'],'seller_code')]);
             $sellerCodeMap = $roleData['data'] ?? [];
 
             foreach ($modelData['list'] as $key => &$value) {
@@ -120,7 +120,7 @@ class ReturnedOrderService extends BaseService
                 $value['handling_method_name'] = EnumReturnedOrder::getHandlingMethodMap()[$value['handling_method']] ?? '';
                 $value['create_type_name'] = EnumReturnedOrder::getCreateTypeMap()[$value['create_type']] ?? '';
                 $value['document_type_name'] = EnumReturnedOrder::getDocumentTypeMap()[$value['document_type']] ?? '';
-                $this->setRowWarehouseName($value, $warehouseMap);
+//                $this->setRowWarehouseName($value, $warehouseMap);
 
                 $value['forecast_quantity'] = (int)$returnedDetailMap[$value['returned_order_code']]['forecast_quantity'] ?? 0;
                 $value['receive_quantity'] = (int)$returnedDetailMap[$value['returned_order_code']]['receive_quantity'] ?? 0;
@@ -131,6 +131,8 @@ class ReturnedOrderService extends BaseService
 
             }
         }
+
+        throw new BusinessException('测试');
         return $modelData;
     }
 

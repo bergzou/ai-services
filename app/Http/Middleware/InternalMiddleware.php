@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
  * Web通用中间件：处理HTTP请求的通用逻辑（如输入数据清理）
  * 作用于Web端请求，对输入数据进行预处理后传递给后续处理流程
  */
-class WebMiddleware
+class InternalMiddleware
 {
     /**
      * 中间件核心处理方法（Laravel中间件标准入口）

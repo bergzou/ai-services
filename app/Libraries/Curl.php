@@ -90,8 +90,6 @@ class Curl
             $retryCount++;
         } while ($maxRetries > 0 && $result === false && $retryCount <= $maxRetries);
 
-        // 记录日志
-        Logger::clientRequest($url,$data,$result);
 
         if (curl_errno($ch)) {
             $error = curl_error($ch);
@@ -141,8 +139,6 @@ class Curl
         $response = curl_exec($ch);
         // 关闭 CURL 请求
         curl_close($ch);
-        // 记录日志
-        Logger::curlUpload($remoteUrl,$file_name,curl_error($ch));
         // 返回响应结果
         return $response;
     }

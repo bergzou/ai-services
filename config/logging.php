@@ -47,6 +47,12 @@ return [
     |
     */
 
+    'sql_enabled' => env('LOG_SQL_ENABLED', false), // 是否启用 SQL 日志记录
+
+    'exception_enabled' => env('LOG_EXCEPTION_ENABLED', false), // 是否启用异常日志记录
+
+    'aop_enabled' => env('AOP_LOG_ENABLED', false), // 是否启用 AOP 日志记录
+
     'channels' => [
         'stack' => [
             'driver' => 'stack',
@@ -123,98 +129,28 @@ return [
             'path' => storage_path('logs/laravel.log'),
             'permission' => 0777,
         ],
-        # HTTP POST 请求日志
-        'request' => [
+
+        // 业务日志
+        'aop' => [
             'driver' => 'daily',
-            'path' => storage_path('logs/request.log'),
+            'path' => storage_path('logs/aop.log'),
             'level' => 'info',
-            'days' => 3,
-            'handler' => StreamHandler::class,
-            'formatter' => JsonFormatter::class,
-            'value_max_length' => env('REQUEST_LOG_VALUE_MAX_LENGTH', 300),
-            'permission' => 0777,
+            'days' => 7, // 保留 7 天日志,
         ],
-        # 队列消费日志
-        'queue' => [
-            'driver' => 'daily',
-            'path' => storage_path('logs/queue.log'),
-            'level' => 'info',
-            'days' => 3,
-            'permission' => 0777,
-        ],
-        # cron 定时任务日志 apollo
-        'apollo' => [
-            'driver' => 'daily',
-            'path' => storage_path('logs/apollo.log'),
-            'level' => 'info',
-            'days' => 3,
-            'permission' => 0777,
-        ],
-        # SQL 执行日志
+        // SQL日志
         'sql' => [
             'driver' => 'daily',
             'path' => storage_path('logs/sql.log'),
-            'level' => 'info',
-            'days' => 3,
-            'permission' => 0777,
-        ],
-        # businessException 自定义异常
-        'business' => [
-            'driver' => 'daily',
-            'path' => storage_path('logs/business.log'),
-            'level' => 'info',
-            'days' => 3,
-            'permission' => 0777,
-        ],
-        # throwable 自定义异常
-        'throwable' => [
-            'driver' => 'daily',
-            'path' => storage_path('logs/throwable.log'),
-            'level' => 'info',
-            'days' => 3,
-            'permission' => 0777,
-        ],
-        # 上传 curl_upload
-        'curl_upload' => [
-            'driver' => 'daily',
-            'path' => storage_path('logs/curl_upload.log'),
-            'level' => 'info',
-            'days' => 3,
-            'permission' => 0777,
-        ],
-        # 内部服务调用
-        'client_request' => [
-            'driver' => 'daily',
-            'path' => storage_path('logs/client_request.log'),
-            'level' => 'info',
-            'days' => 3,
-            'permission' => 0777,
-        ],
-        'internal_request' => [
-            'driver' => 'daily',
-            'path' => storage_path('logs/internal_request.log'),
-            'level' => 'info',
-            'days' => 3,
-            'permission' => 0777,
-        ],
-        'business_log' => [
-            'driver' => 'daily',
-            'path' => storage_path('logs/business_log.log'),
-            'level' => 'info',
-            'days' => 3,
-            'permission' => 0777,
+            'level' => 'debug',
+            'days' => 7, // 保留 7 天日志
         ],
 
-        // 添加新通道
-        'cost_forecast_log' => [
+        // 异常日志
+        'exception' => [
             'driver' => 'daily',
-            'path' => storage_path('logs/cost_forecast_log.log'),
-            'formatter' => App\Logging\CostForecastLogFormatter::class,
-            'formatter_with' => [
-                'lineWidth' => 80 // 可配置宽度
-            ],
+            'path' => storage_path('logs/exception.log'),
             'level' => 'debug',
-            'days' => 30,
+            'days' => 7, // 保留 7 天日志
         ],
 
     ],

@@ -29,6 +29,7 @@ class Kernel extends HttpKernel
      * @var array<string, array<int, class-string|string>>
      */
     protected $middlewareGroups = [
+
         'web' => [
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
@@ -36,29 +37,14 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
 //            \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \App\Http\Middleware\WebMiddleware::class    //  用户合法性验证 中间件过虑组
+            \App\Http\Middleware\WebMiddleware::class
         ],
 
-        'api' => [
-            // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            'throttle:api',
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        ],
         'internal' => [
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \App\Http\Middleware\Internal::class,
+            \App\Http\Middleware\InternalMiddleware::class
         ],
-        'erp' => [
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \App\Http\Middleware\Erp::class,
-        ],
-        'openapi' => [
-            \App\Http\Middleware\OpenApi::class,
-        ],
-        'oms' => [
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \App\Http\Middleware\OmsMiddleware::class,
-        ],
+
     ];
 
     /**
