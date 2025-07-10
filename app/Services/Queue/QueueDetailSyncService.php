@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Queue;
+namespace App\Services\Queue;
 
 use App\Client\BaseClient;
 use App\Client\IcsClient;

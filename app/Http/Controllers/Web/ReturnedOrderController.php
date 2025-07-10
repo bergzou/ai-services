@@ -8,8 +8,8 @@ use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Libraries\Response;
-use App\Service\ReturnedOrderService;
-use App\Service\UserInfoService;
+use App\Services\ReturnedOrderService;
+use App\Services\UserInfoService;
 
 class ReturnedOrderController extends BaseController
 {
@@ -21,6 +21,11 @@ class ReturnedOrderController extends BaseController
      */
     public function list(Request $request): JsonResponse
     {
+
+        $result = app('translation')
+            ->translate("你好，世界", 'zh', 'en');
+
+        var_dump($result);die;
         $requestData = $request->all();
         $this->setInputKeyValue($requestData,['order','date','','sku']);
         $this->setInputDate($requestData,['created_at','submit_at','receiving_at','completion_at']);

@@ -1,5 +1,5 @@
 <?php
-namespace App\Service;
+namespace App\Services;
 
 use App\Client\IcsClient;
 use App\Client\OmsOutboundClient;
@@ -8,8 +8,8 @@ use App\Enums\EnumReturnedClaimOrder;
 use App\Enums\EnumReturnedOrder;
 use App\Exceptions\BusinessException;
 use App\Libraries\Common;
-use App\Service\BaseService;
-use App\Service\CommonService;
+use App\Services\BaseService;
+use App\Services\CommonService;
 use App\Models\ReturnedOrderModel;
 use App\Models\ReturnedDetailModel;
 use App\Models\ReturnedOperateModel;
@@ -20,8 +20,8 @@ use App\Libraries\LibSnowflake;
 use App\Client\ProductClient;
 use App\Models\ReturnedClaimDetailModel;
 use App\Models\ReturnedDetailAttachModel;
-use App\Service\Queue\QueueDetailConfigService;
-use App\Service\Queue\QueueDetailService;
+use App\Services\Queue\QueueDetailConfigService;
+use App\Services\Queue\QueueDetailService;
 use App\Validates\ReturnedOrderValidation;
 use App\Validates\ReturnedDetailValidation;
 use App\Validates\ReturnedOrderBoxValidation;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Service\Queue\MqLogService;
+use App\Services\Queue\MqLogService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 

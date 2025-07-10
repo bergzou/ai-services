@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Service\Queue;
+namespace App\Services\Queue;
 
 use App\Exceptions\BusinessException;
 use App\Libraries\Common;
 use App\Libraries\LibSnowflake;
 use App\Models\Common\QueueDetailModel;
-use App\Service\BaseService;
+use App\Services\BaseService;
 use Illuminate\Support\Facades\Lang;
 
 class QueueDetailService extends BaseService

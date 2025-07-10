@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Service\Queue\QueueDetailConfigService;
-use App\Service\Queue\QueueDetailService;
+use App\Services\Queue\QueueDetailConfigService;
+use App\Services\Queue\QueueDetailService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;

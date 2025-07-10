@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Queue;
+namespace App\Services\Queue;
 
 use App\Libraries\Common;
 use App\Libraries\LibSnowflake;

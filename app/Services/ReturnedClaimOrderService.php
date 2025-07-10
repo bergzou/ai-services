@@ -1,5 +1,5 @@
 <?php
-namespace App\Service;
+namespace App\Services;
 
 use App\Client\ProductClient;
 use App\Client\RoleClient;
@@ -8,8 +8,8 @@ use App\Exceptions\BusinessException;
 use App\Http\Controllers\Oms\ReturnedClaimOrderController;
 use App\Libraries\Common;
 use App\Libraries\LibSnowflake;
-use App\Service\BaseService;
-use App\Service\CommonService;
+use App\Services\BaseService;
+use App\Services\CommonService;
 use App\Models\ReturnedOrderModel;
 use App\Models\ReturnedLogModel;
 use App\Client\FileClient;
@@ -21,7 +21,7 @@ use App\Validates\ReturnedClaimOrderValidation;
 use App\Validates\ReturnedOrderValidation;
 use Exception;
 use Illuminate\Support\Facades\DB;
-use App\Service\TraitCommonService;
+use App\Services\TraitCommonService;
 use App\Models\ReturnedDetailAttachModel;
 
 class ReturnedClaimOrderService extends BaseService

@@ -1,5 +1,5 @@
 <?php
-namespace App\Service;
+namespace App\Services;
 
 use App\Client\IcsClient;
 use App\Client\ProductClient;
@@ -9,8 +9,8 @@ use App\Enums\EnumReturnedOrder;
 use App\Exceptions\BusinessException;
 use App\Libraries\Common;
 use App\Models\ReturnedDetailAttachModel;
-use App\Service\BaseService;
-use App\Service\CommonService;
+use App\Services\BaseService;
+use App\Services\CommonService;
 use App\Models\ReturnedOrderModel;
 use App\Models\ReturnedDetailModel;
 use App\Models\ReturnedOperateModel;
@@ -20,9 +20,9 @@ use App\Models\ReturnedOrderBoxModel;
 use App\Client\FileClient;
 use App\Client\OmsOutboundClient;
 use App\Libraries\LibSnowflake;
-use App\Service\Queue\QueueDetailConfigService;
-use App\Service\Queue\QueueDetailService;
-use App\Service\Queue\QueueDetailSyncService;
+use App\Services\Queue\QueueDetailConfigService;
+use App\Services\Queue\QueueDetailService;
+use App\Services\Queue\QueueDetailSyncService;
 use Couchbase\Role;
 use Exception;
 use Illuminate\Support\Facades\Bus;

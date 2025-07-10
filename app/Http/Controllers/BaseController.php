@@ -9,7 +9,7 @@ namespace App\Http\Controllers;
  */
 
 
-use App\Service\UserInfoService;
+use App\Services\UserInfoService;
 use Illuminate\Routing\Controller;
 class BaseController extends Controller
 {

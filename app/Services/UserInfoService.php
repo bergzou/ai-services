@@ -3,7 +3,7 @@
  * 登录用户信息
  */
 
-namespace App\Service;
+namespace App\Services;
 
 use App\Enums\EnumBase;
 use Illuminate\Validation\Rules\Enum;

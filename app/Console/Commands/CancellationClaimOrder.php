@@ -7,10 +7,10 @@ use App\Libraries\Common;
 use App\Libraries\LibSnowflake;
 use App\Models\ReturnedClaimLogModel;
 use App\Models\ReturnedClaimOrderModel;
-use App\Service\CommonService;
-use App\Service\Queue\QueueDetailConfigService;
-use App\Service\Queue\QueueDetailService;
-use App\Service\ReturnedClaimOrderService;
+use App\Services\CommonService;
+use App\Services\Queue\QueueDetailConfigService;
+use App\Services\Queue\QueueDetailService;
+use App\Services\ReturnedClaimOrderService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 

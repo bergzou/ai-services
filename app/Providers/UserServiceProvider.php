@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Service\UserInfoService;
+use App\Services\UserInfoService;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 

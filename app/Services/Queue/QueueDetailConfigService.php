@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Service\Queue;
+namespace App\Services\Queue;
 
 use App\Enums\Returned\EnumReturnedOrder;
 use App\Exceptions\BusinessException;
-use App\Service\Returned\ReturnedOrderAuditService;
+use App\Services\Returned\ReturnedOrderAuditService;
 
 class QueueDetailConfigService
 {

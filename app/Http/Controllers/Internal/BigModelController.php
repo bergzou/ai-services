@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Internal;
 
 
 use App\Http\Controllers\BaseController;
-use App\Service\AiService;
+use App\Services\AiService;
 
-use App\Service\BigModelService;
+use App\Services\BigModelService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Libraries\Response;
