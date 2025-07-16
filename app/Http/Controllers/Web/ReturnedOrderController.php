@@ -2,20 +2,10 @@
 namespace App\Http\Controllers\Web;
 
 
-use App\Enums\EnumReturnedClaimOrder;
-use App\Exceptions\BusinessException;
-use App\Helpers\AopProxy;
-use App\Http\Controllers\BaseController;
-use App\Models\ReturnedOrderModel;
-use App\Validates\ReturnedClaimOrderValidated;
-use App\Validates\ReturnedOrderValidation;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use App\Libraries\Response;
-use App\Services\ReturnedOrderService;
 
-class ReturnedOrderController extends BaseController
+class ReturnedOrderController extends WebBaseController
 {
     /**
      * 退件单列表

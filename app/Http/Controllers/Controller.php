@@ -13,11 +13,6 @@ use Illuminate\Support\Facades\Redis;
 
 class Controller extends BaseController
 {
-    public function index()
-    {
-        Redis::set('name','name');
-        var_dump( Redis::get('name') . 'redis');
-        die;
-    }
+
 
 }
