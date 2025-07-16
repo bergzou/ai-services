@@ -16,7 +16,7 @@ class QueueTaskLogModel extends BaseModel
      * Date: 2024/3/28 13:43
      * @return string
      */
-    public function getTable()
+    public function getTable(): string
     {
         return $this->table;
     }

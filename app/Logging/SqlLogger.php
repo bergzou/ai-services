@@ -28,6 +28,7 @@ class SqlLogger
     protected static $sqlLogs = [];
     protected static $totalTime = 0;
     protected static $queryCount = 0;
+    protected static $terminatorRegistered = false;
 
     protected bool $enabled;
 
@@ -36,8 +37,9 @@ class SqlLogger
         $this->enabled = config('logging.sql_enabled', false);
 
         // 注册请求结束处理器
-        if ($this->enabled && empty(self::$requestId)) {
+        if ($this->enabled && !self::$terminatorRegistered) {
             $this->registerRequestTerminator();
+            self::$terminatorRegistered = true;
         }
     }
 
@@ -64,7 +66,6 @@ class SqlLogger
             'connection' => $query->connectionName,
             'caller' => $caller
         ];
-
         // 更新统计信息
         self::$totalTime += $query->time;
         self::$queryCount++;
@@ -77,22 +78,30 @@ class SqlLogger
     {
         // 使用应用终止事件记录所有SQL
         app()->terminating(function () {
-            if (!empty(self::$sqlLogs)) {
-                $logContent = $this->buildLogContent();
-                Log::channel('sql')->debug($logContent);
-
-                // 重置请求级数据
-                self::$sqlLogs = [];
-                self::$totalTime = 0;
-                self::$queryCount = 0;
-            }
+            self::flush();
         });
+    }
+
+    /**
+     * 立即刷新并输出日志
+     */
+    public static function flush(): void
+    {
+        if (!empty(self::$sqlLogs)) {
+            $logContent = self::buildLogContent();
+            Log::channel('sql')->debug($logContent);
+
+            // 重置日志但保留请求ID
+            self::$sqlLogs = [];
+            self::$totalTime = 0;
+            self::$queryCount = 0;
+        }
     }
 
     /**
      * 构建结构化日志内容（包含所有SQL）
      */
-    protected function buildLogContent(): string
+    protected static function buildLogContent(): string
     {
         // 顶部边框
         $content = self::BORDER_C . str_repeat(self::BORDER_H, self::MAX_WIDTH - 2) . self::BORDER_C . "\n";
@@ -127,7 +136,7 @@ class SqlLogger
 
         // 添加统计信息
         $content .= self::BORDER_V . str_repeat(self::BORDER_H, self::MAX_WIDTH - 2) . self::BORDER_V . "\n";
-        $content .= self::formatLine("Total Queries: " . self::$queryCount);
+        $content .= self::formatLine("Total Queries: " . count(self::$sqlLogs));
         $content .= self::formatLine("Total SQL Time: " . number_format(self::$totalTime, 2) . "ms");
         $content .= self::formatLine("Request Duration: " . number_format(microtime(true) - LARAVEL_START, 3) . "s");
 
@@ -307,11 +316,11 @@ class SqlLogger
     }
 
     /**
-     * 获取调用 SQL 的代码位置 (修复版本)
+     * 获取调用 SQL 的代码位置
      */
     protected function getCaller(): string
     {
-        $traces = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 20);
+        $traces = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 25);
         $appPath = base_path();
         $skipClasses = [
             __CLASS__,
@@ -319,7 +328,8 @@ class SqlLogger
             'Illuminate\\Database\\ConnectionInterface',
             'Illuminate\\Database\\Query\\Builder',
             'Illuminate\\Database\\Eloquent\\Builder',
-            'Illuminate\\Database\\Eloquent\\Model'
+            'Illuminate\\Database\\Eloquent\\Model',
+            'Illuminate\\Database\\Eloquent\\Relations'
         ];
 
         foreach ($traces as $trace) {
@@ -329,10 +339,11 @@ class SqlLogger
             $class = $trace['class'] ?? '';
 
             // 跳过框架、包文件以及数据库相关类
-            if (str_contains($file, '/vendor/') ||
-                str_contains($file, '/laravel/') ||
-                str_contains($file, '/illuminate/') ||
-                in_array($class, $skipClasses)) {
+            $isVendor = str_contains($file, '/vendor/');
+            $isFramework = str_contains($file, '/laravel/') || str_contains($file, '/illuminate/');
+            $isSkipClass = in_array($class, $skipClasses) || str_starts_with($class, 'Illuminate\\');
+
+            if ($isVendor || $isFramework || $isSkipClass) {
                 continue;
             }
 

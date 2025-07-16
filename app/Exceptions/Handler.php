@@ -67,11 +67,15 @@ class Handler extends ExceptionHandler
             if ($e instanceof BusinessException) {
                 // 其他异常（非业务异常）：创建 ThrowableException 实例并调用 handle 方法处理（默认异常处理逻辑）
                 (new BusinessException())->handle($e);
-                return Response::fail($e->getCode(), $e->getMessage());
+                if(env('APP_ENV','local') == 'production'){
+                    return Response::fail($e->getCode(), $e->getMessage());
+                }
             } else {
                 // 其他异常（非业务异常）：创建 ThrowableException 实例并调用 handle 方法处理（默认异常处理逻辑）
                 (new ThrowableException())->handle($e);
-                return Response::error($e->getCode(), $e->getMessage());
+                if(env('APP_ENV','local') == 'production'){
+                    return Response::error();
+                }
             }
         }
 

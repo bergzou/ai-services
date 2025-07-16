@@ -163,7 +163,7 @@ class ExceptionLogger
     {
         $simplified = [];
         $appPath = base_path();
-        $maxDepth = 8;
+        $maxDepth = 4;
         $currentDepth = 0;
 
         foreach ($trace as $frame) {
@@ -224,14 +224,32 @@ class ExceptionLogger
      */
     private static function formatLine(string $line): string
     {
-        $line = self::BORDER_CHAR_V . " " . $line;
-        $padding = self::MAX_LINE_WIDTH - mb_strlen($line) + 2;
+        $maxContentWidth = 117; // 最大内容宽度（120 - 3个边框/空格字符）
+        $lines = [];
+        $offset = 0;
+        $length = mb_strlen($line, 'UTF-8');
 
-        if ($padding > 0) {
-            $line .= str_repeat(' ', $padding);
+        // 分割长行为多行
+        while ($offset < $length) {
+            $chunk = mb_substr($line, $offset, $maxContentWidth, 'UTF-8');
+            $offset += mb_strlen($chunk, 'UTF-8');
+            $lines[] = $chunk;
         }
 
-        return $line . self::BORDER_CHAR_V . "\n";
+        $formatted = '';
+        foreach ($lines as $chunk) {
+            $formattedLine = self::BORDER_CHAR_V . " " . $chunk;
+            $currentLength = mb_strlen($formattedLine, 'UTF-8');
+            $padding = 119 - $currentLength; // 计算需要填充的空格数
+
+            if ($padding > 0) {
+                $formattedLine .= str_repeat(' ', $padding);
+            }
+            $formattedLine .= self::BORDER_CHAR_V . "\n";
+            $formatted .= $formattedLine;
+        }
+
+        return $formatted;
     }
 
     /**

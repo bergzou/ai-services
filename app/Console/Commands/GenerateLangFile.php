@@ -60,6 +60,7 @@ class GenerateLangFile extends Command
             // 2. 获取需要处理的多语言地区（如未指定则读取 lang 目录下的所有地区）
             $locales = $this->getLocales($localesOption);
 
+
             // 3. 验证短语是否已存在（避免重复生成）
             [$validPhrases, $duplicates] = $this->validatePhrases($phrases, $locales, $filename);
 
