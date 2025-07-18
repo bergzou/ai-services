@@ -9,7 +9,7 @@ use InvalidArgumentException;
  * 翻译服务管理器：负责翻译驱动的初始化、切换和翻译请求分发
  * 支持多驱动扩展（如百度翻译、谷歌翻译），通过配置灵活切换
  */
-class TranslatorManager
+class TranslatorManager implements TranslatorInterface
 {
     protected $driver;       // 当前使用的翻译驱动实例
     protected $drivers = []; // 已实例化的驱动缓存（避免重复创建）

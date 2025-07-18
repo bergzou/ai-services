@@ -29,9 +29,10 @@ class AopLogger
 
     // 配置常量
     const MAX_LINE_WIDTH = 200;  // 单行最大字符数
-    const BORDER_CHAR_H = '-';   // 水平边框字符
-    const BORDER_CHAR_V = '|';   // 垂直边框字符
-    const BORDER_CHAR_C = '+';   // 角落连接字符
+    // 优化点1：使用更美观的分割符号
+    const BORDER_CHAR_H = '═';   // 水平边框字符
+    const BORDER_CHAR_V = '║';   // 垂直边框字符
+    const BORDER_CHAR_C = '╬';   // 角落连接字符
 
     // 日志级别表情符号
     const EMOJI_INFO = '📝';
@@ -213,14 +214,34 @@ class AopLogger
     private static function generateLogContent(): string
     {
         $request = Request::instance();
-        $logContent = "*********\n";
-        $logContent .= "*请求路由: {$request->method()} {$request->fullUrl()}\n";
-        $logContent .= "*请求时间: " . self::getMicrotime() . "\n";
-        $logContent .= "*请求参数: " . json_encode(array_merge(
-                $request->all(),
-                ['request_id' => self::$requestId]
-            )) . "\n";
-        $logContent .= "*执行流程\n";
+
+        // 计算动态宽度
+        $headerWidth = 118;
+
+        // 优化点1：使用新的分割符号
+        $logContent = self::BORDER_CHAR_V . " REQUEST ROUTE " . str_repeat(self::BORDER_CHAR_H, $headerWidth - 15) . self::BORDER_CHAR_V . "\n";
+
+        // 修复点：避免负数的 str_repeat()
+        $url = $request->method() . ' ' . $request->fullUrl();
+        $urlLine = sprintf(" %-20s %s", 'URL:', $url);
+        $urlPadding = max(0, $headerWidth - mb_strlen($urlLine) - 2); // 确保非负
+        $logContent .= self::BORDER_CHAR_V . $urlLine . str_repeat(' ', $urlPadding) . self::BORDER_CHAR_V . "\n";
+
+        $time = self::getMicrotime();
+        $timeLine = sprintf(" %-20s %s", 'Time:', $time);
+        $timePadding = max(0, $headerWidth - mb_strlen($timeLine) - 2); // 确保非负
+        $logContent .= self::BORDER_CHAR_V . $timeLine . str_repeat(' ', $timePadding) . self::BORDER_CHAR_V . "\n";
+
+        $params = json_encode(array_merge(
+            $request->all(),
+            ['request_id' => self::$requestId]
+        ));
+        $paramsLine = sprintf(" %-20s %s", 'Parameters:', $params);
+        $paramsPadding = max(0, $headerWidth - mb_strlen($paramsLine) - 2); // 确保非负
+        $logContent .= self::BORDER_CHAR_V . $paramsLine . str_repeat(' ', $paramsPadding) . self::BORDER_CHAR_V . "\n";
+
+        $logContent .= self::BORDER_CHAR_V . str_repeat(self::BORDER_CHAR_H, $headerWidth) . self::BORDER_CHAR_V . "\n";
+        $logContent .= self::BORDER_CHAR_V . " EXECUTION FLOW " . str_repeat(self::BORDER_CHAR_H, $headerWidth - 15) . self::BORDER_CHAR_V . "\n";
 
         // 合并自动日志和手动日志（按时间排序）
         $allLogs = array_merge(self::$logStack, self::$manualLogs);
@@ -232,21 +253,21 @@ class AopLogger
             $indent = str_repeat('    ', $entry['depth']);
             switch ($entry['type']) {
                 case 'start':
-                    $logContent .= self::formatLine(
-                        "{$indent}执行方法【{$entry['method']}】",
-                        self::MAX_LINE_WIDTH,
-                        $indent
-                    );
+                    $logContent .= self::BORDER_CHAR_V . " " . sprintf(
+                            "🚀 %s【%s】",
+                            $indent,
+                            $entry['method']
+                        ) . str_repeat(' ', $headerWidth - mb_strlen($indent . $entry['method']) - 3) . self::BORDER_CHAR_V . "\n";
 
-                    $paramsLine = "{$indent}   请求参数: " . json_encode($entry['params']);
-                    $logContent .= self::formatLine($paramsLine, self::MAX_LINE_WIDTH, "{$indent}   ");
+                    $paramsLine = "{$indent}↳ Params: " . json_encode($entry['params']);
+                    $logContent .= self::formatLine($paramsLine);
 
-                    $timeLine = "{$indent}   请求时间: {$entry['time']}";
-                    $logContent .= self::formatLine($timeLine, self::MAX_LINE_WIDTH, "{$indent}   ");
+                    $timeLine = "{$indent}↳ Time: {$entry['time']}";
+                    $logContent .= self::formatLine($timeLine);
                     break;
                 case 'end':
-                    $resultLine = "{$indent}   响应结果: " . json_encode($entry['result']);
-                    $logContent .= self::formatLine($resultLine, self::MAX_LINE_WIDTH, "{$indent}   ");
+                    $resultLine = "{$indent}↳ Result: " . json_encode($entry['result']);
+                    $logContent .= self::formatLine($resultLine);
 
                     $duration = $entry['duration'];
                     $timeFormatted = $entry['time'];
@@ -261,8 +282,8 @@ class AopLogger
                         $timeFormatted = ">> {$timeFormatted} <<";
                     }
 
-                    $timeLine = "{$indent}   响应时间: {$timeFormatted} ({$durationMark}{$duration})";
-                    $logContent .= self::formatLine($timeLine, self::MAX_LINE_WIDTH, "{$indent}   ");
+                    $timeLine = "{$indent}↳ End: {$timeFormatted} ({$durationMark}{$duration})";
+                    $logContent .= self::formatLine($timeLine);
                     break;
                 case 'manual':
                     // 获取对应的表情符号
@@ -282,69 +303,59 @@ class AopLogger
                     }
 
                     // 手动日志基础行
-                    $messageLine = "{$indent}{$levelMark}手动日志: 【{$entry['message']}】";
+                    $messageLine = "{$indent}{$levelMark}Manual: 【{$entry['message']}】";
 
                     // 添加关联数据（如果存在）
                     if ($entry['data'] !== null) {
                         $dataStr = json_encode($entry['data']);
-                        $messageLine .= " 关联数据: {$dataStr}";
+                        $messageLine .= " Data: {$dataStr}";
                     }
-                    $logContent .= self::formatLine($messageLine, self::MAX_LINE_WIDTH, $indent);
-                    $logContent .= self::formatLine($timeLine, self::MAX_LINE_WIDTH, "{$indent}   ");
+                    $logContent .= self::formatLine($messageLine);
                     break;
                 case 'exception':
                 case 'business_exception':
 
                     $logContent .= self::formatLine(
-                        "{$indent}🚫 业务异常【{$entry['method']}】",
-                        self::MAX_LINE_WIDTH,
-                        $indent
+                        "{$indent}🚫 Exception【{$entry['method']}】"
                     );
 
                     $logContent .= self::formatLine(
-                        "{$indent}   异常信息: {$entry['exception']['message']}",
-                        self::MAX_LINE_WIDTH,
-                        "{$indent}   "
+                        "{$indent}↳ Message: {$entry['exception']['message']}"
                     );
 
                     // 如果有业务数据
                     if (!empty($entry['exception']['data'])) {
                         $dataStr = json_encode($entry['exception']['data']);
                         $logContent .= self::formatLine(
-                            "{$indent}   业务数据: {$dataStr}",
-                            self::MAX_LINE_WIDTH,
-                            "{$indent}   "
+                            "{$indent}↳ Data: {$dataStr}"
                         );
                     }
 
+                    // 优化点2：使用更简洁的堆栈格式
                     $logContent .= self::formatLine(
-                        "{$indent}   异常位置: {$entry['exception']['file']}:{$entry['exception']['line']}",
-                        self::MAX_LINE_WIDTH,
-                        "{$indent}   "
+                        "{$indent}↳ Location: " . self::shortenPath($entry['exception']['file']) .
+                        ":{$entry['exception']['line']}"
                     );
 
                     $logContent .= self::formatLine(
-                        "{$indent}   异常时间: {$entry['time']} ({$entry['duration']})",
-                        self::MAX_LINE_WIDTH,
-                        "{$indent}   "
+                        "{$indent}↳ Time: {$entry['time']} ({$entry['duration']})"
                     );
                     break;
             }
         }
+
         // 添加摘要信息
         $summary = self::generateSummary();
-        $logContent .= "*\n";
-        $logContent .= "*响应摘要: \n";
-        $logContent .= self::formatLine("*   总耗时: {$summary['total_time']}ms", self::MAX_LINE_WIDTH, "*   ");
-        $logContent .= self::formatLine("*   最长耗时: {$summary['longest_duration']}", self::MAX_LINE_WIDTH, "*   ");
-        $logContent .= self::formatLine("*   请求ID: {$summary['request_id']}", self::MAX_LINE_WIDTH, "*   ");
-        $logContent .= self::formatLine("*   手动日志: {$summary['manual_logs']}条", self::MAX_LINE_WIDTH, "*   ");
-        $logContent .= "*响应时间: {$summary['end_time']}\n";
-        $logContent .= "*******";
+        $logContent .= self::BORDER_CHAR_V . str_repeat(self::BORDER_CHAR_H, $headerWidth) . self::BORDER_CHAR_V . "\n";
+        $logContent .= self::BORDER_CHAR_V . " RESPONSE SUMMARY " . str_repeat(self::BORDER_CHAR_H, $headerWidth - 17) . self::BORDER_CHAR_V . "\n";
+        $logContent .= self::formatLine(" Total time: {$summary['total_time']}ms");
+        $logContent .= self::formatLine(" Longest duration: {$summary['longest_duration']}");
+        $logContent .= self::formatLine(" Request ID: {$summary['request_id']}");
+        $logContent .= self::formatLine(" Manual logs: {$summary['manual_logs']}");
+        $logContent .= self::BORDER_CHAR_V . " End time: {$summary['end_time']} " . str_repeat(' ', $headerWidth - mb_strlen(" End time: {$summary['end_time']} ") - 1) . self::BORDER_CHAR_V . "\n";
+        $logContent .= self::BORDER_CHAR_V . str_repeat(self::BORDER_CHAR_H, $headerWidth) . self::BORDER_CHAR_V . "\n";
         return $logContent;
     }
-
-
 
     /**
      * 异常日志分发器：根据异常类型调用对应的日志记录方法
@@ -364,8 +375,6 @@ class AopLogger
             self::logThrowableException($object, $method, $e);
         }
     }
-
-
 
     /**
      * 记录业务异常日志
@@ -430,7 +439,6 @@ class AopLogger
         }
     }
 
-
     /**
      * 记录系统异常日志
      * @param object $object 发生异常的对象实例
@@ -494,10 +502,6 @@ class AopLogger
         }
     }
 
-
-
-
-
     /**
      * 生成响应摘要
      */
@@ -526,96 +530,74 @@ class AopLogger
             'end_time' => self::getMicrotime()
         ];
     }
+
     /**
-     * 格式化行内容（智能换行并保持缩进）
+     * 优化点2：路径缩短方法
      */
-    private static function formatLine(string $line, int $maxWidth, string $indent = ""): string
+    private static function shortenPath(string $path): string
     {
-        // 如果行长度小于等于最大宽度，直接返回
-        $lineLength = mb_strlen($line);
-        if ($lineLength <= $maxWidth) {
-            return $line . "\n";
-        }
+        $base = base_path();
+        $shortened = str_replace($base, '', $path);
 
-        $result = "";
-        $currentLine = "";
-        $words = preg_split('/([\s,;:{}()\[\]])/u', $line, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
-        $isFirstLine = true;
-
-        foreach ($words as $word) {
-            $wordLength = mb_strlen($word);
-            $currentLineLength = mb_strlen($currentLine);
-
-            // 检查单词是否包含可分割字符
-            $isBreakable = preg_match('/^[\s,;:{}()\[\]]+$/', $word);
-
-            // 计算可用宽度（考虑首行缩进）
-            $availableWidth = $maxWidth - ($isFirstLine ? 0 : mb_strlen($indent));
-
-            if ($currentLineLength + $wordLength <= $availableWidth) {
-                // 单词适合当前行
-                $currentLine .= $word;
-            } else {
-                if ($currentLine !== "") {
-                    // 添加当前行到结果
-                    $result .= ($isFirstLine ? $currentLine : $indent . $currentLine) . "\n";
-                    $isFirstLine = false;
-                    $currentLine = "";
-                }
-
-                // 处理超长单词
-                if ($wordLength > $availableWidth && !$isBreakable) {
-                    // 分割超长单词
-                    $startPos = 0;
-                    while ($startPos < $wordLength) {
-                        $chunk = mb_substr($word, $startPos, $availableWidth);
-                        $result .= ($isFirstLine ? $chunk : $indent . $chunk) . "\n";
-                        $isFirstLine = false;
-                        $startPos += mb_strlen($chunk);
-                        $availableWidth = $maxWidth - mb_strlen($indent);
-                    }
-                } else {
-                    $currentLine = $word;
-                }
+        // 处理隐藏路径（如/home/user -> ~）
+        if (str_starts_with($shortened, '/home/')) {
+            $parts = explode('/', $shortened);
+            if (count($parts) > 3) {
+                $shortened = '/~/' . implode('/', array_slice($parts, 3));
             }
         }
 
-        // 添加最后一行
-        if ($currentLine !== "") {
-            $result .= ($isFirstLine ? $currentLine : $indent . $currentLine) . "\n";
-        }
-
-        return $result;
+        return ltrim($shortened, '/') ?: $path;
     }
 
     /**
-     * 添加网格边框（去除右侧边框）
+     * 格式化单行日志
+     */
+    private static function formatLine(string $line): string
+    {
+        $maxContentWidth = 117; // 最大内容宽度（120 - 3个边框/空格字符）
+        $lines = [];
+        $offset = 0;
+        $length = mb_strlen($line, 'UTF-8');
+
+        // 分割长行为多行
+        while ($offset < $length) {
+            $chunk = mb_substr($line, $offset, $maxContentWidth, 'UTF-8');
+            $offset += mb_strlen($chunk, 'UTF-8');
+            $lines[] = $chunk;
+        }
+
+        $formatted = '';
+        foreach ($lines as $chunk) {
+            $formattedLine = self::BORDER_CHAR_V . " " . $chunk;
+            $currentLength = mb_strlen($formattedLine, 'UTF-8');
+            $padding = 119 - $currentLength; // 计算需要填充的空格数
+
+            if ($padding > 0) {
+                $formattedLine .= str_repeat(' ', $padding);
+            }
+            $formattedLine .= self::BORDER_CHAR_V . "\n";
+            $formatted .= $formattedLine;
+        }
+
+        return $formatted;
+    }
+
+    /**
+     * 添加网格边框
      */
     private static function addGridBorder(string $content): string
     {
-        $lines = explode("\n", rtrim($content));
-        $maxWidth = self::calculateMaxWidth($lines);
+        $lines = explode("\n", trim($content));
+        $maxWidth = self::MAX_LINE_WIDTH;
 
-        // 顶部边框（无右侧边角）
-        $borderLine = self::BORDER_CHAR_C . str_repeat(self::BORDER_CHAR_H, $maxWidth + 2);
-        $gridContent = $borderLine . "\n";
+        // 构建顶部边框
+        $topBorder = self::BORDER_CHAR_C . str_repeat(self::BORDER_CHAR_H, $maxWidth) . self::BORDER_CHAR_C . "\n";
 
-        foreach ($lines as $line) {
-            $line = rtrim($line);
-            $gridLine = self::BORDER_CHAR_V . ' ' . $line;
+        // 构建底部边框
+        $bottomBorder = self::BORDER_CHAR_C . str_repeat(self::BORDER_CHAR_H, $maxWidth) . self::BORDER_CHAR_C;
 
-            // 填充空格保持对齐
-            $padding = $maxWidth - mb_strlen($line);
-            if ($padding > 0) {
-                $gridLine .= str_repeat(' ', $padding);
-            }
-
-            $gridContent .= $gridLine . "\n";
-        }
-
-        // 底部边框（无右侧边角）
-        $gridContent .= $borderLine;
-        return $gridContent;
+        return $topBorder . implode("\n", $lines) . "\n" . $bottomBorder;
     }
 
     /**

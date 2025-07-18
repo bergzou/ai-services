@@ -17,7 +17,7 @@ class GenerateValidatedFile extends Command
                             {--output=app/Validates : 输出目录}
                             {--connection= : 数据库连接名称}
                             {--force : 强制覆盖已存在的验证器文件}
-                            {--lang-start=100000 : 多语言编码起始值}
+                            {--lang-start=3 : 多语言编码起始值}
                             {--lang-file=validated : 多语言文件名（不含扩展名）}';
 
     protected $description = '从数据库表结构生成验证器文件';
@@ -219,7 +219,7 @@ class GenerateValidatedFile extends Command
         // 移除表前缀
         $name = $prefix ? preg_replace("/^{$prefix}_?/", '', $tableName) : $tableName;
         // 转换为单数形式并转为大驼峰
-        return Str::studly(Str::singular($name));
+        return Str::studly($name);
     }
 
     /**
@@ -426,7 +426,7 @@ PHP;
             return;
         }
 
-        $startPrefix = $this->option('lang-start') ?? '100000';
+        $startPrefix = $this->option('lang-start') ?? '3';
         $langFile = $this->option('lang-file') ?? 'validated';
 
         $this->info('开始生成多语言文件...');

@@ -8,4 +8,7 @@ return [
     '100004' => 'Unknown return item',
     '100005' => 'reshelf',
     '100006' => 'destroy',
+    '100007' => 'Disable',
+    '100008' => 'Enable',
+    '100009' => 'not active',
 ];

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Cache;
  * 百度翻译服务驱动：实现百度翻译API的具体调用逻辑
  * 遵循 TranslatorInterface 接口规范，用于多语言翻译场景
  */
-class BaiduTranslator implements TranslatorInterface
+class BaiduTranslatorDriver implements TranslatorInterface
 {
     protected $apiKey;     // 百度翻译API的API Key（用于身份验证）
     protected $secretKey;  // 百度翻译API的Secret Key（用于生成访问令牌）

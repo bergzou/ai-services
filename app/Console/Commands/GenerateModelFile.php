@@ -173,8 +173,8 @@ class GenerateModelFile extends Command
     {
         // 移除表前缀（如"tb_users" -> "users"）
         $name = $prefix ? preg_replace("/^{$prefix}_?/", '', $tableName) : $tableName;
-        // 转换为单数形式并转为大驼峰（如"users" -> "User"）
-        return Str::studly(Str::singular($name));
+
+        return Str::studly($name);
     }
 
     /**

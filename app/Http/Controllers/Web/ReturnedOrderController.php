@@ -3,22 +3,20 @@ namespace App\Http\Controllers\Web;
 
 
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ReturnedOrderController extends WebBaseController
 {
-    /**
-     * 退件单列表
-     * @param Request $request
-     * @return JsonResponse
-     * @var ReturnedOrderService $service
-     */
+
     public function list(Request $request): JsonResponse
     {
+
+        var_dump(1111111);die;
         $requestData = $request->all();
         $returnedOrderValidation = new ReturnedClaimOrderValidated($requestData, 'add');
         $messages = $returnedOrderValidation->isRunFail();
-        var_dump($messages);die;
+
 
 
         $requestData = $request->all();

@@ -78,6 +78,7 @@ class Excel
         return array_map(function ($row) use ($columnMappings) {
             return array_combine($columnMappings, $row);
         }, $rows);
+
     }
 
 

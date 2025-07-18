@@ -9,7 +9,7 @@ use App\Interfaces\TranslatorInterface;
  * 遵循 TranslatorInterface 接口规范，返回与其他翻译驱动一致的结构化数据格式
  * 用于在翻译服务不可用时（如测试/维护模式）保持系统兼容性
  */
-class DisableTranslator implements TranslatorInterface
+class DisableTranslatorDriver implements TranslatorInterface
 {
     /**
      * 翻译方法（禁用模式下直接返回原文）

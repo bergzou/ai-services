@@ -19,8 +19,11 @@ class Response
      * @return JsonResponse 标准格式的JSON响应对象
      * @example Response::success(['user' => 'trae'], '获取用户成功')
      */
-    public static function success(array $data = [], string $message = '', int $code = 200 , int $status = 200 , array $headers = []): JsonResponse
+    public static function success(array $data = [], string $message = '', int $code = 0 , int $status = 200 , array $headers = []): JsonResponse
     {
+        if (empty($message))  $message = __('common.200000');
+        if (empty($code))  $code = '200000';
+
         return response()->json([
             'code' => $code,
             'msg'  => $message,
@@ -40,6 +43,9 @@ class Response
      */
     public static function fail( string $code , string $message , array $data = [], int $status = 200 , array $headers = []): JsonResponse
     {
+        if (empty($message))  $message = __('common.400000');
+        if (empty($code))  $code = '400000';
+
         return response()->json([
             'code' => $code,
             'msg'  => $message,
@@ -57,8 +63,11 @@ class Response
      * @return JsonResponse 标准格式的JSON响应对象
      * @example Response::error(503, '服务暂时不可用')
      */
-    public static function error( int $code = 500 , string $message = '系统内部错误' , array $data = [], int $status = 200 , array $headers = []): JsonResponse
+    public static function error( int $code = 0 , string $message = '' , array $data = [], int $status = 200 , array $headers = []): JsonResponse
     {
+        if (empty($message))  $message = __('common.500000');
+        if (empty($code))  $code = '500000';
+
         return response()->json([
             'code' => $code,
             'msg' => $message,

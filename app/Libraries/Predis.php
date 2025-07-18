@@ -1,551 +1,837 @@
 <?php
-/**
- * @Notes: Redis 工具类
- * @Date: 2024/3/15
- * @Time: 15:53
- * @Interface Predis
- * @return
- */
-namespace App\Libraries;
-use Illuminate\Redis\Connections\Connection;
 
+namespace App\Libraries;
 
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Redis\Connections\Connection;
 
-class Predis{
+/**
+ * Redis操作工具类（单例模式）
+ *
+ * 封装Redis常用操作方法，支持字符串、哈希、列表、集合、有序集合等数据结构操作
+ * 通过单例模式确保全局唯一Redis连接实例，避免重复创建连接
+ */
+class Predis
+{
+    /** @var Connection Redis连接实例（通过Laravel Redis门面获取） */
+    private Connection $redis;
 
-    private $redis;
+    /** @var Predis 类单例实例（确保全局唯一） */
+    private static Predis $instance;
 
-    public function __construct()
+    /**
+     * 私有构造函数（防止外部直接实例化）
+     * 初始化时通过Laravel Redis门面获取默认连接实例
+     */
+    private function __construct()
     {
         $this->redis = Redis::connection();
     }
 
-
-    public function set($key,$value)
+    /**
+     * 私有克隆方法（防止通过克隆创建新实例）
+     */
+    private function __clone()
     {
-        return Redis::set($key,$value);
     }
 
     /**
-     * 判断key是否存在
-     * @param $key
-     * @return bool
+     * 私有反序列化方法（防止通过反序列化创建新实例）
      */
-    public function exists($key)
+    private function __wakeup()
     {
-        return Redis::exists($key);
     }
 
     /**
-     * 删除
-     * @param string $key
-     * @return string
+     * 获取单例实例（全局唯一）
+     * @return Predis 类实例
      */
-    public function del($key)
+    public static function getInstance(): Predis
     {
-        return Redis::del($key);
-    }
-
-    /**
-     * 查找键值
-     */
-    public function keys($pattern)
-    {
-        return Redis::keys($pattern);
-    }
-
-
-
-    /**
-     * 获取指定 key 的值
-     * @param string $key 键值
-     * @return mixed
-     */
-    public function get($key)
-    {
-        return Redis::get($key);
-    }
-
-    /**
-     * 获取所有(一个或多个)给定 key 的值
-     * @param string $key 键值
-     * @return mixed
-     */
-    public function mget($array)
-    {
-        return Redis::mget($array);
-    }
-
-    /**
-     * 将成员值增加给定的量。
-     */
-    public function Incr($key)
-    {
-//        $key = $this->prefix.$key;
-        return Redis::incr($key);
-    }
-
-    #endregion
-
-    #region 哈希相关方法（hash）
-
-    /**
-     * 设置一个哈希值，存在则返回false
-     */
-    public function hSet( $key, $hashKey, $value)
-    {
-        return Redis::hSet( $key, $hashKey, $value );
-    }
-
-    /**
-     * 当对应哈希值不存在时，才设置一个哈希值
-     */
-    public function hSetNx( $key, $hashKey, $value )
-    {
-        return Redis::hSetNx( $key, $hashKey, $value );
-    }
-
-    /**
-     * 填充整个哈希。
-     */
-    public function hMSet( $key, $hashKeys, $expire = 86400)
-    {
-        $rst = Redis::hMSet( $key, $hashKeys );
-        if ($expire > 0) {
-            Redis::expire($key,$expire);
+        if (!isset(self::$instance)) {
+            self::$instance = new self();
         }
-        return $rst;
+        return self::$instance;
+    }
+
+    // ======================== 字符串操作 ======================== //
+
+    /**
+     * 设置字符串类型键值对（覆盖已存在的键）
+     * @param string $key 键名
+     * @param mixed $value 键值（支持字符串/数字等可序列化类型）
+     * @param int $expire 过期时间（秒，0表示不设置）
+     * @return bool|string 成功返回"OK"，失败返回false
+     */
+    public function set(string $key, $value, int $expire = 0)
+    {
+        return $this->redis->set($key, $value,$expire);
     }
 
     /**
-     * 更新过期时间
+     * 仅在键不存在时设置值
+     * @param string $key 键名
+     * @param mixed $value 键值
+     * @return bool 成功返回true，键已存在返回false
      */
-    public function expire($key,$expire=86400)
+    public function setnx(string $key, $value): bool
     {
-        return Redis::expire($key,$expire);
+        return (bool)$this->redis->setnx($key, $value);
     }
 
     /**
-     * 获取一个哈希值
+     * 判断键是否存在
+     * @param string|array $keys 键名（支持单个键名或键名数组）
+     * @return int 存在的键数量
      */
-    public function hGet($key, $hashKey)
+    public function exists($keys): int
     {
-        return Redis::hGet($key, $hashKey);
+        return $this->redis->exists($keys);
     }
 
     /**
-     *
+     * 删除指定键（支持单个或多个键）
+     * @param string|array ...$keys 要删除的键名（可传入多个参数）
+     * @return int 删除的键数量
      */
-    public function hMGet( $key, $hashKeys )
+    public function del(...$keys): int
     {
-        return Redis::hMGet( $key, $hashKeys );
+        return $this->redis->del(...$keys);
     }
 
     /**
-     * 删除哈希值
-     * 如果哈希表不存在，或者键不存在，则返回false。
+     * 查找符合模式的键（生产环境慎用，可能影响性能）
+     * @param string $pattern 匹配模式（如"user:*"）
+     * @return array 匹配的键名数组
      */
-    public function hDel( $key, $hashKey)
+    public function keys(string $pattern): array
     {
-        return Redis::hDel( $key, $hashKey);
+        return $this->redis->keys($pattern);
     }
 
     /**
-     * 以字符串数组的形式返回哈希中的键。
+     * 获取字符串类型键的值
+     * @param string $key 键名
+     * @return mixed 键值（不存在返回null）
      */
-    public function hKeys( $key )
+    public function get(string $key)
     {
-        return Redis::hKeys( $key );
+        return $this->redis->get($key);
     }
 
     /**
-     * 以字符串数组的形式返回哈希中的值。
+     * 批量获取多个键的值
+     * @param array $keys 键名数组（如['key1', 'key2']）
+     * @return array 值数组（顺序与输入键对应，不存在的键值为null）
      */
-    public function hVals( $key )
+    public function mget(array $keys): array
     {
-        return Redis::hVals( $key );
+        return $this->redis->mget($keys);
     }
 
     /**
-     * 以字符串索引的字符串数组形式返回整个哈希。
+     * 对键值进行原子递增（初始值为0时递增后为1）
+     * @param string $key 键名
+     * @return int 递增后的值
      */
-    public function hGetAll( $key )
+    public function incr(string $key): int
     {
-        return Redis::hGetAll( $key );
+        return $this->redis->incr($key);
     }
 
     /**
-     * 验证键中是否存在指定的成员。
+     * 对键值进行原子递减
+     * @param string $key 键名
+     * @return int 递减后的值
      */
-    public function hExists( $key, $hashKey )
+    public function decr(string $key): int
     {
-        return Redis::hExists( $key, $hashKey );
+        return $this->redis->decr($key);
     }
 
     /**
-     * 将哈希中的成员值增加给定的量。
+     * 对键值按指定步长递增
+     * @param string $key 键名
+     * @param int $value 递增步长
+     * @return int 递增后的值
      */
-    public function hIncrBy( $key, $hashKey, $value )
+    public function incrBy(string $key, int $value): int
     {
-        return Redis::hIncrBy( $key, $hashKey, $value );
+        return $this->redis->incrby($key, $value);
     }
 
     /**
-     * 将一个或多个值插入到列表头部。 如果 key 不存在，一个空列表会被创建并执行 LPUSH 操作。 当 key 存在但不是列表类型时，返回一个错误
-     * @param $key
-     * @param $value
-     * @return int 执行 LPUSH 命令后，列表的长度
+     * 对键值按指定步长递减
+     * @param string $key 键名
+     * @param int $value 递减步长
+     * @return int 递减后的值
      */
-    public function lPush($key, $value)
+    public function decrBy(string $key, int $value): int
     {
-        return Redis::lPush($key, $value);
+        return $this->redis->decrby($key, $value);
     }
 
     /**
-     * 将一个或多个值插入到已存在的列表头部，列表不存在时操作无效
-     * @param $key
-     * @param $value
-     * @return int LPUSHX 命令执行之后，列表的长度
+     * 获取键的剩余过期时间
+     * @param string $key 键名
+     * @return int 剩余秒数（-1表示永不过期，-2表示键不存在）
      */
-    public function lPushx($key, $value)
+    public function ttl(string $key): int
     {
-        return Redis::lPushx($key, $value);
+        return $this->redis->ttl($key);
     }
 
     /**
-     * 将一个或多个值插入到列表的尾部(最右边)。如果列表不存在，一个空列表会被创建并执行 RPUSH 操作
-     * @param $key
-     * @param $value
-     * @return int 执行 RPUSH 操作后，列表的长度
+     * 移除键的过期时间
+     * @param string $key 键名
+     * @return bool 成功返回true，键不存在或未设置过期时间返回false
      */
-    public function rPush($key, $value,$expire=86400)
+    public function persist(string $key): bool
     {
-        Redis::rPush($key, $value);
+        return $this->redis->persist($key);
+    }
+
+    // ======================== 哈希操作 ======================== //
+
+    /**
+     * 设置哈希表中指定字段的值（存在则覆盖）
+     * @param string $key 哈希表键名
+     * @param string $field 字段名
+     * @param mixed $value 字段值
+     * @return int 1表示新字段，0表示覆盖已有字段
+     */
+    public function hSet(string $key, string $field, $value): int
+    {
+        return $this->redis->hSet($key, $field, $value);
+    }
+
+    /**
+     * 仅当字段不存在时设置哈希值
+     * @param string $key 哈希表键名
+     * @param string $field 字段名
+     * @param mixed $value 字段值
+     * @return bool 成功设置返回true，字段已存在返回false
+     */
+    public function hSetNx(string $key, string $field, $value): bool
+    {
+        return $this->redis->hSetNx($key, $field, $value);
+    }
+
+    /**
+     * 批量设置哈希表字段
+     * @param string $key 哈希表键名
+     * @param array $data 字段数组（键值对形式：['field1' => 'val1', 'field2' => 'val2']）
+     * @param int $expire 过期时间（秒，0表示不设置）
+     * @return bool 操作是否成功
+     */
+    public function hMSet(string $key, array $data, int $expire = 0): bool
+    {
+        $result = $this->redis->hMSet($key, $data);
         if ($expire > 0) {
-            Redis::expire($key,$expire);
+            $this->redis->expire($key, $expire);
         }
-        return true;
+        return $result;
     }
 
     /**
-     * 将一个或多个值插入到已存在的列表尾部(最右边)。如果列表不存在，操作无效。
-     * @param $key
-     * @param $value
-     * @return int 执行 Rpushx 操作后，列表的长度
+     * 更新键的过期时间
+     * @param string $key 键名
+     * @param int $expire 过期时间（秒）
+     * @return bool 成功返回true，键不存在返回false
      */
-    public function rPushx($key, $value)
+    public function expire(string $key, int $expire): bool
     {
-        return Redis::rPushx($key, $value);
+        return $this->redis->expire($key, $expire);
+    }
+
+    /**
+     * 获取哈希表中指定字段的值
+     * @param string $key 哈希表键名
+     * @param string $field 字段名
+     * @return mixed 字段值（不存在返回null）
+     */
+    public function hGet(string $key, string $field)
+    {
+        return $this->redis->hGet($key, $field);
+    }
+
+    /**
+     * 批量获取哈希表中多个字段的值
+     * @param string $key 哈希表键名
+     * @param array $fields 字段名数组（如['field1', 'field2']）
+     * @return array 值数组（顺序与输入字段对应，不存在的字段值为null）
+     */
+    public function hMGet(string $key, array $fields): array
+    {
+        return $this->redis->hMGet($key, $fields);
+    }
+
+    /**
+     * 删除哈希表中指定字段
+     * @param string $key 哈希表键名
+     * @param string|array ...$fields 字段名（支持多个参数）
+     * @return int 删除的字段数量
+     */
+    public function hDel(string $key, ...$fields): int
+    {
+        return $this->redis->hDel($key, ...$fields);
+    }
+
+    /**
+     * 获取哈希表中所有字段名
+     * @param string $key 哈希表键名
+     * @return array 字段名数组（空数组表示哈希表不存在或无字段）
+     */
+    public function hKeys(string $key): array
+    {
+        return $this->redis->hKeys($key);
+    }
+
+    /**
+     * 获取哈希表中所有字段值
+     * @param string $key 哈希表键名
+     * @return array 字段值数组
+     */
+    public function hVals(string $key): array
+    {
+        return $this->redis->hVals($key);
+    }
+
+    /**
+     * 获取哈希表所有字段和值（键值对形式）
+     * @param string $key 哈希表键名
+     * @return array 哈希表数据
+     */
+    public function hGetAll(string $key): array
+    {
+        return $this->redis->hGetAll($key);
+    }
+
+    /**
+     * 检查哈希表中是否存在指定字段
+     * @param string $key 哈希表键名
+     * @param string $field 字段名
+     * @return bool 存在返回true，不存在返回false
+     */
+    public function hExists(string $key, string $field): bool
+    {
+        return $this->redis->hExists($key, $field);
+    }
+
+    /**
+     * 对哈希表中指定字段的值进行原子递增
+     * @param string $key 哈希表键名
+     * @param string $field 字段名
+     * @param int $value 递增值（支持负数实现递减）
+     * @return int 递增后的值
+     */
+    public function hIncrBy(string $key, string $field, int $value): int
+    {
+        return $this->redis->hIncrBy($key, $field, $value);
+    }
+
+    /**
+     * 对哈希表中指定字段的值进行浮点数递增
+     * @param string $key 哈希表键名
+     * @param string $field 字段名
+     * @param float $value 递增值
+     * @return float 递增后的值
+     */
+    public function hIncrByFloat(string $key, string $field, float $value): float
+    {
+        return $this->redis->hIncrByFloat($key, $field, $value);
+    }
+
+    /**
+     * 获取哈希表中字段数量
+     * @param string $key 哈希表键名
+     * @return int 字段数量
+     */
+    public function hLen(string $key): int
+    {
+        return $this->redis->hLen($key);
+    }
+
+    // ======================== 列表操作 ======================== //
+
+    /**
+     * 将一个或多个值插入到列表头部
+     * @param string $key 列表键名
+     * @param mixed ...$values 要插入的值（支持多个参数）
+     * @return int 插入后列表的长度
+     */
+    public function lPush(string $key, ...$values): int
+    {
+        return $this->redis->lPush($key, ...$values);
+    }
+
+    /**
+     * 将值插入已存在的列表头部（列表不存在则不操作）
+     * @param string $key 列表键名
+     * @param mixed $value 要插入的值
+     * @return int 插入后列表的长度（0表示列表不存在）
+     */
+    public function lPushx(string $key, $value): int
+    {
+        return $this->redis->lPushx($key, $value);
+    }
+
+    /**
+     * 将一个或多个值插入到列表尾部
+     * @param string $key 列表键名
+     * @param mixed ...$values 要插入的值（支持多个参数）
+     * @param int $expire 过期时间（秒，0表示不设置）
+     * @return int 插入后列表的长度
+     */
+    public function rPush(string $key, $value, int $expire = 0): int
+    {
+        $result = $this->redis->rPush($key, ...func_get_args());
+        if ($expire > 0) {
+            $this->redis->expire($key, $expire);
+        }
+        return $result;
+    }
+
+    /**
+     * 将值插入已存在的列表尾部（列表不存在则不操作）
+     * @param string $key 列表键名
+     * @param mixed $value 要插入的值
+     * @return int 插入后列表的长度（0表示列表不存在）
+     */
+    public function rPushx(string $key, $value): int
+    {
+        return $this->redis->rPushx($key, $value);
     }
 
     /**
      * 移除并返回列表的第一个元素
-     * @param string $key
-     * @return string 列表的第一个元素。 当列表 key 不存在时，返回 null
+     * @param string $key 列表键名
+     * @return string|null 列表的第一个元素（列表为空返回null）
      */
-    public function lPop($key)
+    public function lPop(string $key): ?string
     {
-        return Redis::lPop($key);
+        return $this->redis->lPop($key);
     }
 
     /**
-     * 用于移除并返回列表的最后一个元素
-     * @param string $key
-     * @return string 列表的最后一个元素。 当列表不存在时，返回 nil
+     * 移除并返回列表的最后一个元素
+     * @param string $key 列表键名
+     * @return string|null 列表的最后一个元素（列表为空返回null）
      */
-    public function rPop($key)
+    public function rPop(string $key): ?string
     {
-        return Redis::rPop($key);
+        return $this->redis->rPop($key);
     }
 
     /**
-     * 移出并获取列表的第一个/n个元素
-     * @param $key
-     * @return array
+     * 阻塞式弹出列表的第一个元素（支持多个列表）
+     * @param array $keys 要监听的列表键名数组
+     * @param int $timeout 超时时间（秒，0表示永久阻塞）
+     * @return array|null 弹出的键名和值（超时返回null）
      */
-    public function blPop($keys,$timeout)
+    public function blPop(array $keys, int $timeout): ?array
     {
-        return Redis::blPop($keys,$timeout);
+        return $this->redis->blPop($keys, $timeout);
     }
 
     /**
-     * 移出并获取列表的最后一个/n个元素
-     * @param $key
-     * @return array
+     * 阻塞式弹出列表的最后一个元素（支持多个列表）
+     * @param array $keys 要监听的列表键名数组
+     * @param int $timeout 超时时间（秒，0表示永久阻塞）
+     * @return array|null 弹出的键名和值（超时返回null）
      */
-    public function brPop($keys,$timeout)
+    public function brPop(array $keys, int $timeout): ?array
     {
-        return Redis::brPop($keys,$timeout);
+        return $this->redis->brPop($keys, $timeout);
     }
 
     /**
-     * 返回列表的长度
-     * @param string $key
-     * @return int
+     * 获取列表的长度
+     * @param string $key 列表键名
+     * @return int 列表长度（键不存在返回0）
      */
-    public function lLen($key)
+    public function lLen(string $key): int
     {
-        return Redis::lLen($key);
+        return $this->redis->lLen($key);
     }
 
     /**
-     * 返回列表中指定区间内的元素
-     * @param $key
-     * @param $start
-     * @param $end
-     * @return array
+     * 获取列表指定区间的元素（支持负索引）
+     * @param string $key 列表键名
+     * @param int $start 起始索引（0表示第一个元素）
+     * @param int $end 结束索引（-1表示最后一个元素）
+     * @return array 元素数组（区间无元素返回空数组）
      */
-    public function lRange($key, $start,$end)
+    public function lRange(string $key, int $start, int $end): array
     {
-        return Redis::lRange($key, $start,$end);
+        return $this->redis->lRange($key, $start, $end);
     }
 
     /**
-     * Notes: 根据参数 COUNT 的值，移除列表中与参数 VALUE 相等的元素
-     * Date: 2024/3/19 20:01
-     * @param $key
-     * @param $value
-     * @param $count
-     * @return mixed
+     * 移除列表中与指定值相等的元素
+     * @param string $key 列表键名
+     * @param mixed $value 要移除的值
+     * @param int $count 移除数量（>0从左到右，<0从右到左，0移除所有）
+     * @return int 实际移除的元素数量
      */
-    public function lRem($key, $value, $count)
+    public function lRem(string $key, $value, int $count): int
     {
-        return Redis::lRem($key, $value, $count);
+        return $this->redis->lRem($key, $value, $count);
     }
 
     /**
-     * Notes: 通过索引来设置元素的值
-     * Date: 2024/3/19 20:01
-     * @param $key
-     * @param $index
-     * @param $value
-     * @return mixed
+     * 通过索引设置列表元素的值
+     * @param string $key 列表键名
+     * @param int $index 元素索引（负索引表示从尾部开始）
+     * @param mixed $value 新值
+     * @return bool 操作是否成功（索引超出范围返回false）
      */
-    public function lSet($key, $index, $value)
+    public function lSet(string $key, int $index, $value): bool
     {
-        return Redis::lSet($key, $index, $value);
+        return $this->redis->lSet($key, $index, $value);
     }
 
     /**
-     * Notes: 对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除
-     * Date: 2024/3/19 20:01
-     * @param $key
-     * @param $start
-     * @param $stop
-     * @return mixed
+     * 修剪列表，仅保留指定区间的元素
+     * @param string $key 列表键名
+     * @param int $start 保留的起始索引
+     * @param int $stop 保留的结束索引
+     * @return bool 操作是否成功
      */
-    public function lTrim($key, $start, $stop)
+    public function lTrim(string $key, int $start, int $stop): bool
     {
-        return Redis::lTrim($key, $start, $stop);
+        return $this->redis->lTrim($key, $start, $stop);
     }
 
     /**
-     * Notes: 通过索引获取列表中的元素。你也可以使用负数下标，以 -1 表示列表的最后一个元素，
-     * -2 表示列表的倒数第二个元素，以此类推
-     * Date: 2024/3/19 20:01
-     * @param $key
-     * @param $index
-     * @return mixed
+     * 通过索引获取列表元素的值
+     * @param string $key 列表键名
+     * @param int $index 元素索引（负索引表示从尾部开始）
+     * @return string|null 元素值（索引超出范围返回null）
      */
-    public function lIndex($key, $index)
+    public function lIndex(string $key, int $index): ?string
     {
-        return Redis::lIndex($key, $index);
+        return $this->redis->lIndex($key, $index);
     }
 
     /**
-     * Notes: 在列表的元素前或者后插入元素
-     * Date: 2024/3/19 20:01
-     * @param $key
-     * @param $position
-     * @param $pivot
-     * @param $value
-     * @return mixed
+     * 在列表指定元素前/后插入新元素
+     * @param string $key 列表键名
+     * @param string $position 插入位置（'BEFORE'或'AFTER'）
+     * @param mixed $pivot 参考元素值
+     * @param mixed $value 要插入的新值
+     * @return int 插入后的列表长度（参考元素不存在返回-1）
      */
-    public function lInsert($key, $position, $pivot, $value)
+    public function lInsert(string $key, string $position, $pivot, $value): int
     {
-        return Redis::lInsert($key, $position, $pivot, $value);
+        return $this->redis->lInsert($key, $position, $pivot, $value);
     }
 
     /**
-     * Notes: 移除列表的最后一个元素，并将该元素添加到另一个列表并返回
-     * Date: 2024/3/19 20:01
-     * @param $key
-     * @param $position
-     * @param $pivot
-     * @param $value
-     * @return mixed
+     * 弹出列表的最后一个元素并插入到另一个列表头部
+     * @param string $srcKey 源列表键名
+     * @param string $dstKey 目标列表键名
+     * @return string|null 弹出的元素值（源列表为空返回null）
      */
-    public function rpoplpush($key, $position, $pivot, $value)
+    public function rpoplpush(string $srcKey, string $dstKey): ?string
     {
-        return Redis::rpoplpush($key, $position, $pivot, $value);
+        return $this->redis->rpoplpush($srcKey, $dstKey);
     }
 
     /**
-     * Notes: 从列表中弹出一个值，将弹出的元素插入到另外一个列表中并返回它；
-     *  如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为
-     * Date: 2024/3/19 20:00
-     * @param $key
-     * @param $position
-     * @param $pivot
-     * @param $value
-     * @return mixed
+     * 阻塞式弹出列表最后一个元素并插入到另一个列表头部
+     * @param string $srcKey 源列表键名
+     * @param string $dstKey 目标列表键名
+     * @param int $timeout 超时时间（秒，0表示永久阻塞）
+     * @return string|null 弹出的元素值（超时或源列表为空返回null）
      */
-    public function brpoplpush($key, $position, $pivot, $value)
+    public function brpoplpush(string $srcKey, string $dstKey, int $timeout): ?string
     {
-        return Redis::brpoplpush($key, $position, $pivot, $value);
+        return $this->redis->brpoplpush($srcKey, $dstKey, $timeout);
+    }
+
+    // ======================== 集合操作 ======================== //
+
+    /**
+     * 向无序集合添加一个或多个成员（已存在的成员会被忽略）
+     * @param string $key 无序集合键名
+     * @param mixed ...$members 要添加的成员值（支持多个参数）
+     * @return int 实际成功添加的新成员数量
+     */
+    public function sAdd(string $key, ...$members): int
+    {
+        return $this->redis->sAdd($key, ...$members);
     }
 
     /**
-     * Notes: 向无序集合添加成员
-     * Date: 2024/3/19 20:00
-     * @param $key
-     * @param $value
-     * @return mixed
+     * 移除无序集合中的一个或多个成员（不存在的成员会被忽略）
+     * @param string $key 无序集合键名
+     * @param mixed ...$members 要移除的成员值（支持多个参数）
+     * @return int 实际成功移除的成员数量
      */
-    public function sAdd($key, $value)
+    public function sRem(string $key, ...$members): int
     {
-        return Redis::sAdd($key, $value);
+        return $this->redis->sRem($key, ...$members);
     }
 
     /**
-     * Notes: 移除集合中的一个或多个成员元素
-     * Date: 2024/3/19 20:00
-     * @param $key
-     * @param $member
-     * @return mixed
+     * 获取无序集合中的所有成员
+     * @param string $key 无序集合键名
+     * @return array 成员值数组（集合不存在时返回空数组）
      */
-    public function sRem($key, $member)
+    public function sMembers(string $key): array
     {
-        return Redis::sRem($key, $member);
+        return $this->redis->sMembers($key);
     }
 
     /**
-     * Notes: 取出无序集合中的所有成员
-     * Date: 2024/3/19 20:00
-     * @param $key
-     * @return mixed
+     * 判断指定成员是否存在于无序集合中
+     * @param string $key 无序集合键名
+     * @param mixed $value 要检查的成员值
+     * @return bool 存在返回true，不存在返回false
      */
-    public function sMembers($key)
+    public function sIsMember(string $key, $value): bool
     {
-        return Redis::sMembers($key);
+        return $this->redis->sIsMember($key, $value);
     }
 
     /**
-     * Notes: 判断成员是否在无序集合中
-     * Date: 2024/3/19 19:59
-     * @param $key
-     * @param $value
-     * @return mixed
+     * 获取无序集合的元素数量
+     * @param string $key 无序集合键名
+     * @return int 元素数量
      */
-    public function sIsMember($key, $value)
+    public function sCard(string $key): int
     {
-        return Redis::sIsMember($key,$value);
+        return $this->redis->sCard($key);
     }
 
     /**
-     * Notes: 向有序集合添加一个或多个成员，或者更新已存在成员的分数
-     * Date: 2024/3/19 19:59
-     * @param $key
-     * @param $score
-     * @param $value
-     * @return mixed
+     * 随机移除并返回集合中的一个元素
+     * @param string $key 集合键名
+     * @return string|null 被移除的元素值（集合为空返回null）
      */
-    public function zAdd($key, $score, $value)
+    public function sPop(string $key): ?string
     {
-        return Redis::zAdd($key, $score, $value);
+        return $this->redis->sPop($key);
     }
 
     /**
-     * Notes: 移除有序集合中的一个或多个成员
-     * Date: 2024/3/19 19:59
-     * @param $key
-     * @param $member
-     * @return mixed
+     * 随机返回集合中的一个或多个元素（不移除）
+     * @param string $key 集合键名
+     * @param int $count 返回元素数量
+     * @return string|array 元素值或元素数组
      */
-    public function zRem($key, $member)
+    public function sRandMember(string $key, int $count = 1)
     {
-        return Redis::zRem($key, $member);
+        return $this->redis->sRandMember($key, $count);
     }
 
     /**
-     * Notes: 通过索引区间返回有序集合指定区间内的成员
-     * Date: 2024/3/19 19:59
-     * @param $key
-     * @param $start
-     * @param $end
-     * @param $withscores
-     * @return mixed
+     * 返回多个集合的交集
+     * @param string ...$keys 集合键名（至少两个）
+     * @return array 交集成员数组
      */
-    public function zRange($key, $start, $end, $withscores = null)
+    public function sInter(...$keys): array
     {
-        return Redis::zRange($key, $start, $end, $withscores);
+        return $this->redis->sInter(...$keys);
     }
 
     /**
-     * Notes: 获取有序集合的成员数
-     * Date: 2024/3/19 19:59
-     * @param $key
-     * @return mixed
-     *
+     * 返回多个集合的并集
+     * @param string ...$keys 集合键名（至少两个）
+     * @return array 并集成员数组
      */
-    public function zCard($key)
+    public function sUnion(...$keys): array
     {
-        return Redis::zCard($key);
+        return $this->redis->sUnion(...$keys);
     }
 
     /**
-     * Notes: 返回有序集合中指定成员的索引
-     * Date: 2024/3/19 19:59
-     * @param $key
-     * @param $member
-     * @return mixed
+     * 返回多个集合的差集（第一个集合与其他集合的差）
+     * @param string ...$keys 集合键名（至少两个）
+     * @return array 差集成员数组
      */
-    public function zRank($key, $member)
+    public function sDiff(...$keys): array
     {
-        return Redis::zRank($key, $member);
+        return $this->redis->sDiff(...$keys);
     }
 
-    /**
-     * Notes:计算在有序集合中指定区间分数的成员数
-     * Date: 2024/3/19 19:58
-     * @param $key
-     * @param $start
-     * @param $end
-     * @return mixed
-     */
-    public function zCount($key, $start, $end)
-    {
-        return Redis::zCount($key, $start, $end);
-    }
+    // ======================== 有序集合操作 ======================== //
 
     /**
-     * 加锁
-     * @param $key
-     * @param int $expire
-     * @param string $lockValue
-     * @return  bool
+     * 向有序集合添加/更新成员
+     * @param string $key 有序集合键名
+     * @param array $members 成员数组（格式：[score => value] 或 [value => score]）
+     * @return int 实际新添加的成员数量
      */
-    public function lock($key,$expire=10,$lockValue='1'){
-        try {
-            $res = Redis::setnx($key, $lockValue);
-            if ($res) {
-                Redis::expire($key, $expire);
-            }
-            return $res;
-        }catch (\Throwable $e){
-            usleep(100);
-            try {
-                $res = Redis::setnx($key, $lockValue);
-                if ($res) {
-                    Redis::expire($key, $expire);
-                }
-                return $res;
-            }catch (\Throwable $e){
-                //这里需加日志
-                return true;
-            }
+    public function zAdd(string $key, array $members): int
+    {
+        $params = [];
+        foreach ($members as $score => $value) {
+            $params[] = $score;
+            $params[] = $value;
         }
+        return $this->redis->zAdd($key, ...$params);
+    }
+
+    /**
+     * 移除有序集合中的一个或多个成员（不存在的成员会被忽略）
+     * @param string $key 有序集合键名
+     * @param mixed ...$members 要移除的成员值（支持多个参数）
+     * @return int 实际成功移除的成员数量
+     */
+    public function zRem(string $key, ...$members): int
+    {
+        return $this->redis->zRem($key, ...$members);
+    }
+
+    /**
+     * 通过索引区间获取有序集合的成员（按分数从小到大排序）
+     * @param string $key 有序集合键名
+     * @param int $start 起始索引（0表示第一个元素）
+     * @param int $end 结束索引（-1表示最后一个元素）
+     * @param bool $withScores 是否同时返回分数
+     * @return array 成员值数组（或包含分数的关联数组）
+     */
+    public function zRange(string $key, int $start, int $end, bool $withScores = false): array
+    {
+        return $this->redis->zRange($key, $start, $end, $withScores);
+    }
+
+    /**
+     * 通过索引区间获取有序集合的成员（按分数从大到小排序）
+     * @param string $key 有序集合键名
+     * @param int $start 起始索引（0表示第一个元素）
+     * @param int $end 结束索引（-1表示最后一个元素）
+     * @param bool $withScores 是否同时返回分数
+     * @return array 成员值数组（或包含分数的关联数组）
+     */
+    public function zRevRange(string $key, int $start, int $end, bool $withScores = false): array
+    {
+        return $this->redis->zRevRange($key, $start, $end, $withScores);
+    }
+
+    /**
+     * 通过分数区间获取有序集合的成员（按分数从小到大排序）
+     * @param string $key 有序集合键名
+     * @param float $min 最小分数
+     * @param float $max 最大分数
+     * @param array $options 选项（如['withscores' => true, 'limit' => [offset, count]]）
+     * @return array 成员值数组（或包含分数的关联数组）
+     */
+    public function zRangeByScore(string $key, float $min, float $max, array $options = []): array
+    {
+        return $this->redis->zRangeByScore($key, $min, $max, $options);
+    }
+
+    /**
+     * 获取有序集合的成员数量
+     * @param string $key 有序集合键名
+     * @return int 成员数量（键不存在时返回0）
+     */
+    public function zCard(string $key): int
+    {
+        return $this->redis->zCard($key);
+    }
+
+    /**
+     * 获取有序集合中指定成员的排名（按分数从小到大排序）
+     * @param string $key 有序集合键名
+     * @param mixed $member 要查询的成员值
+     * @return int|null 排名（从0开始计数，成员不存在返回null）
+     */
+    public function zRank(string $key, $member): ?int
+    {
+        return $this->redis->zRank($key, $member);
+    }
+
+    /**
+     * 获取有序集合中指定成员的排名（按分数从大到小排序）
+     * @param string $key 有序集合键名
+     * @param mixed $member 要查询的成员值
+     * @return int|null 排名（从0开始计数，成员不存在返回null）
+     */
+    public function zRevRank(string $key, $member): ?int
+    {
+        return $this->redis->zRevRank($key, $member);
+    }
+
+    /**
+     * 统计有序集合中指定分数区间的成员数量
+     * @param string $key 有序集合键名
+     * @param float $min 最小分数
+     * @param float $max 最大分数
+     * @return int 符合条件的成员数量
+     */
+    public function zCount(string $key, float $min, float $max): int
+    {
+        return $this->redis->zCount($key, $min, $max);
+    }
+
+    /**
+     * 获取有序集合中指定成员的分数
+     * @param string $key 有序集合键名
+     * @param mixed $member 成员值
+     * @return float|null 分数值（成员不存在返回null）
+     */
+    public function zScore(string $key, $member): ?float
+    {
+        return $this->redis->zScore($key, $member);
+    }
+
+    // ======================== 分布式锁 ======================== //
+
+    /**
+     * Redis分布式锁（原子操作实现）
+     * @param string $key 锁的键名
+     * @param int $expire 锁的自动过期时间（秒，防止死锁）
+     * @param string $value 锁的值（建议使用唯一标识）
+     * @return bool 加锁成功返回true，失败返回false
+     */
+    public function lock(string $key, int $expire = 10, string $value = '1'): bool
+    {
+        return $this->redis->set($key, $value, ['NX', 'EX' => $expire]);
+    }
+
+    /**
+     * 释放分布式锁
+     * @param string $key 锁的键名
+     * @param string $value 锁的值（需与加锁时一致）
+     * @return bool 释放成功返回true，失败返回false
+     */
+    public function unlock(string $key, string $value): bool
+    {
+        $lua = <<<LUA
+        if redis.call("get", KEYS[1]) == ARGV[1] then
+            return redis.call("del", KEYS[1])
+        else
+            return 0
+        end
+        LUA;
+
+        return (bool)$this->redis->eval($lua, 1, $key, $value);
+    }
+
+    // ======================== 其他功能 ======================== //
+
+    /**
+     * 重命名键
+     * @param string $oldKey 原键名
+     * @param string $newKey 新键名
+     * @return bool 操作是否成功
+     */
+    public function rename(string $oldKey, string $newKey): bool
+    {
+        return $this->redis->rename($oldKey, $newKey);
+    }
+
+    /**
+     * 获取键的数据类型
+     * @param string $key 键名
+     * @return string 数据类型（none, string, list, set, zset, hash）
+     */
+    public function type(string $key): string
+    {
+        return $this->redis->type($key);
     }
 }
-

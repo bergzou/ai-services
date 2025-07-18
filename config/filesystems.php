@@ -43,17 +43,14 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
-
-        's3' => [
-            'driver' => 's3',
-            'key' => env('AWS_ACCESS_KEY_ID'),
-            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            'region' => env('AWS_DEFAULT_REGION'),
-            'bucket' => env('AWS_BUCKET'),
-            'url' => env('AWS_URL'),
-            'endpoint' => env('AWS_ENDPOINT'),
-            'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
-            'throw' => false,
+        # 七牛云
+        'qiniu' => [
+            'driver'     => 'qiniu',
+            'access_key' => env('QINIU_ACCESS_KEY'),
+            'secret_key' => env('QINIU_SECRET_KEY'),
+            'bucket'     => env('QINIU_BUCKET'),
+            'domain'     => env('QINIU_DOMAIN'), // 存储空间域名，或自定义域名
+            'protocol'   => env('QINIU_PROTOCOL', 'http'),
         ],
 
     ],

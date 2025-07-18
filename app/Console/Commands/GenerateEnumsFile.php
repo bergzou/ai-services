@@ -198,8 +198,8 @@ class GenerateEnumsFile extends Command
     {
         // 移除表前缀
         $name = $prefix ? preg_replace("/^{$prefix}_?/", '', $tableName) : $tableName;
-        // 转换为单数形式并转为大驼峰
-        return Str::studly(Str::singular($name));
+
+        return Str::studly($name);
     }
 
     /**
@@ -354,10 +354,9 @@ class GenerateEnumsFile extends Command
         $method = <<<METHOD
     /**
      * 获取{$fieldName}映射
-     * @param int|null \$value
      * @return array|string
      */
-    public static function {$methodName}(?int \$value = null)
+    public static function {$methodName}( \$value = null)
     {
         \$map = [
 METHOD;

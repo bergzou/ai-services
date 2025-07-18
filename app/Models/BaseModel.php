@@ -17,7 +17,7 @@ class BaseModel extends Model
      * 表别名（用于联表查询时标识主表）
      * @var string
      */
-    protected string $alias;
+    protected string $alias = '';
 
     /**
      * 设置表别名（链式调用）
@@ -41,7 +41,7 @@ class BaseModel extends Model
      * @param int $current 页码值（从1开始）
      * @return $this 支持链式调用
      */
-    public function setCurrent($current): BaseModel
+    public function setCurrent(int $current): BaseModel
     {
         $this->current = $current;
         return $this;
@@ -58,7 +58,7 @@ class BaseModel extends Model
      * @param int $size 每页记录数
      * @return $this 支持链式调用
      */
-    public function setSize($size): BaseModel
+    public function setSize(int $size): BaseModel
     {
         $this->size = $size;
         return $this;
@@ -75,7 +75,7 @@ class BaseModel extends Model
      * @param array $orderBy 排序数组（如 ['name' => 'asc', 'created_at' => 'desc']）
      * @return $this 支持链式调用
      */
-    public function setOrderBy($orderBy): BaseModel
+    public function setOrderBy(array $orderBy): BaseModel
     {
         $this->orderBy = $orderBy;
         return $this;
@@ -92,7 +92,7 @@ class BaseModel extends Model
      * @param string $group 分组字段名（如 "category_id"）
      * @return $this 支持链式调用
      */
-    public function setGroup($group): BaseModel
+    public function setGroup(string $group): BaseModel
     {
         $this->group = $group;
         return $this;
@@ -199,7 +199,7 @@ class BaseModel extends Model
      * @param array $where 额外WHERE条件（同getPaginateResults）
      * @return array 单条记录数组（无结果返回空数组）
      */
-    public function getSingleRecord(array $joins = [], array $where = []): array
+    public function getSingleRecord(array $where = [],array $joins = []): array
     {
         // 构建基础查询并应用配置（字段/条件/排序/分组）
         $query = $this->buildBaseQuery($joins);
