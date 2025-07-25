@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Captcha\Drivers;
+namespace App\Services\Common\Captcha\Drivers;
 
 use App\Exceptions\BusinessException;
 use App\Interfaces\CaptchaInterface;

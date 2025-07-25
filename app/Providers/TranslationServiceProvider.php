@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Services\Translation\TranslatorManager;
+use App\Services\Common\Translation\TranslatorManager;
 use Illuminate\Support\ServiceProvider;
 
 /**

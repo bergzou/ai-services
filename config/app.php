@@ -200,6 +200,8 @@ return [
         App\Providers\TranslationServiceProvider::class, //  翻译服务提供者
         App\Providers\ExcelServiceProvider::class,   //  Excel 服务提供者
         App\Providers\CaptchaServiceProvider::class,  //  验证码服务提供者
+        App\Providers\SmsServiceProvider::class,  //  短信服务提供者
+
     ],
 
     /*

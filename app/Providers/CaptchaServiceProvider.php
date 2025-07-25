@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Services\Captcha\CaptchaManager;
+use App\Services\Common\Captcha\CaptchaManager;
 use Illuminate\Support\ServiceProvider;
 
 class CaptchaServiceProvider extends ServiceProvider

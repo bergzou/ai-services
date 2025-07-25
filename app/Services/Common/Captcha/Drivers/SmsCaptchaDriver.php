@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Services\Captcha\Drivers;
+namespace App\Services\Common\Captcha\Drivers;
 
 use App\Interfaces\CaptchaInterface;
 
-class ClickCaptchaDriver implements CaptchaInterface
+class SmsCaptchaDriver implements CaptchaInterface
 {
-
     /**
      * 生成验证码（核心方法）
      * @return array 生成的验证码数据（通常包含：唯一标识key、验证码值value、附加信息如图片Base64/有效期等）

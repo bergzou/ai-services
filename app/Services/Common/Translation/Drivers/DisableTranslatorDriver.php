@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Translation\Drivers;
+namespace App\Services\Common\Translation\Drivers;
 
 use App\Interfaces\TranslatorInterface;
 

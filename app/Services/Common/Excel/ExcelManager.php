@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services\Excel;
+namespace App\Services\Common\Excel;
 
 
-use App\Interfaces\ExcelInterface;
 use App\Exceptions\BusinessException;
+use App\Interfaces\ExcelInterface;
 
 class ExcelManager implements ExcelInterface
 {

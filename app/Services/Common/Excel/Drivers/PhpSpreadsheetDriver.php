@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Excel\Drivers;
+namespace App\Services\Common\Excel\Drivers;
 
 use App\Exceptions\BusinessException;
 use App\Interfaces\ExcelInterface;

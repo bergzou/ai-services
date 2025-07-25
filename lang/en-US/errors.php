@@ -4,4 +4,5 @@ return [
     '500000' => 'Verification code parameter error',
     '500001' => 'The verification code has expired',
     '500002' => 'Verification code input error',
+    '500003' => 'SMS service not enabled',
 ];

@@ -25,14 +25,14 @@ return [
     'drivers' => [
         // 百度翻译驱动配置
         'baidu' => [
-            'driver' => \App\Services\Translation\Drivers\BaiduTranslatorDriver::class,  // 百度翻译驱动类（必须实现 TranslatorInterface）
+            'driver' => \App\Services\Common\Translation\Drivers\BaiduTranslatorDriver::class,  // 百度翻译驱动类（必须实现 TranslatorInterface）
             'api_key' => env('BAIDU_API_KEY'),  // 百度翻译 API Key（从环境变量获取）
             'secret_key' => env('BAIDU_SECRET_KEY'),  // 百度翻译 Secret Key（从环境变量获取）
         ],
 
         // 禁用翻译驱动配置（翻译关闭时使用）
         'disable' => [
-            'driver' => \App\Services\Translation\Drivers\DisableTranslatorDriver::class  // 禁用模式驱动类（返回原文）
+            'driver' => \App\Services\Common\Translation\Drivers\DisableTranslatorDriver::class  // 禁用模式驱动类（返回原文）
         ],
     ],
 ];

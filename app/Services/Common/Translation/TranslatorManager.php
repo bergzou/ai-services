@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Translation;
+namespace App\Services\Common\Translation;
 
 use App\Exceptions\BusinessException;
 use App\Interfaces\TranslatorInterface;

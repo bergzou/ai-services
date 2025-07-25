@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Services\Excel\Drivers;
-
+namespace App\Services\Common\Excel\Drivers;
 
 use App\Interfaces\ExcelInterface;
 
 
-class VtifulDriver implements ExcelInterface
+class SpoutDriver implements ExcelInterface
 {
 
     /**

@@ -2,16 +2,16 @@
 
 namespace App\Providers;
 
-use App\Services\Common\Excel\ExcelManager;
+use App\Services\Common\Sms\SmsManager;
 use Illuminate\Support\ServiceProvider;
 
-class ExcelServiceProvider extends ServiceProvider
+class SmsServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->app->singleton('excel', function ($app) {
+        $this->app->singleton('sms', function ($app) {
             $driver = $parameters['driver'] ?? null;
-            return new ExcelManager($driver);
+            return new SmsManager($driver);
         });
     }
 

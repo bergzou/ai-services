@@ -38,9 +38,9 @@
 ║ Location       : \app\Services\Captcha\CaptchaManager.php:58                                                         ║
 ║ Environment    : local                                                                                               ║
 ║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
-║ ║ #00 App\Services\Captcha\CaptchaManager->createDriver() in \app\Services\Captcha\CaptchaManager.php:37             ║
-║ ║ #01 App\Services\Captcha\CaptchaManager->driver() in \app\Services\Captcha\CaptchaManager.php:24                   ║
-║ ║ #02 App\Services\Captcha\CaptchaManager->__construct() in \app\Providers\CaptchaServiceProvider.php:14             ║
+║ ║ #00 App\Services\Common\Captcha\CaptchaManager->createDriver() in \app\Services\Captcha\CaptchaManager.php:37             ║
+║ ║ #01 App\Services\Common\Captcha\CaptchaManager->driver() in \app\Services\Captcha\CaptchaManager.php:24                   ║
+║ ║ #02 App\Services\Common\Captcha\CaptchaManager->__construct() in \app\Providers\CaptchaServiceProvider.php:14             ║
 ║ ║ #03 App\Providers\CaptchaServiceProvider->App\Providers\{closure}() in \vendor\laravel\framework\src\Illuminate\Con║
 ║ tainer\Container.php:873                                                                                             ║
 ║
@@ -87,8 +87,8 @@
 ║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
 ║ ║ #00 App\Libraries\Snowflake->markIDAsExists() in \app\Libraries\Snowflake.php:84                                   ║
 ║ ║ #01 App\Libraries\Snowflake->next() in \app\Services\Captcha\Drivers\TextCaptchaDriver.php:41                      ║
-║ ║ #02 App\Services\Captcha\Drivers\TextCaptchaDriver->generate() in \app\Services\Captcha\CaptchaManager.php:76      ║
-║ ║ #03 App\Services\Captcha\CaptchaManager->generate() in \app\Http\Controllers\Controller.php:21                     ║
+║ ║ #02 App\Services\Common\Captcha\Drivers\TextCaptchaDriver->generate() in \app\Services\Captcha\CaptchaManager.php:76      ║
+║ ║ #03 App\Services\Common\Captcha\CaptchaManager->generate() in \app\Http\Controllers\Controller.php:21                     ║
 ║
 ║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
 ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
@@ -111,7 +111,7 @@
 ║ ║ #00 Illuminate\Translation\Translator->get() in \vendor\laravel\framework\src\Illuminate\Foundation\helpers.php:851║
 ║ ║ #01 trans() in \vendor\laravel\framework\src\Illuminate\Foundation\helpers.php:886                                 ║
 ║ ║ #02 __() in \app\Services\Captcha\Drivers\TextCaptchaDriver.php:172                                                ║
-║ ║ #03 App\Services\Captcha\Drivers\TextCaptchaDriver->validate() in \app\Services\Captcha\CaptchaManager.php:86      ║
+║ ║ #03 App\Services\Common\Captcha\Drivers\TextCaptchaDriver->validate() in \app\Services\Captcha\CaptchaManager.php:86      ║
 ║
 ║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
 ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
@@ -134,7 +134,7 @@
 ║ ║ #00 Illuminate\Translation\Translator->get() in \vendor\laravel\framework\src\Illuminate\Foundation\helpers.php:851║
 ║ ║ #01 trans() in \vendor\laravel\framework\src\Illuminate\Foundation\helpers.php:886                                 ║
 ║ ║ #02 __() in \app\Services\Captcha\Drivers\TextCaptchaDriver.php:172                                                ║
-║ ║ #03 App\Services\Captcha\Drivers\TextCaptchaDriver->validate() in \app\Services\Captcha\CaptchaManager.php:86      ║
+║ ║ #03 App\Services\Common\Captcha\Drivers\TextCaptchaDriver->validate() in \app\Services\Captcha\CaptchaManager.php:86      ║
 ║
 ║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
 ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
@@ -153,8 +153,8 @@
 ║ Location       : \app\Services\Captcha\Drivers\TextCaptchaDriver.php:172                                             ║
 ║ Environment    : local                                                                                               ║
 ║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
-║ ║ #00 App\Services\Captcha\Drivers\TextCaptchaDriver->validate() in \app\Services\Captcha\CaptchaManager.php:86      ║
-║ ║ #01 App\Services\Captcha\CaptchaManager->validate() in \app\Http\Controllers\Controller.php:26                     ║
+║ ║ #00 App\Services\Common\Captcha\Drivers\TextCaptchaDriver->validate() in \app\Services\Captcha\CaptchaManager.php:86      ║
+║ ║ #01 App\Services\Common\Captcha\CaptchaManager->validate() in \app\Http\Controllers\Controller.php:26                     ║
 ║ ║ #02 App\Http\Controllers\Controller->test() in \vendor\laravel\framework\src\Illuminate\Routing\Controller.php:54  ║
 ║ ║ #03 Illuminate\Routing\Controller->callAction() in \vendor\laravel\framework\src\Illuminate\Routing\ControllerDispa║
 ║ tcher.php:45                                                                                                         ║
@@ -176,8 +176,8 @@
 ║ Location       : \app\Services\Captcha\Drivers\TextCaptchaDriver.php:172                                             ║
 ║ Environment    : local                                                                                               ║
 ║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
-║ ║ #00 App\Services\Captcha\Drivers\TextCaptchaDriver->validate() in \app\Services\Captcha\CaptchaManager.php:86      ║
-║ ║ #01 App\Services\Captcha\CaptchaManager->validate() in \app\Http\Controllers\Controller.php:26                     ║
+║ ║ #00 App\Services\Common\Captcha\Drivers\TextCaptchaDriver->validate() in \app\Services\Captcha\CaptchaManager.php:86      ║
+║ ║ #01 App\Services\Common\Captcha\CaptchaManager->validate() in \app\Http\Controllers\Controller.php:26                     ║
 ║ ║ #02 App\Http\Controllers\Controller->test() in \vendor\laravel\framework\src\Illuminate\Routing\Controller.php:54  ║
 ║ ║ #03 Illuminate\Routing\Controller->callAction() in \vendor\laravel\framework\src\Illuminate\Routing\ControllerDispa║
 ║ tcher.php:45                                                                                                         ║
@@ -199,8 +199,406 @@
 ║ Location       : \app\Services\Captcha\Drivers\TextCaptchaDriver.php:183                                             ║
 ║ Environment    : local                                                                                               ║
 ║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
-║ ║ #00 App\Services\Captcha\Drivers\TextCaptchaDriver->validate() in \app\Services\Captcha\CaptchaManager.php:86      ║
-║ ║ #01 App\Services\Captcha\CaptchaManager->validate() in \app\Http\Controllers\Controller.php:26                     ║
+║ ║ #00 App\Services\Common\Captcha\Drivers\TextCaptchaDriver->validate() in \app\Services\Captcha\CaptchaManager.php:86      ║
+║ ║ #01 App\Services\Common\Captcha\CaptchaManager->validate() in \app\Http\Controllers\Controller.php:26                     ║
+║ ║ #02 App\Http\Controllers\Controller->test() in \vendor\laravel\framework\src\Illuminate\Routing\Controller.php:54  ║
+║ ║ #03 Illuminate\Routing\Controller->callAction() in \vendor\laravel\framework\src\Illuminate\Routing\ControllerDispa║
+║ tcher.php:45                                                                                                         ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-25 16:17:23] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [App\Exceptions\BusinessException]       ℹ️ 2025-07-25 16:17:23.193 ℹ️ ID: d9fe2cec-df0e-4b15-90ab-8454f2c91118 ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : 驱动类 [aliyun] 不存在                                                                                    ║
+║ Location       : \app\Services\Common\Sms\SmsManager.php:60                                                          ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Services\Common\Sms\SmsManager->createDriver() in \app\Services\Common\Sms\SmsManager.php:35               ║
+║ ║ #01 App\Services\Common\Sms\SmsManager->driver() in \app\Services\Common\Sms\SmsManager.php:27                     ║
+║ ║ #02 App\Services\Common\Sms\SmsManager->__construct() in \app\Providers\SmsServiceProvider.php:14                  ║
+║ ║ #03 App\Providers\SmsServiceProvider->App\Providers\{closure}() in \vendor\laravel\framework\src\Illuminate\Contain║
+║ er\Container.php:873                                                                                                 ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-25 17:57:20] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [App\Exceptions\BusinessException]       ℹ️ 2025-07-25 17:57:20.843 ℹ️ ID: 0a793775-bda0-4c37-b8d1-c4343db5f2b8 ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 500003                                                                                              ║
+║ Error Message  : 短信服务未开启                                                                                             ║
+║ Location       : \app\Services\Common\Sms\SmsManager.php:22                                                          ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Services\Common\Sms\SmsManager->__construct() in \app\Providers\SmsServiceProvider.php:14                  ║
+║ ║ #01 App\Providers\SmsServiceProvider->App\Providers\{closure}() in \vendor\laravel\framework\src\Illuminate\Contain║
+║ er\Container.php:873                                                                                                 ║
+║ ║ #02 Illuminate\Container\Container->build() in \vendor\laravel\framework\src\Illuminate\Container\Container.php:758║
+║ ║ #03 Illuminate\Container\Container->resolve() in \vendor\laravel\framework\src\Illuminate\Foundation\Application.ph║
+║ p:855                                                                                                                ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-25 17:57:33] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [TypeError]                              ℹ️ 2025-07-25 17:57:33.839 ℹ️ ID: 473685f2-3ab0-4fbf-b492-bc2f344a878e ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : App\Services\Common\Sms\Drivers\YunPianSmsDriver::templateSingleSend(): Return value must be of type║
+║  array, null returned                                                                                                ║
+║ Location       : \app\Services\Common\Sms\Drivers\YunPianSmsDriver.php:132                                           ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Services\Common\Sms\Drivers\YunPianSmsDriver->templateSingleSend() in \app\Services\Common\Sms\SmsManager.p║
+║ hp:102                                                                                                               ║
+║ ║ #01 App\Services\Common\Sms\SmsManager->templateSingleSend() in \app\Http\Controllers\Controller.php:21            ║
+║ ║ #02 App\Http\Controllers\Controller->test() in \vendor\laravel\framework\src\Illuminate\Routing\Controller.php:54  ║
+║ ║ #03 Illuminate\Routing\Controller->callAction() in \vendor\laravel\framework\src\Illuminate\Routing\ControllerDispa║
+║ tcher.php:45                                                                                                         ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-25 17:58:11] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [TypeError]                              ℹ️ 2025-07-25 17:58:11.453 ℹ️ ID: 23d972f1-afe9-47da-8a9a-efd42351e723 ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : App\Services\Common\Sms\Drivers\YunPianSmsDriver::templateSingleSend(): Return value must be of type║
+║  array, null returned                                                                                                ║
+║ Location       : \app\Services\Common\Sms\Drivers\YunPianSmsDriver.php:132                                           ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Services\Common\Sms\Drivers\YunPianSmsDriver->templateSingleSend() in \app\Services\Common\Sms\SmsManager.p║
+║ hp:102                                                                                                               ║
+║ ║ #01 App\Services\Common\Sms\SmsManager->templateSingleSend() in \app\Http\Controllers\Controller.php:21            ║
+║ ║ #02 App\Http\Controllers\Controller->test() in \vendor\laravel\framework\src\Illuminate\Routing\Controller.php:54  ║
+║ ║ #03 Illuminate\Routing\Controller->callAction() in \vendor\laravel\framework\src\Illuminate\Routing\ControllerDispa║
+║ tcher.php:45                                                                                                         ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-25 17:59:07] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [TypeError]                              ℹ️ 2025-07-25 17:59:07.748 ℹ️ ID: ddeb07e2-f2a7-4ce6-85c9-651680503bd0 ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : App\Services\Common\Sms\Drivers\YunPianSmsDriver::templateSingleSend(): Return value must be of type║
+║  array, null returned                                                                                                ║
+║ Location       : \app\Services\Common\Sms\Drivers\YunPianSmsDriver.php:132                                           ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Services\Common\Sms\Drivers\YunPianSmsDriver->templateSingleSend() in \app\Services\Common\Sms\SmsManager.p║
+║ hp:102                                                                                                               ║
+║ ║ #01 App\Services\Common\Sms\SmsManager->templateSingleSend() in \app\Http\Controllers\Controller.php:21            ║
+║ ║ #02 App\Http\Controllers\Controller->test() in \vendor\laravel\framework\src\Illuminate\Routing\Controller.php:54  ║
+║ ║ #03 Illuminate\Routing\Controller->callAction() in \vendor\laravel\framework\src\Illuminate\Routing\ControllerDispa║
+║ tcher.php:45                                                                                                         ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-25 18:04:29] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [TypeError]                              ℹ️ 2025-07-25 18:04:29.467 ℹ️ ID: a9c7dcfc-0b0d-417b-823b-575d37f74a41 ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : App\Services\Common\Sms\Drivers\YunPianSmsDriver::templateSingleSend(): Return value must be of type║
+║  array, string returned                                                                                              ║
+║ Location       : \app\Services\Common\Sms\Drivers\YunPianSmsDriver.php:132                                           ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Services\Common\Sms\Drivers\YunPianSmsDriver->templateSingleSend() in \app\Services\Common\Sms\SmsManager.p║
+║ hp:102                                                                                                               ║
+║ ║ #01 App\Services\Common\Sms\SmsManager->templateSingleSend() in \app\Http\Controllers\Controller.php:21            ║
+║ ║ #02 App\Http\Controllers\Controller->test() in \vendor\laravel\framework\src\Illuminate\Routing\Controller.php:54  ║
+║ ║ #03 Illuminate\Routing\Controller->callAction() in \vendor\laravel\framework\src\Illuminate\Routing\ControllerDispa║
+║ tcher.php:45                                                                                                         ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-25 18:14:35] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [App\Exceptions\BusinessException]       ℹ️ 2025-07-25 18:14:35.477 ℹ️ ID: 6dcf7e5c-4c9b-4d9a-926c-e0b9e118e4b3 ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : 请求参数缺失                                                                                              ║
+║ Location       : \app\Services\Common\Sms\Drivers\YunPianSmsDriver.php:130                                           ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Services\Common\Sms\Drivers\YunPianSmsDriver->templateSingleSend() in \app\Services\Common\Sms\SmsManager.p║
+║ hp:102                                                                                                               ║
+║ ║ #01 App\Services\Common\Sms\SmsManager->templateSingleSend() in \app\Http\Controllers\Controller.php:21            ║
+║ ║ #02 App\Http\Controllers\Controller->test() in \vendor\laravel\framework\src\Illuminate\Routing\Controller.php:54  ║
+║ ║ #03 Illuminate\Routing\Controller->callAction() in \vendor\laravel\framework\src\Illuminate\Routing\ControllerDispa║
+║ tcher.php:45                                                                                                         ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-25 18:15:30] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [App\Exceptions\BusinessException]       ℹ️ 2025-07-25 18:15:30.333 ℹ️ ID: 9de79d80-06a1-46e3-be68-70ffd1f9a36a ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : 请求参数缺失:参数 tpl_id 必须传入                                                                               ║
+║ Location       : \app\Services\Common\Sms\Drivers\YunPianSmsDriver.php:131                                           ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Services\Common\Sms\Drivers\YunPianSmsDriver->templateSingleSend() in \app\Services\Common\Sms\SmsManager.p║
+║ hp:102                                                                                                               ║
+║ ║ #01 App\Services\Common\Sms\SmsManager->templateSingleSend() in \app\Http\Controllers\Controller.php:21            ║
+║ ║ #02 App\Http\Controllers\Controller->test() in \vendor\laravel\framework\src\Illuminate\Routing\Controller.php:54  ║
+║ ║ #03 Illuminate\Routing\Controller->callAction() in \vendor\laravel\framework\src\Illuminate\Routing\ControllerDispa║
+║ tcher.php:45                                                                                                         ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-25 18:16:17] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [ErrorException]                         ℹ️ 2025-07-25 18:16:17.460 ℹ️ ID: fd125909-d094-4a8a-a05c-dacd190bca23 ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : Undefined variable $headers                                                                         ║
+║ Location       : \app\Services\Common\Sms\Drivers\YunPianSmsDriver.php:127                                           ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 Illuminate\Foundation\Bootstrap\HandleExceptions->handleError() in \vendor\laravel\framework\src\Illuminate\Fou║
+║ ndation\Bootstrap\HandleExceptions.php:228                                                                           ║
+║ ║ #01 Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}() in \app\Services\║
+║ Common\Sms\Drivers\YunPianSmsDriver.php:127                                                                          ║
+║ ║ #02 App\Services\Common\Sms\Drivers\YunPianSmsDriver->templateSingleSend() in \app\Services\Common\Sms\SmsManager.p║
+║ hp:102                                                                                                               ║
+║ ║ #03 App\Services\Common\Sms\SmsManager->templateSingleSend() in \app\Http\Controllers\Controller.php:21            ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-25 18:16:25] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [ErrorException]                         ℹ️ 2025-07-25 18:16:25.923 ℹ️ ID: 0d34edb1-d3a3-4dba-98b6-55f30712ca80 ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : Trying to access array offset on value of type null                                                 ║
+║ Location       : \app\Services\Common\Sms\Drivers\YunPianSmsDriver.php:130                                           ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 Illuminate\Foundation\Bootstrap\HandleExceptions->handleError() in \vendor\laravel\framework\src\Illuminate\Fou║
+║ ndation\Bootstrap\HandleExceptions.php:228                                                                           ║
+║ ║ #01 Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}() in \app\Services\║
+║ Common\Sms\Drivers\YunPianSmsDriver.php:130                                                                          ║
+║ ║ #02 App\Services\Common\Sms\Drivers\YunPianSmsDriver->templateSingleSend() in \app\Services\Common\Sms\SmsManager.p║
+║ hp:102                                                                                                               ║
+║ ║ #03 App\Services\Common\Sms\SmsManager->templateSingleSend() in \app\Http\Controllers\Controller.php:21            ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-25 18:21:25] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [App\Exceptions\BusinessException]       ℹ️ 2025-07-25 18:21:25.759 ℹ️ ID: f4a94672-cbb0-4451-90b2-12efd688379f ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 500001                                                                                              ║
+║ Error Message  : 第三方系统错误::<html><head><title>Apache Tomcat/6.0.33 - Error report</title><style><!--H1 {font-family:Ta║
+║ homa,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} H2 {font-family:Tahoma,Arial,sans-serif;c║
+║ olor:white;background-color:#525D76;font-size:16px;} H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-c║
+║ olor:#525D76;font-size:14px;} BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} B {font-║
+║ family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} P {font-family:Tahoma,Arial,sans-serif;backgrou║
+║ nd:white;color:black;font-size:12px;}A {color : black;}A.name {color : black;}HR {color : #525D76;}--></style> </head║
+║ ><body><h1>HTTP Status 415 - Unsupported Media Type</h1><HR size="1" noshade="noshade"><p><b>type</b> Status report</║
+║ p><p><b>message</b> <u>Unsupported Media Type</u></p><p><b>description</b> <u>The server refused this request because║
+║  the request entity is in a format not supported by the requested resource for the requested method (Unsupported Medi║
+║ a Type).</u></p><HR size="1" noshade="noshade"><h3>Apache Tomcat/6.0.33</h3></body></html>                           ║
+║ Location       : \app\Services\Common\Sms\Drivers\YunPianSmsDriver.php:130                                           ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Services\Common\Sms\Drivers\YunPianSmsDriver->templateSingleSend() in \app\Services\Common\Sms\SmsManager.p║
+║ hp:102                                                                                                               ║
+║ ║ #01 App\Services\Common\Sms\SmsManager->templateSingleSend() in \app\Http\Controllers\Controller.php:21            ║
+║ ║ #02 App\Http\Controllers\Controller->test() in \vendor\laravel\framework\src\Illuminate\Routing\Controller.php:54  ║
+║ ║ #03 Illuminate\Routing\Controller->callAction() in \vendor\laravel\framework\src\Illuminate\Routing\ControllerDispa║
+║ tcher.php:45                                                                                                         ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-25 18:22:29] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [App\Exceptions\BusinessException]       ℹ️ 2025-07-25 18:22:29.359 ℹ️ ID: 62ec5f15-1e57-46da-adbb-ac65ad4ad64a ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 500001                                                                                              ║
+║ Error Message  : 第三方系统错误::请求参数缺失：参数 tpl_id 必须传入                                                                      ║
+║ Location       : \app\Services\Common\Sms\Drivers\YunPianSmsDriver.php:133                                           ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Services\Common\Sms\Drivers\YunPianSmsDriver->templateSingleSend() in \app\Services\Common\Sms\SmsManager.p║
+║ hp:102                                                                                                               ║
+║ ║ #01 App\Services\Common\Sms\SmsManager->templateSingleSend() in \app\Http\Controllers\Controller.php:21            ║
+║ ║ #02 App\Http\Controllers\Controller->test() in \vendor\laravel\framework\src\Illuminate\Routing\Controller.php:54  ║
+║ ║ #03 Illuminate\Routing\Controller->callAction() in \vendor\laravel\framework\src\Illuminate\Routing\ControllerDispa║
+║ tcher.php:45                                                                                                         ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-25 18:24:08] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [App\Exceptions\BusinessException]       ℹ️ 2025-07-25 18:24:08.617 ℹ️ ID: 9289c677-9cc7-42d5-ac95-688c084f74ec ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 500001                                                                                              ║
+║ Error Message  : 第三方系统错误::请求参数缺失-参数 tpl_id 必须传入                                                                      ║
+║ Location       : \app\Services\Common\Sms\Drivers\YunPianSmsDriver.php:135                                           ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Services\Common\Sms\Drivers\YunPianSmsDriver->templateSingleSend() in \app\Services\Common\Sms\SmsManager.p║
+║ hp:102                                                                                                               ║
+║ ║ #01 App\Services\Common\Sms\SmsManager->templateSingleSend() in \app\Http\Controllers\Controller.php:21            ║
+║ ║ #02 App\Http\Controllers\Controller->test() in \vendor\laravel\framework\src\Illuminate\Routing\Controller.php:54  ║
+║ ║ #03 Illuminate\Routing\Controller->callAction() in \vendor\laravel\framework\src\Illuminate\Routing\ControllerDispa║
+║ tcher.php:45                                                                                                         ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-25 18:24:25] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [App\Exceptions\BusinessException]       ℹ️ 2025-07-25 18:24:25.802 ℹ️ ID: 8972783b-ae71-411f-9fa1-406a989091c0 ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 500001                                                                                              ║
+║ Error Message  : 第三方系统错误::请求参数缺失:参数 tpl_id 必须传入                                                                      ║
+║ Location       : \app\Services\Common\Sms\Drivers\YunPianSmsDriver.php:135                                           ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Services\Common\Sms\Drivers\YunPianSmsDriver->templateSingleSend() in \app\Services\Common\Sms\SmsManager.p║
+║ hp:102                                                                                                               ║
+║ ║ #01 App\Services\Common\Sms\SmsManager->templateSingleSend() in \app\Http\Controllers\Controller.php:21            ║
+║ ║ #02 App\Http\Controllers\Controller->test() in \vendor\laravel\framework\src\Illuminate\Routing\Controller.php:54  ║
+║ ║ #03 Illuminate\Routing\Controller->callAction() in \vendor\laravel\framework\src\Illuminate\Routing\ControllerDispa║
+║ tcher.php:45                                                                                                         ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-25 18:24:37] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [App\Exceptions\BusinessException]       ℹ️ 2025-07-25 18:24:37.501 ℹ️ ID: 8385a832-360e-4044-b9db-881086ebf09d ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 500001                                                                                              ║
+║ Error Message  : 第三方系统错误::请求参数缺失->参数 tpl_id 必须传入                                                                     ║
+║ Location       : \app\Services\Common\Sms\Drivers\YunPianSmsDriver.php:135                                           ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Services\Common\Sms\Drivers\YunPianSmsDriver->templateSingleSend() in \app\Services\Common\Sms\SmsManager.p║
+║ hp:102                                                                                                               ║
+║ ║ #01 App\Services\Common\Sms\SmsManager->templateSingleSend() in \app\Http\Controllers\Controller.php:21            ║
+║ ║ #02 App\Http\Controllers\Controller->test() in \vendor\laravel\framework\src\Illuminate\Routing\Controller.php:54  ║
+║ ║ #03 Illuminate\Routing\Controller->callAction() in \vendor\laravel\framework\src\Illuminate\Routing\ControllerDispa║
+║ tcher.php:45                                                                                                         ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-25 18:24:46] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [App\Exceptions\BusinessException]       ℹ️ 2025-07-25 18:24:46.372 ℹ️ ID: b6d6578a-8c1b-4978-84f2-47d1604fcf47 ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 500001                                                                                              ║
+║ Error Message  : 第三方系统错误::请求参数缺失-参数 tpl_id 必须传入                                                                      ║
+║ Location       : \app\Services\Common\Sms\Drivers\YunPianSmsDriver.php:135                                           ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Services\Common\Sms\Drivers\YunPianSmsDriver->templateSingleSend() in \app\Services\Common\Sms\SmsManager.p║
+║ hp:102                                                                                                               ║
+║ ║ #01 App\Services\Common\Sms\SmsManager->templateSingleSend() in \app\Http\Controllers\Controller.php:21            ║
 ║ ║ #02 App\Http\Controllers\Controller->test() in \vendor\laravel\framework\src\Illuminate\Routing\Controller.php:54  ║
 ║ ║ #03 Illuminate\Routing\Controller->callAction() in \vendor\laravel\framework\src\Illuminate\Routing\ControllerDispa║
 ║ tcher.php:45                                                                                                         ║

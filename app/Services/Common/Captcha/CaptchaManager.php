@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Services\Captcha;
+namespace App\Services\Common\Captcha;
 
 
 use App\Exceptions\BusinessException;
 use App\Interfaces\CaptchaInterface;
-
 
 
 class CaptchaManager implements CaptchaInterface
