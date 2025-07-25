@@ -4,7 +4,6 @@ namespace App\Services\Excel\Drivers;
 
 
 use App\Interfaces\ExcelInterface;
-use Vtiful\Kernel\Excel;
 
 
 class VtifulDriver implements ExcelInterface
@@ -26,11 +25,11 @@ class VtifulDriver implements ExcelInterface
     /**
      * 导出数据为 Excel 文件
      * @param string $fileName 导出文件名（不含扩展名）
-     * @param array $data 待导出的二维数组数据（行×列）
      * @param array $headers 表头，数组格式，每个元素包含两个属性：label和field，分别表示表头名称和对应的数据库字段名
+     * @param array $data 待导出的二维数组数据（行×列）
      * @return string 导出文件的绝对路径
      */
-    public function export(string $fileName, array $data, array $headers = []): string
+    public function export(string $fileName, array $headers, array $data): string
     {
         // TODO: Implement export() method.
     }

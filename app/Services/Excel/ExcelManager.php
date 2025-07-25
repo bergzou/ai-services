@@ -61,10 +61,9 @@ class ExcelManager implements ExcelInterface
         return app($driverClass);
     }
 
-
     /**
      * 导入 Excel 文件并解析为数组数据
-     * @param string $file Excel 文件路径
+     * @param string $file
      * @param array $requiredColumns 必需的列名（用于校验文件格式）
      * @param array $columnMappings 列名映射（如 ['姓名' => 'name']）
      * @param int $headerLine 表头所在行号（默认第1行）
@@ -78,12 +77,12 @@ class ExcelManager implements ExcelInterface
     /**
      * 导出数据为 Excel 文件
      * @param string $fileName 导出文件名（不含扩展名）
-     * @param array $data 待导出的二维数组数据（行×列）
      * @param array $headers 表头，数组格式，每个元素包含两个属性：label和field，分别表示表头名称和对应的数据库字段名
+     * @param array $data 待导出的二维数组数据（行×列）
      * @return string 导出文件的绝对路径
      */
-    public function export(string $fileName, array $data, array $headers = []): string
+    public function export(string $fileName, array $headers, array $data): string
     {
-        return $this->driver->export($fileName, $data, $headers);
+        return $this->driver->export($fileName, $headers, $data);
     }
 }
