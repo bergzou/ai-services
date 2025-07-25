@@ -2,52 +2,29 @@
 
 namespace App\Services\Captcha\Drivers;
 
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
 
-class ImageCaptchaDriver extends CaptchaDriver
+use App\Interfaces\CaptchaInterface;
+
+class ImageCaptchaDriver implements CaptchaInterface
 {
+
+    /**
+     * 生成验证码（核心方法）
+     * @return array 生成的验证码数据（通常包含：唯一标识key、验证码值value、附加信息如图片Base64/有效期等）
+     * 示例返回：['key' => 'captcha_123', 'value' => 'ABCD', 'image' => 'data:image...']
+     */
     public function generate(): array
     {
-        $key = $this->generateKey();
-        $code = $this->generateCode(6);
-
-        $this->store($key, $code);
-
-        $image = $this->createImage($code);
-
-        return [
-            'key' => $key,
-            'image' => $image->encode('data-url')->encoded,
-            'type' => 'image'
-        ];
+        // TODO: Implement generate() method.
     }
 
-    protected function generateCode(int $length): string
+    /**
+     * 验证用户输入的验证码是否有效
+     * @param array $params 验证参数（包含验证码的唯一标识key、用户输入的验证码值value等）
+     * @return bool 验证成功返回 true，失败返回 false
+     */
+    public function validate(array $params): bool
     {
-        return substr(str_shuffle('123456789ABCDEFGHJKLMNPQRSTUVWXYZ'), 0, $length);
-    }
-
-    protected function createImage(string $code)
-    {
-        return Image::canvas(120, 40, '#f5f5f5')
-            ->text($code, 60, 20, function($font) {
-                $font->file(resource_path('fonts/Roboto-Bold.ttf'));
-                $font->size(24);
-                $font->color('#333');
-                $font->align('center');
-                $font->valign('middle');
-            })
-            ->rectangle(5, 5, 115, 35, function ($draw) {
-                $draw->border(1, '#ddd');
-            });
-    }
-
-    public function validate(string $key, string $value): bool
-    {
-        $stored = $this->retrieve($key);
-        $this->forget($key);
-
-        return $stored && strtolower($stored) === strtolower($value);
+        // TODO: Implement validate() method.
     }
 }

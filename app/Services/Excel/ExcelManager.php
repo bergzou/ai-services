@@ -4,8 +4,7 @@ namespace App\Services\Excel;
 
 
 use App\Interfaces\ExcelInterface;
-use InvalidArgumentException;
-
+use App\Exceptions\BusinessException;
 
 class ExcelManager implements ExcelInterface
 {
@@ -15,6 +14,7 @@ class ExcelManager implements ExcelInterface
     /**
      * 构造函数：初始化默认翻译驱动
      * @param string|null $driver 手动指定的驱动名称（可选）
+     * @throws BusinessException
      */
     public function __construct(string $driver = null)
     {
@@ -26,6 +26,7 @@ class ExcelManager implements ExcelInterface
      * 设置当前使用的翻译驱动（支持动态切换）
      * @param string $driver 驱动名称（对应 config/translation.php 中的驱动键名）
      * @return void 管理器实例（支持链式调用）
+     * @throws BusinessException
      */
     private function driver(string $driver): void
     {
@@ -39,14 +40,16 @@ class ExcelManager implements ExcelInterface
     }
 
 
+    /**
+     * @throws BusinessException
+     */
     private function createDriver(string $driver)
     {
-        // 从配置文件读取驱动配置（config/translation.php 中 drivers.{$driver} 部分）
         $config = config("excel.drivers.{$driver}");
 
         // 检查驱动配置是否存在
         if (empty($config)) {
-            throw new InvalidArgumentException("Excel驱动 [{$driver}] 未在配置中定义");
+            throw new BusinessException("Excel驱动 [{$driver}] 未在配置中定义");
         }
 
         // 获取驱动类名（配置中的 driver 字段）
@@ -54,7 +57,7 @@ class ExcelManager implements ExcelInterface
 
         // 检查驱动类是否存在
         if (!class_exists($driverClass)) {
-            throw new InvalidArgumentException("Excel驱动类 [{$driverClass}] 不存在");
+            throw new BusinessException("Excel驱动类 [{$driverClass}] 不存在");
         }
 
         // 通过Laravel容器解析实例（支持依赖注入）

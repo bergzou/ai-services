@@ -2,62 +2,28 @@
 
 namespace App\Services\Captcha\Drivers;
 
-class ClickCaptchaDriver extends CaptchaDriver
+use App\Interfaces\CaptchaInterface;
+
+class ClickCaptchaDriver implements CaptchaInterface
 {
+
+    /**
+     * 生成验证码（核心方法）
+     * @return array 生成的验证码数据（通常包含：唯一标识key、验证码值value、附加信息如图片Base64/有效期等）
+     * 示例返回：['key' => 'captcha_123', 'value' => 'ABCD', 'image' => 'data:image...']
+     */
     public function generate(): array
     {
-        $key = $this->generateKey();
-        $points = $this->generatePoints();
-
-        $this->store($key, json_encode($points));
-
-        return [
-            'key' => $key,
-            'image' => 'base64_encoded_image_data', // 实际实现需要生成图片
-            'points' => $points,
-            'type' => 'click'
-        ];
+        // TODO: Implement generate() method.
     }
 
-    protected function generatePoints(): array
+    /**
+     * 验证用户输入的验证码是否有效
+     * @param array $params 验证参数（包含验证码的唯一标识key、用户输入的验证码值value等）
+     * @return bool 验证成功返回 true，失败返回 false
+     */
+    public function validate(array $params): bool
     {
-        $points = [];
-        $targetCount = rand(3, 5);
-
-        for ($i = 0; $i < $targetCount; $i++) {
-            $points[] = [
-                'x' => rand(10, 90),
-                'y' => rand(10, 90),
-                'text' => chr(rand(65, 90)) // A-Z
-            ];
-        }
-
-        return $points;
-    }
-
-    public function validate(string $key, string $value): bool
-    {
-        $stored = json_decode($this->retrieve($key), true);
-        $this->forget($key);
-
-        if (!$stored) return false;
-
-        $submitted = json_decode($value, true);
-        if (count($stored) !== count($submitted)) return false;
-
-        foreach ($stored as $point) {
-            $found = false;
-            foreach ($submitted as $sub) {
-                if (abs($point['x'] - $sub['x']) <= 5 &&
-                    abs($point['y'] - $sub['y']) <= 5 &&
-                    $point['text'] === $sub['text']) {
-                    $found = true;
-                    break;
-                }
-            }
-            if (!$found) return false;
-        }
-
-        return true;
+        // TODO: Implement validate() method.
     }
 }

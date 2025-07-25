@@ -1,0 +1,209 @@
+[2025-07-25 14:44:44] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [Illuminate\Contracts\Container\BindingResolutionException] ℹ️ 2025-07-25 14:44:44.439 ℹ️ ID: 3bbf87d5-0626-40ca-83b6-bdea6f09f762 ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : Target class [captcha] does not exist.                                                              ║
+║ Location       : \vendor\laravel\framework\src\Illuminate\Container\Container.php:879                                ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 Illuminate\Container\Container->build() in \vendor\laravel\framework\src\Illuminate\Container\Container.php:758║
+║ ║ #01 Illuminate\Container\Container->resolve() in \vendor\laravel\framework\src\Illuminate\Foundation\Application.ph║
+║ p:855                                                                                                                ║
+║ ║ #02 Illuminate\Foundation\Application->resolve() in \vendor\laravel\framework\src\Illuminate\Container\Container.ph║
+║ p:694                                                                                                                ║
+║ ║ #03 Illuminate\Container\Container->make() in \vendor\laravel\framework\src\Illuminate\Foundation\Application.php:8║
+║ 40                                                                                                                   ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-25 14:45:33] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [TypeError]                              ℹ️ 2025-07-25 14:45:33.069 ℹ️ ID: 0edf48f9-7f48-45c0-819b-103e299269fd ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : Cannot access offset of type string on string                                                       ║
+║ Location       : \app\Services\Captcha\CaptchaManager.php:58                                                         ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Services\Captcha\CaptchaManager->createDriver() in \app\Services\Captcha\CaptchaManager.php:37             ║
+║ ║ #01 App\Services\Captcha\CaptchaManager->driver() in \app\Services\Captcha\CaptchaManager.php:24                   ║
+║ ║ #02 App\Services\Captcha\CaptchaManager->__construct() in \app\Providers\CaptchaServiceProvider.php:14             ║
+║ ║ #03 App\Providers\CaptchaServiceProvider->App\Providers\{closure}() in \vendor\laravel\framework\src\Illuminate\Con║
+║ tainer\Container.php:873                                                                                             ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-25 15:01:50] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [ErrorException]                         ℹ️ 2025-07-25 15:01:50.295 ℹ️ ID: 1294fe8e-7994-42bb-b772-9d55d023a9ff ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : Array to string conversion                                                                          ║
+║ Location       : \vendor\predis\predis\src\Connection\StreamConnection.php:393                                       ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 Illuminate\Foundation\Bootstrap\HandleExceptions->handleError() in \vendor\laravel\framework\src\Illuminate\Fou║
+║ ndation\Bootstrap\HandleExceptions.php:228                                                                           ║
+║ ║ #01 Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}() in :0            ║
+║ ║ #02 strval() in \vendor\predis\predis\src\Connection\StreamConnection.php:393                                      ║
+║ ║ #03 Predis\Connection\StreamConnection->writeRequest() in \vendor\predis\predis\src\Connection\AbstractConnection.p║
+║ hp:122                                                                                                               ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-25 15:29:00] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [Error]                                  ℹ️ 2025-07-25 15:29:00.397 ℹ️ ID: 2720fabb-2220-4574-a955-59e5f0c25757 ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : Call to undefined method App\Libraries\Predis::lock()                                               ║
+║ Location       : \app\Libraries\Snowflake.php:146                                                                    ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Libraries\Snowflake->markIDAsExists() in \app\Libraries\Snowflake.php:84                                   ║
+║ ║ #01 App\Libraries\Snowflake->next() in \app\Services\Captcha\Drivers\TextCaptchaDriver.php:41                      ║
+║ ║ #02 App\Services\Captcha\Drivers\TextCaptchaDriver->generate() in \app\Services\Captcha\CaptchaManager.php:76      ║
+║ ║ #03 App\Services\Captcha\CaptchaManager->generate() in \app\Http\Controllers\Controller.php:21                     ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-25 15:41:53] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [TypeError]                              ℹ️ 2025-07-25 15:41:53.884 ℹ️ ID: a0a7161d-416f-4353-a93b-493e29bf3146 ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : Illuminate\Translation\Translator::get(): Argument #2 ($replace) must be of type array, int given, c║
+║ alled in D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Foundation\helpers.php on line 851           ║
+║ Location       : \vendor\laravel\framework\src\Illuminate\Translation\Translator.php:101                             ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 Illuminate\Translation\Translator->get() in \vendor\laravel\framework\src\Illuminate\Foundation\helpers.php:851║
+║ ║ #01 trans() in \vendor\laravel\framework\src\Illuminate\Foundation\helpers.php:886                                 ║
+║ ║ #02 __() in \app\Services\Captcha\Drivers\TextCaptchaDriver.php:172                                                ║
+║ ║ #03 App\Services\Captcha\Drivers\TextCaptchaDriver->validate() in \app\Services\Captcha\CaptchaManager.php:86      ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-25 15:42:37] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [TypeError]                              ℹ️ 2025-07-25 15:42:37.410 ℹ️ ID: 6fe5a9ea-a6fe-4fa5-b4ed-dc4f01377c0e ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : Illuminate\Translation\Translator::get(): Argument #2 ($replace) must be of type array, int given, c║
+║ alled in D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Foundation\helpers.php on line 851           ║
+║ Location       : \vendor\laravel\framework\src\Illuminate\Translation\Translator.php:101                             ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 Illuminate\Translation\Translator->get() in \vendor\laravel\framework\src\Illuminate\Foundation\helpers.php:851║
+║ ║ #01 trans() in \vendor\laravel\framework\src\Illuminate\Foundation\helpers.php:886                                 ║
+║ ║ #02 __() in \app\Services\Captcha\Drivers\TextCaptchaDriver.php:172                                                ║
+║ ║ #03 App\Services\Captcha\Drivers\TextCaptchaDriver->validate() in \app\Services\Captcha\CaptchaManager.php:86      ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-25 15:43:34] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [App\Exceptions\BusinessException]       ℹ️ 2025-07-25 15:43:34.806 ℹ️ ID: dd0f739f-c274-41da-8888-e26dc5273020 ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 500000                                                                                              ║
+║ Error Message  : 验证码参数错误                                                                                             ║
+║ Location       : \app\Services\Captcha\Drivers\TextCaptchaDriver.php:172                                             ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Services\Captcha\Drivers\TextCaptchaDriver->validate() in \app\Services\Captcha\CaptchaManager.php:86      ║
+║ ║ #01 App\Services\Captcha\CaptchaManager->validate() in \app\Http\Controllers\Controller.php:26                     ║
+║ ║ #02 App\Http\Controllers\Controller->test() in \vendor\laravel\framework\src\Illuminate\Routing\Controller.php:54  ║
+║ ║ #03 Illuminate\Routing\Controller->callAction() in \vendor\laravel\framework\src\Illuminate\Routing\ControllerDispa║
+║ tcher.php:45                                                                                                         ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-25 15:46:30] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [App\Exceptions\BusinessException]       ℹ️ 2025-07-25 15:46:30.565 ℹ️ ID: f12b8b58-d73d-4f7c-98d1-ba837c8d9d24 ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 500000                                                                                              ║
+║ Error Message  : 验证码参数错误                                                                                             ║
+║ Location       : \app\Services\Captcha\Drivers\TextCaptchaDriver.php:172                                             ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Services\Captcha\Drivers\TextCaptchaDriver->validate() in \app\Services\Captcha\CaptchaManager.php:86      ║
+║ ║ #01 App\Services\Captcha\CaptchaManager->validate() in \app\Http\Controllers\Controller.php:26                     ║
+║ ║ #02 App\Http\Controllers\Controller->test() in \vendor\laravel\framework\src\Illuminate\Routing\Controller.php:54  ║
+║ ║ #03 Illuminate\Routing\Controller->callAction() in \vendor\laravel\framework\src\Illuminate\Routing\ControllerDispa║
+║ tcher.php:45                                                                                                         ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-25 15:50:12] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [Error]                                  ℹ️ 2025-07-25 15:50:12.788 ℹ️ ID: a9379d8d-6457-4a06-8364-7f34381baccf ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : Call to undefined method phpseclib3\Crypt\Hash::make()                                              ║
+║ Location       : \app\Services\Captcha\Drivers\TextCaptchaDriver.php:183                                             ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Services\Captcha\Drivers\TextCaptchaDriver->validate() in \app\Services\Captcha\CaptchaManager.php:86      ║
+║ ║ #01 App\Services\Captcha\CaptchaManager->validate() in \app\Http\Controllers\Controller.php:26                     ║
+║ ║ #02 App\Http\Controllers\Controller->test() in \vendor\laravel\framework\src\Illuminate\Routing\Controller.php:54  ║
+║ ║ #03 Illuminate\Routing\Controller->callAction() in \vendor\laravel\framework\src\Illuminate\Routing\ControllerDispa║
+║ tcher.php:45                                                                                                         ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  

@@ -2,30 +2,27 @@
 
 namespace App\Services\Captcha\Drivers;
 
-class SmsCaptchaDriver extends CaptchaDriver
+use App\Interfaces\CaptchaInterface;
+
+class SmsCaptchaDriver implements CaptchaInterface
 {
+    /**
+     * 生成验证码（核心方法）
+     * @return array 生成的验证码数据（通常包含：唯一标识key、验证码值value、附加信息如图片Base64/有效期等）
+     * 示例返回：['key' => 'captcha_123', 'value' => 'ABCD', 'image' => 'data:image...']
+     */
     public function generate(): array
     {
-        $key = $this->generateKey();
-        $code = rand(100000, 999999);
-
-        $this->store($key, $code);
-
-        // 实际应用中这里应该调用短信服务发送验证码
-        // $this->sendSms($phone, $code);
-
-        return [
-            'key' => $key,
-            'expires' => $this->ttl,
-            'type' => 'sms'
-        ];
+        // TODO: Implement generate() method.
     }
 
-    public function validate(string $key, string $value): bool
+    /**
+     * 验证用户输入的验证码是否有效
+     * @param array $params 验证参数（包含验证码的唯一标识key、用户输入的验证码值value等）
+     * @return bool 验证成功返回 true，失败返回 false
+     */
+    public function validate(array $params): bool
     {
-        $stored = $this->retrieve($key);
-        $this->forget($key);
-
-        return $stored && $stored == $value;
+        // TODO: Implement validate() method.
     }
 }

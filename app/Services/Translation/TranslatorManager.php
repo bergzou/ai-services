@@ -2,8 +2,9 @@
 
 namespace App\Services\Translation;
 
+use App\Exceptions\BusinessException;
 use App\Interfaces\TranslatorInterface;
-use InvalidArgumentException;
+
 
 /**
  * 翻译服务管理器：负责翻译驱动的初始化、切换和翻译请求分发
@@ -17,6 +18,7 @@ class TranslatorManager implements TranslatorInterface
     /**
      * 构造函数：初始化默认翻译驱动
      * @param string|null $driver 手动指定的驱动名称（可选）
+     * @throws BusinessException
      */
     public function __construct(string $driver = null)
     {
@@ -35,6 +37,7 @@ class TranslatorManager implements TranslatorInterface
      * 设置当前使用的翻译驱动（支持动态切换）
      * @param string $driver 驱动名称（对应 config/translation.php 中的驱动键名）
      * @return void 管理器实例（支持链式调用）
+     * @throws BusinessException
      */
     private function driver(string $driver): void
     {
@@ -51,7 +54,7 @@ class TranslatorManager implements TranslatorInterface
      * 创建具体翻译驱动实例（核心工厂方法）
      * @param string $driver 驱动名称（如 "baidu"、"disable"）
      * @return TranslatorInterface 翻译驱动实例（实现接口规范）
-     * @throws InvalidArgumentException 驱动配置缺失或类不存在时抛出
+     * @throws BusinessException 驱动配置缺失或类不存在时抛出
      */
     private function createDriver(string $driver): TranslatorInterface
     {
@@ -60,7 +63,7 @@ class TranslatorManager implements TranslatorInterface
 
         // 检查驱动配置是否存在
         if (empty($config)) {
-            throw new InvalidArgumentException("翻译驱动 [{$driver}] 未在配置中定义");
+            throw new BusinessException("翻译驱动 [{$driver}] 未在配置中定义");
         }
 
         // 获取驱动类名（配置中的 driver 字段）
@@ -68,7 +71,7 @@ class TranslatorManager implements TranslatorInterface
 
         // 检查驱动类是否存在
         if (!class_exists($driverClass)) {
-            throw new InvalidArgumentException("翻译驱动类 [{$driverClass}] 不存在");
+            throw new BusinessException("翻译驱动类 [{$driverClass}] 不存在");
         }
 
         // 通过Laravel容器解析实例（支持依赖注入）
