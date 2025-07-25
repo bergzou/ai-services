@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Exceptions\BusinessException;
 use App\Helpers\AopProxy;
+use App\Http\Controllers\BaseController;
 use App\Interfaces\ControllerInterface;
 use App\Libraries\Response;
 use App\Services\UsersService;
@@ -13,7 +14,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class UsersController extends WebBaseController implements ControllerInterface
+class UsersController extends BaseController implements ControllerInterface
 {
 
 
@@ -24,9 +25,6 @@ class UsersController extends WebBaseController implements ControllerInterface
      */
     public function getList(Request $request): JsonResponse
     {
-
-        $result = app('excel')->import('aaaaaaaaaaa');
-        var_dump($result);die;
         $params = $request->all();
 
         $services = new UsersService();

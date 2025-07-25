@@ -36,6 +36,12 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('internal')
                 ->group(base_path('routes/internal.php'));
 
+            Route::middleware('openapi')
+                ->group(base_path('routes/openapi.php'));
+
+            Route::middleware('admin')
+                ->group(base_path('routes/admin.php'));
+
         });
     }
 

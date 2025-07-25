@@ -17,11 +17,10 @@ class UsersPointsLogValidated extends BaseValidated implements ValidatesInterfac
             'user_id' => 'required|string|max:255', # 用户ID
             'points_change' => 'required|integer', # 积分变动值
             'current_points' => 'required|integer', # 变动后积分
-            'source_type' => 'nullable|integer', # 来源类型
-            'source_id' => 'nullable|string|max:50', # 来源ID
+            'source_type' => 'required|integer', # 积分来源：10：充值会员
+            'source_id' => 'nullable|string|max:255', # 积分来源相关记录ID
             'description' => 'required|string|max:255', # 变动描述
-            'created_by' => 'required|string|max:50', # 操作人名称
-            'updated_by' => 'nullable|string|max:50', # 更新人名称
+            'created_by' => 'required|string|max:255', # 操作人名称
         ];
     }
 
@@ -44,11 +43,10 @@ class UsersPointsLogValidated extends BaseValidated implements ValidatesInterfac
             'user_id' => __('validated.300014'), # 用户ID
             'points_change' => __('validated.300015'), # 积分变动值
             'current_points' => __('validated.300016'), # 变动后积分
-            'source_type' => __('validated.300017'), # 来源类型
-            'source_id' => __('validated.300018'), # 来源ID
+            'source_type' => __('validated.300029'), # 积分来源
+            'source_id' => __('validated.300030'), # 积分来源相关记录ID
             'description' => __('validated.300019'), # 变动描述
             'created_by' => __('validated.300020'), # 操作人名称
-            'updated_by' => __('validated.300009'), # 更新人名称
         ];
     }
 }

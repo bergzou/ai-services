@@ -47,4 +47,7 @@ return [
     '300025' => 'API endpoint',
     '300026' => 'unique id',
     '300027' => 'UUID',
+    '300028' => 'Membership level',
+    '300029' => 'Source of Points',
+    '300030' => 'Record ID related to the source of points',
 ];

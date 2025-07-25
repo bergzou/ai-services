@@ -7,9 +7,11 @@ use App\Helpers\AopProxy;
 use App\Libraries\Common;
 use App\Libraries\Snowflake;
 use App\Models\UsersModel;
+use App\Services\Captcha\CaptchaService;
 use App\Validates\UsersValidated;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * 用户服务类
@@ -86,12 +88,11 @@ class UsersService extends BaseService
             }
 
             // 生成雪花ID（用于唯一标识用户）
-            $snowflake = new Snowflake(Common::getWorkerId());
+//            $snowflake = new Snowflake(Common::getWorkerId());
             $insertData[] = [
-                'uuid' => $snowflake->next(), // 雪花算法生成唯一ID
+//                'uuid' => $snowflake->next(), // 雪花算法生成唯一ID
                 'name' => $params['name'],
                 'password' => $params['password'],
-                'email' => $params['email'],
                 'mobile' => $params['mobile'],
                 'level_id' => 1, // 默认用户等级（可根据业务调整）
                 'created_by' => $this->userInfo['user_name'], // 创建人（当前登录用户）
@@ -117,6 +118,17 @@ class UsersService extends BaseService
         }
         return [];
     }
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * 更新用户信息
@@ -233,5 +245,47 @@ class UsersService extends BaseService
         }
 
         return $result;
+    }
+
+
+    /**
+     * @throws BusinessException
+     * @throws Exception
+     */
+    public function registerByUsername($params){
+
+        $usersValidated = new UsersValidated($params, 'registerByUsername');
+        $messages = $usersValidated->isRunFail();
+        if (!empty($messages)) throw new BusinessException($messages, '400000'); // 参数验证失败异常
+
+        $usersModel = new UsersModel();
+
+        // 校验用户名是否存在
+        $exists = $usersModel::query()->where('name', $params['name'])->where('name', '!=', $params['name'])->exists();
+        if ($exists) throw new BusinessException(__('errors.600004'),'600004');
+
+        // 校验验证码
+        if (!CaptchaService::validate($params['captcha_key'], $params['captcha_key'])) {
+           throw new BusinessException(__('errors.600006'),'600006');
+        }
+
+
+
+        $snowflake = new Snowflake(Common::getWorkerId());
+        $insertData = [
+//            'uuid' => $snowflake->next(),
+            'name' => $params['name'],
+            'password' => Hash::make($params['password']),
+            'created_by' => 'system',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_by' => 'system',
+            'updated_at' => date('Y-m-d H:i:s'),
+        ];
+        var_dump($insertData);die;
+
+        $result = $usersModel::query()->insert($insertData);
+        if ($result !== true) throw new BusinessException(__('errors.600000'), '600000'); // 注册用户失败
+
+        return [];
     }
 }

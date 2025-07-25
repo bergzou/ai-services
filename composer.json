@@ -21,6 +21,7 @@
         "overtrue/laravel-filesystem-qiniu": "^2.4",
         "phpoffice/phpspreadsheet": "^2.1",
         "predis/predis": "^2.2",
+        "tymon/jwt-auth": "^2.2",
         "vladimir-yuldashev/laravel-queue-rabbitmq": "13.3",
         "wangqs/xlswriter_ide_helper": "^1.0",
         "xbyter/apollo-client": "^1.0"

@@ -1,0 +1,75 @@
+[2025-07-23 17:44:56] local.DEBUG: ╬══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ SQL Request [ID: d8033324-5435-4b79-a04a-555684e9be64]                                                             ║
+║ Request: GET http://localhost:8918/admin-api/system/tenant/get-by-website?website=www.iocoder.cn
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Query #1
+║ Caller: \app\Services\Admin\SystemService.php:14
+║ Time: 57.96ms
+║ Connection: mysql
+║   select `name` from `system_tenant` where (`website` = 'www.iocoder.cn') order by                                   ║
+║        `id` desc limit 1                                                                                             ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║   Total Queries: 1                                                                                                   ║
+║   Total SQL Time: 57.96ms                                                                                            ║
+║   Request Duration: 0.574s                                                                                           ║
+╬══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-23 17:45:41] local.DEBUG: ╬══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ SQL Request [ID: 1e21fc69-b1a0-4512-8d30-63206df6b931]                                                             ║
+║ Request: GET http://localhost:8918/admin-api/system/tenant/get-by-website?website=www.iocoder.cn
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Query #1
+║ Caller: \app\Services\Admin\SystemService.php:14
+║ Time: 85.94ms
+║ Connection: mysql
+║   select `name` from `system_tenant` where (`website` = 'www.iocoder.cn') order by                                   ║
+║        `id` desc limit 1                                                                                             ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║   Total Queries: 1                                                                                                   ║
+║   Total SQL Time: 85.94ms                                                                                            ║
+║   Request Duration: 0.477s                                                                                           ║
+╬══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-23 17:47:41] local.DEBUG: ╬══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ SQL Request [ID: ce7382ac-9131-4a5f-b7cf-bb0eb0f5df94]                                                             ║
+║ Request: GET http://localhost:8918/admin-api/system/tenant/get-by-website?website=www.iocoder.cn
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Query #1
+║ Caller: \app\Services\Admin\SystemService.php:16
+║ Time: 51.39ms
+║ Connection: mysql
+║   select `name` from `system_tenant` where (`website` = '') order by `id` desc                                       ║
+║       limit 1                                                                                                        ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║   Total Queries: 1                                                                                                   ║
+║   Total SQL Time: 51.39ms                                                                                            ║
+║   Request Duration: 0.485s                                                                                           ║
+╬══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-23 17:48:12] local.DEBUG: ╬══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ SQL Request [ID: a2724c8e-af57-46e6-9d89-65f8e43bdc35]                                                             ║
+║ Request: GET http://localhost:8918/admin-api/system/tenant/get-by-website?website=www.iocoder.cn
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Query #1
+║ Caller: \app\Services\Admin\SystemService.php:16
+║ Time: 84.52ms
+║ Connection: mysql
+║   select `name` from `system_tenant` where (`website` = 'www.iocoder.cn') order by                                   ║
+║        `id` desc limit 1                                                                                             ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║   Total Queries: 1                                                                                                   ║
+║   Total SQL Time: 84.52ms                                                                                            ║
+║   Request Duration: 0.246s                                                                                           ║
+╬══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-23 17:49:28] local.DEBUG: ╬══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ SQL Request [ID: f0aecb77-2914-4379-b5a6-f97c20f27cdf]                                                             ║
+║ Request: GET http://localhost:8918/admin-api/system/tenant/get-by-website?website=www.iocoder.cn
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Query #1
+║ Caller: \app\Services\Admin\SystemService.php:16
+║ Time: 83.41ms
+║ Connection: mysql
+║   select `name` from `system_tenant` where (`website` = 'www.iocoder.cn') order by                                   ║
+║        `id` desc limit 1                                                                                             ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║   Total Queries: 1                                                                                                   ║
+║   Total SQL Time: 83.41ms                                                                                            ║
+║   Request Duration: 0.220s                                                                                           ║
+╬══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  

@@ -11,8 +11,8 @@ use InvalidArgumentException;
  */
 class TranslatorManager implements TranslatorInterface
 {
-    protected $driver;       // 当前使用的翻译驱动实例
-    protected $drivers = []; // 已实例化的驱动缓存（避免重复创建）
+    protected TranslatorInterface $driver;       // 当前使用的翻译驱动实例
+    protected array $drivers = []; // 已实例化的驱动缓存（避免重复创建）
 
     /**
      * 构造函数：初始化默认翻译驱动
@@ -34,9 +34,9 @@ class TranslatorManager implements TranslatorInterface
     /**
      * 设置当前使用的翻译驱动（支持动态切换）
      * @param string $driver 驱动名称（对应 config/translation.php 中的驱动键名）
-     * @return $this 管理器实例（支持链式调用）
+     * @return void 管理器实例（支持链式调用）
      */
-    public function driver(string $driver): self
+    private function driver(string $driver): void
     {
         // 若驱动未实例化，则创建并缓存
         if (!isset($this->drivers[$driver])) {
@@ -45,20 +45,6 @@ class TranslatorManager implements TranslatorInterface
 
         // 设置当前驱动为缓存中的实例
         $this->driver = $this->drivers[$driver];
-        return $this;
-    }
-
-    /**
-     * 执行翻译请求（委托给当前驱动）
-     * @param string $text 待翻译的原始文本
-     * @param string $sourceLang 源语言代码（如 "en"）
-     * @param string $targetLang 目标语言代码（如 "zh"）
-     * @return string 翻译结果（格式由具体驱动决定）
-     */
-    public function translate(string $text, string $sourceLang, string $targetLang): string
-    {
-        // 调用当前驱动的 translate 方法（实现 TranslatorInterface 接口）
-        return $this->driver->translate($text, $sourceLang, $targetLang);
     }
 
     /**
@@ -67,7 +53,7 @@ class TranslatorManager implements TranslatorInterface
      * @return TranslatorInterface 翻译驱动实例（实现接口规范）
      * @throws InvalidArgumentException 驱动配置缺失或类不存在时抛出
      */
-    protected function createDriver(string $driver): TranslatorInterface
+    private function createDriver(string $driver): TranslatorInterface
     {
         // 从配置文件读取驱动配置（config/translation.php 中 drivers.{$driver} 部分）
         $config = config("translation.drivers.{$driver}");
@@ -87,5 +73,19 @@ class TranslatorManager implements TranslatorInterface
 
         // 通过Laravel容器解析实例（支持依赖注入）
         return app($driverClass);
+    }
+
+
+    /**
+     * 执行翻译请求（委托给当前驱动）
+     * @param string $text 待翻译的原始文本
+     * @param string $sourceLang 源语言代码（如 "en"）
+     * @param string $targetLang 目标语言代码（如 "zh"）
+     * @return string 翻译结果（格式由具体驱动决定）
+     */
+    public function translate(string $text, string $sourceLang, string $targetLang): string
+    {
+        // 调用当前驱动的 translate 方法（实现 TranslatorInterface 接口）
+        return $this->driver->translate($text, $sourceLang, $targetLang);
     }
 }

@@ -18,12 +18,14 @@ class UsersValidated extends BaseValidated implements ValidatesInterface
             'name' => 'required|string|max:200', # 用户名
             'password' => 'required|string|max:500', # 加密密码
             'email' => 'required|string|max:100', # 邮箱
-            'mobile' => 'nullable|string|max:20', # 手机号
+            'mobile' => 'nullable|string|max:200', # 手机号
             'points' => 'nullable|integer', # 会员积分
-            'level_id' => 'nullable|integer', # 会员等级ID
+            'level' => 'required|integer', # 会员等级：10=普通会员,20=黄金会员,30=铂金会员,40=钻石会员,50=终身会员
             'status' => 'nullable|integer', # 状态：0=禁用,1=启用,2=未激活
             'avatar' => 'nullable|string|max:255', # 头像路径
             'created_by' => 'nullable|string|max:255', # 创建人名称
+            'updated_by' => 'nullable|string|max:255', # 更新人名称
+            'updated_by' => 'nullable|string|max:255', # 更新人名称
             'updated_by' => 'nullable|string|max:255', # 更新人名称
         ];
     }
@@ -50,7 +52,7 @@ class UsersValidated extends BaseValidated implements ValidatesInterface
             'email' => __('validated.300002'), # 邮箱
             'mobile' => __('validated.300003'), # 手机号
             'points' => __('validated.300004'), # 会员积分
-            'level_id' => __('validated.300005'), # 会员等级ID
+            'level' => __('validated.300028'), # 会员等级
             'status' => __('validated.300006'), # 状态
             'avatar' => __('validated.300007'), # 头像路径
             'created_by' => __('validated.300008'), # 创建人名称
@@ -58,33 +60,14 @@ class UsersValidated extends BaseValidated implements ValidatesInterface
         ];
     }
 
-    /**
-     * 添加用户
-     * 定义需要验证的字段
-     * @return array 包含需要验证的字段名的数组
-     **/
     public function addParams(): array
     {
-        return ['name','email','mobile'];
+        return ['name','password','mobile'];
     }
 
-    /**
-     * 更新用户
-     * 定义需要验证的字段
-     * @return array 包含需要验证的字段名的数组
-     **/
-    public function updateParams(): array
+    public function registerByUsernameParams(): array
     {
-        return ['uuid','name','email','mobile'];
+        return ['name','password'];
     }
 
-    /**
-     * 删除用户
-     * 定义需要验证的字段
-     * @return array 包含需要验证的字段名的数组
-     **/
-    public function deleteParams(): array
-    {
-        return ['uuid'];
-    }
 }

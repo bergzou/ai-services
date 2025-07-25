@@ -1,0 +1,76 @@
+[2025-07-23 17:44:56] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [TypeError]                              ℹ️ 2025-07-23 17:44:56.553 ℹ️ ID: b368223b-6629-4709-8350-084e4e9b70ea ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : GET http://localhost:8918/admin-api/system/tenant/get-by-website?website=www.iocoder.cn             ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : {"website":"www.iocoder.cn"}                                                                        ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : App\Libraries\Response::success(): Argument #1 ($data) must be of type array, string given, called i║
+║ n D:\project\ai-services\app\Http\Controllers\Admin\SystemController.php on line 24                                  ║
+║ Location       : \app\Libraries\Response.php:22                                                                      ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Libraries\Response::success() in \app\Http\Controllers\Admin\SystemController.php:24                       ║
+║ ║ #01 App\Http\Controllers\Admin\SystemController->tenantGetByWebsite() in \vendor\laravel\framework\src\Illuminate\R║
+║ outing\Controller.php:54                                                                                             ║
+║ ║ #02 Illuminate\Routing\Controller->callAction() in \vendor\laravel\framework\src\Illuminate\Routing\ControllerDispa║
+║ tcher.php:45                                                                                                         ║
+║ ║ #03 Illuminate\Routing\ControllerDispatcher->dispatch() in \vendor\laravel\framework\src\Illuminate\Routing\Route.p║
+║ hp:261                                                                                                               ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-23 17:45:41] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [TypeError]                              ℹ️ 2025-07-23 17:45:41.157 ℹ️ ID: 796929f3-2aa0-4149-b087-dd158b04a76e ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : GET http://localhost:8918/admin-api/system/tenant/get-by-website?website=www.iocoder.cn             ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : {"website":"www.iocoder.cn"}                                                                        ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : App\Libraries\Response::success(): Argument #1 ($data) must be of type array, string given, called i║
+║ n D:\project\ai-services\app\Http\Controllers\Admin\SystemController.php on line 24                                  ║
+║ Location       : \app\Libraries\Response.php:22                                                                      ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Libraries\Response::success() in \app\Http\Controllers\Admin\SystemController.php:24                       ║
+║ ║ #01 App\Http\Controllers\Admin\SystemController->tenantGetByWebsite() in \vendor\laravel\framework\src\Illuminate\R║
+║ outing\Controller.php:54                                                                                             ║
+║ ║ #02 Illuminate\Routing\Controller->callAction() in \vendor\laravel\framework\src\Illuminate\Routing\ControllerDispa║
+║ tcher.php:45                                                                                                         ║
+║ ║ #03 Illuminate\Routing\ControllerDispatcher->dispatch() in \vendor\laravel\framework\src\Illuminate\Routing\Route.p║
+║ hp:261                                                                                                               ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-23 17:47:41] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [TypeError]                              ℹ️ 2025-07-23 17:47:41.401 ℹ️ ID: d0cd1181-11f3-43bb-8813-f8e33e94724e ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : GET http://localhost:8918/admin-api/system/tenant/get-by-website?website=www.iocoder.cn             ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : {"website":"www.iocoder.cn"}                                                                        ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : App\Models\BaseModel::getSingleRecord(): Return value must be of type array, null returned          ║
+║ Location       : \app\Models\BaseModel.php:218                                                                       ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Models\BaseModel->getSingleRecord() in \app\Services\Admin\SystemService.php:16                            ║
+║ ║ #01 App\Services\Admin\SystemService->tenantGetByWebsite() in \app\Http\Controllers\Admin\SystemController.php:22  ║
+║ ║ #02 App\Http\Controllers\Admin\SystemController->tenantGetByWebsite() in \vendor\laravel\framework\src\Illuminate\R║
+║ outing\Controller.php:54                                                                                             ║
+║ ║ #03 Illuminate\Routing\Controller->callAction() in \vendor\laravel\framework\src\Illuminate\Routing\ControllerDispa║
+║ tcher.php:45                                                                                                         ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  

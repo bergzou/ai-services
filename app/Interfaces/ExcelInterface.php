@@ -9,20 +9,22 @@ namespace App\Interfaces;
 interface ExcelInterface
 {
     /**
-     * 从 Excel 文件中导入数据
-     * @param string $filePath 待导入的 Excel 文件绝对路径
-     * @param array $options 导入配置选项（可选）
-     *                       支持参数：'start_row' => int（数据起始行，从0开始计数，默认0）
-     * @return array 二维数组格式的表格数据（[[行1列1, 行1列2...], [行2列1, 行2列2...]]）
+     * 导入 Excel 文件并解析为数组数据
+     * @param string $file
+     * @param array $requiredColumns 必需的列名（用于校验文件格式）
+     * @param array $columnMappings 列名映射（如 ['姓名' => 'name']）
+     * @param int $headerLine 表头所在行号（默认第1行）
+     * @return array 解析后的二维数组数据（行×列）
      */
-    public function import(string $filePath, array $options = []): array;
+    public function import(string $file, array $requiredColumns = [], array $columnMappings = [], int $headerLine = 1): array;
 
     /**
-     * 将数据导出为 Excel 文件
-     * @param array $data 待导出的二维数组数据（[[行1列1, 行1列2...], [行2列1, 行2列2...]]）
-     * @param string $fileName 生成的 Excel 文件名（含扩展名，如 "report.xlsx"）
-     * @param array $headers 表头信息数组（可选，如 ['姓名', '年龄']，若提供则会在首行添加表头）
-     * @return string 生成的 Excel 文件完整存储路径（可通过此路径访问生成的文件）
+     * 导出数据为 Excel 文件
+     * @param string $fileName 导出文件名（不含扩展名）
+     * @param array $headers 表头，数组格式，每个元素包含两个属性：label和field，分别表示表头名称和对应的数据库字段名
+     * @param array $data 待导出的二维数组数据（行×列）
+     * @return string 导出文件的绝对路径
      */
-    public function export(array $data, string $fileName, array $headers = []): string;
+    public function export(string $fileName, array $headers, array $data): string;
+
 }

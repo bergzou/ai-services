@@ -1,0 +1,72 @@
+[2025-07-24 17:53:32] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [ErrorException]                         ℹ️ 2025-07-24 17:53:32.459 ℹ️ ID: 730b8746-99f1-4aa2-a2e8-d8bb1a5a3c0e ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : Array to string conversion                                                                          ║
+║ Location       : \vendor\predis\predis\src\Connection\StreamConnection.php:393                                       ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 Illuminate\Foundation\Bootstrap\HandleExceptions->handleError() in \vendor\laravel\framework\src\Illuminate\Fou║
+║ ndation\Bootstrap\HandleExceptions.php:228                                                                           ║
+║ ║ #01 Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}() in :0            ║
+║ ║ #02 strval() in \vendor\predis\predis\src\Connection\StreamConnection.php:393                                      ║
+║ ║ #03 Predis\Connection\StreamConnection->writeRequest() in \vendor\predis\predis\src\Connection\AbstractConnection.p║
+║ hp:122                                                                                                               ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-24 17:57:16] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [ErrorException]                         ℹ️ 2025-07-24 17:57:16.979 ℹ️ ID: 525b5ed6-cfa2-4e3d-8031-93e108189437 ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : Array to string conversion                                                                          ║
+║ Location       : \vendor\predis\predis\src\Connection\StreamConnection.php:393                                       ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 Illuminate\Foundation\Bootstrap\HandleExceptions->handleError() in \vendor\laravel\framework\src\Illuminate\Fou║
+║ ndation\Bootstrap\HandleExceptions.php:228                                                                           ║
+║ ║ #01 Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}() in :0            ║
+║ ║ #02 strval() in \vendor\predis\predis\src\Connection\StreamConnection.php:393                                      ║
+║ ║ #03 Predis\Connection\StreamConnection->writeRequest() in \vendor\predis\predis\src\Connection\AbstractConnection.p║
+║ hp:122                                                                                                               ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-24 18:02:42] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [ErrorException]                         ℹ️ 2025-07-24 18:02:42.523 ℹ️ ID: 4bd646b6-a376-4ea0-bbc4-3807c84b75d2 ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/test                                                                     ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : Array to string conversion                                                                          ║
+║ Location       : \vendor\predis\predis\src\Connection\StreamConnection.php:393                                       ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 Illuminate\Foundation\Bootstrap\HandleExceptions->handleError() in \vendor\laravel\framework\src\Illuminate\Fou║
+║ ndation\Bootstrap\HandleExceptions.php:228                                                                           ║
+║ ║ #01 Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}() in :0            ║
+║ ║ #02 strval() in \vendor\predis\predis\src\Connection\StreamConnection.php:393                                      ║
+║ ║ #03 Predis\Connection\StreamConnection->writeRequest() in \vendor\predis\predis\src\Connection\AbstractConnection.p║
+║ hp:122                                                                                                               ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  

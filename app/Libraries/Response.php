@@ -11,7 +11,7 @@ class Response
 {
     /**
      * 生成成功响应（业务逻辑正常时使用）
-     * @param array $data 响应携带的数据（默认空数组）
+     * @param array |string $data
      * @param string $message 提示信息（默认空字符串）
      * @param int $code 业务状态码（默认200，表示成功）
      * @param int $status HTTP状态码（默认200，表示请求成功）
@@ -19,7 +19,7 @@ class Response
      * @return JsonResponse 标准格式的JSON响应对象
      * @example Response::success(['user' => 'trae'], '获取用户成功')
      */
-    public static function success(array $data = [], string $message = '', int $code = 0 , int $status = 200 , array $headers = []): JsonResponse
+    public static function success( $data, string $message = '', int $code = 0 , int $status = 200 , array $headers = []): JsonResponse
     {
         if (empty($message))  $message = __('common.200000');
         if (empty($code))  $code = '200000';

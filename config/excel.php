@@ -5,15 +5,15 @@ return [
 
     'drivers' => [
         'phpspreadsheet' => [
-            'class' => \App\Services\Excel\Drivers\PhpSpreadsheetDriver::class,
+            'driver' => \App\Services\Excel\Drivers\PhpSpreadsheetDriver::class,
         ],
 
         'spout' => [
-            'class' => \App\Services\Excel\Drivers\SpoutDriver::class,
+            'driver' => \App\Services\Excel\Drivers\SpoutDriver::class,
         ],
 
         'vtiful' => [
-            'class' => \App\Services\Excel\Drivers\VtifulDriver::class,
+            'driver' => \App\Services\Excel\Drivers\VtifulDriver::class,
             'path' => storage_path('exports'), // Vtiful专用配置
         ],
     ],

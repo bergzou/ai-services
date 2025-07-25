@@ -36,13 +36,6 @@ class Predis
     }
 
     /**
-     * 私有反序列化方法（防止通过反序列化创建新实例）
-     */
-    private function __wakeup()
-    {
-    }
-
-    /**
      * 获取单例实例（全局唯一）
      * @return Predis 类实例
      */
@@ -60,12 +53,18 @@ class Predis
      * 设置字符串类型键值对（覆盖已存在的键）
      * @param string $key 键名
      * @param mixed $value 键值（支持字符串/数字等可序列化类型）
-     * @param int $expire 过期时间（秒，0表示不设置）
+     * @param array|int $options 选项数组或整数（整数表示过期时间，单位为秒，0表示不设置过期时间；数组则支持Redis选项，如['EX'=>60, 'NX']）
      * @return bool|string 成功返回"OK"，失败返回false
      */
-    public function set(string $key, $value, int $expire = 0)
+    public function set(string $key, $value, $options = [])
     {
-        return $this->redis->set($key, $value,$expire);
+        // 兼容旧的第三个参数（整数，表示过期时间）
+        if (is_int($options) && $options > 0) {
+            $options = ['EX' => $options];
+        } elseif (is_int($options) && $options === 0) {
+            $options = [];
+        }
+        return $this->redis->set($key, $value, $options);
     }
 
     /**
@@ -380,16 +379,11 @@ class Predis
      * 将一个或多个值插入到列表尾部
      * @param string $key 列表键名
      * @param mixed ...$values 要插入的值（支持多个参数）
-     * @param int $expire 过期时间（秒，0表示不设置）
      * @return int 插入后列表的长度
      */
-    public function rPush(string $key, $value, int $expire = 0): int
+    public function rPush(string $key, ...$values): int
     {
-        $result = $this->redis->rPush($key, ...func_get_args());
-        if ($expire > 0) {
-            $this->redis->expire($key, $expire);
-        }
-        return $result;
+        return $this->redis->rPush($key, ...$values);
     }
 
     /**
@@ -662,16 +656,22 @@ class Predis
      * 向有序集合添加/更新成员
      * @param string $key 有序集合键名
      * @param array $members 成员数组（格式：[score => value] 或 [value => score]）
+     * @param array $options 选项数组（如['NX', 'CH']）
      * @return int 实际新添加的成员数量
      */
-    public function zAdd(string $key, array $members): int
+    public function zAdd(string $key, array $members, array $options = []): int
     {
         $params = [];
         foreach ($members as $score => $value) {
             $params[] = $score;
             $params[] = $value;
         }
-        return $this->redis->zAdd($key, ...$params);
+        $commandArgs = [$key];
+        if (!empty($options)) {
+            $commandArgs[] = $options;
+        }
+        $commandArgs = array_merge($commandArgs, $params);
+        return $this->redis->zAdd(...$commandArgs);
     }
 
     /**
@@ -790,27 +790,26 @@ class Predis
      */
     public function lock(string $key, int $expire = 10, string $value = '1'): bool
     {
-        return $this->redis->set($key, $value, ['NX', 'EX' => $expire]);
+        try {
+            $res = $this->redis->setnx($key, $value);
+            if ($res) {
+                $this->redis->expire($key, $expire);
+            }
+            return $res;
+        }catch (\Throwable $e){
+            usleep(100);
+            try {
+                $res = $this->redis->setnx($key, $value);
+                if ($res) {
+                    $this->redis->expire($key, $expire);
+                }
+                return $res;
+            }catch (\Throwable $e){
+                return false;
+            }
+        }
     }
 
-    /**
-     * 释放分布式锁
-     * @param string $key 锁的键名
-     * @param string $value 锁的值（需与加锁时一致）
-     * @return bool 释放成功返回true，失败返回false
-     */
-    public function unlock(string $key, string $value): bool
-    {
-        $lua = <<<LUA
-        if redis.call("get", KEYS[1]) == ARGV[1] then
-            return redis.call("del", KEYS[1])
-        else
-            return 0
-        end
-        LUA;
-
-        return (bool)$this->redis->eval($lua, 1, $key, $value);
-    }
 
     // ======================== 其他功能 ======================== //
 
@@ -833,5 +832,15 @@ class Predis
     public function type(string $key): string
     {
         return $this->redis->type($key);
+    }
+
+    /**
+     * 使用pipeline批量执行Redis命令
+     * @param callable $callback 包含Redis命令的回调函数
+     * @return array 执行结果数组
+     */
+    public function pipeline(callable $callback): array
+    {
+        return $this->redis->pipeline($callback);
     }
 }

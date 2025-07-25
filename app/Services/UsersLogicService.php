@@ -30,8 +30,7 @@ class UsersLogicService extends BaseService
         $exists = $usersModel::query()->where('email', $params['email'])->where('uuid', '!=', $userInfo['uuid'])->exists();
         if ($exists) throw new BusinessException(__('errors.600003'),'600003');
 
-        $exists = $usersModel::query()->where('name', $params['name'])->where('uuid', '!=', $userInfo['uuid'])->exists();
-        if ($exists) throw new BusinessException(__('errors.600004'),'600004');
+
 
         return $userInfo;
     }

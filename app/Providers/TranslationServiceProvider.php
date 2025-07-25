@@ -17,10 +17,10 @@ class TranslationServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // 注册名为 'translator' 的单例服务（全局仅创建一次实例）
-        // 当其他类通过依赖注入或 app('translator') 获取时，返回 TranslatorManager 实例
+
         $this->app->singleton('translation', function ($app) {
-            return new TranslatorManager();
+            $driver = $parameters['driver'] ?? null;
+            return new TranslatorManager($driver);
         });
     }
 

@@ -45,6 +45,16 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\InternalMiddleware::class
         ],
 
+        'openapi' => [
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\OpenApiMiddleware::class
+        ],
+
+        'admin' => [
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\AdminMiddleware::class
+        ],
+
     ];
 
     /**

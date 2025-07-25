@@ -44,17 +44,15 @@ class Snowflake
     /**
      * 构造函数（初始化工作节点ID和Redis连接）
      * @param mixed $workerId 工作节点ID（需在0-31范围内）
+     * @throws Exception
      */
     public function __construct($workerId)
     {
+
         // 从Predis获取单例Redis实例（复用连接）
         $this->redis = Predis::getInstance();
-        // 校验工作节点ID有效性（超出范围可能导致ID冲突）
-        if ($workerId < 0 || $workerId > self::WORKER_MAX) {
-            throw new Exception("Worker ID must be between 0 and " . self::WORKER_MAX);
-        }
         $this->workerId = $workerId;
-        $this->duplicateAttempts = 0; // 初始化重复次数为0
+        $this->duplicateAttempts = 0;
     }
 
     /**
@@ -67,7 +65,6 @@ class Snowflake
         try {
             // 生成基础雪花ID（时间戳+工作节点ID+序列号）
             $id = $this->generateSnowflakeID();
-
             // 校验ID是否已存在（通过Redis检查）
             if ($this->isIDExists($id)) {
                 // 递归重新生成（可能因时钟回拨或序列号冲突导致重复）

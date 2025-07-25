@@ -21,13 +21,11 @@ class UsersPointsLogModel extends BaseModel
         'user_id' => 'string', # 用户ID
         'points_change' => 'integer', # 积分变动值
         'current_points' => 'integer', # 变动后积分
-        'source_type' => 'integer', # 来源类型
-        'source_id' => 'string', # 来源ID
+        'source_type' => 'integer', # 积分来源：10：充值会员
+        'source_id' => 'string', # 积分来源相关记录ID
         'description' => 'string', # 变动描述
         'created_by' => 'string', # 操作人名称
         'created_at' => 'datetime', # 操作时间
-        'updated_by' => 'string', # 更新人名称
-        'updated_at' => 'datetime', # 更新时间
     ];
 
 }

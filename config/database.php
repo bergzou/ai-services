@@ -88,20 +88,19 @@ return [
     */
 
     'redis' => [
-
         'client' => env('REDIS_CLIENT', 'predis'),
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX','xh_twms_' ),
-            'parameters' =>[
-                'password' => env('REDIS_PASSWORD'), //redis的密码
-                'database' => 0,  //初始选中的库
-            ]
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
         ],
-        'clusters' => [
-            //集群1  默认集群
-            'default' => json_decode(env('REDIS_CLUSTER_LIST'),true)
+
+        'default' => [
+            'url' => env('REDIS_URL'),
+            'host' => env('REDIS_HOST', '127.0.0.1'),
+            'password' => env('REDIS_PASSWORD', null),
+            'port' => env('REDIS_PORT', 6379),
+            'database' => env('REDIS_DB', 0),
         ],
     ],
 
