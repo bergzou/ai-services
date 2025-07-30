@@ -8,4 +8,5 @@ return [
 
     '500000' => 'Internal system error',
     '500001' => 'Third party system error',
+    '500002' => 'REQUIRED',
 ];

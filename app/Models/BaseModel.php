@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Scopes\NotDeletedScope;
+use App\Scopes\TenantScope;
 use App\Services\CommonService;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -120,6 +122,25 @@ class BaseModel extends Model
      * @var array 格式：['字段名' => ['search' => 查询类型, 'field' => 数据库字段, 'operator' => 操作符, 'value' => 值]]
      */
     protected array $conditions = [];
+
+
+
+    /**
+     * 模型启动时的初始化方法（Laravel模型生命周期方法）
+     * 在模型类初始化完成后自动调用，用于注册全局查询作用域
+     * 所有继承自BaseModel的模型（如SystemMenuModel）都会自动应用此作用域
+     * @see NotDeletedScope 未删除记录过滤作用域类
+     */
+    protected static function booted()
+    {
+        // 为模型添加全局作用域：自动过滤已删除的记录（实现软删除功能）
+        static::addGlobalScope(new NotDeletedScope());
+
+        // 为模型添加全局作用域：自动过滤租户数据
+        static::addGlobalScope(new TenantScope());
+    }
+
+
 
     /**
      * 将输入参数转换为查询条件数组（链式调用）

@@ -20,13 +20,13 @@ class CommonService extends BaseService
         // 处理对象类型：通过JSON序列化反序列化将对象转为关联数组
         if (is_object($data)) {
             $data = json_decode(json_encode($data), true);
-        }
-        // 处理数组类型：递归遍历每个元素进行转换，确保深层嵌套结构被处理
-        elseif (is_array($data)) {
+        } elseif (is_array($data)) {
             foreach ($data as &$item) {
                 // 递归调用自身处理数组中的每个元素
                 $item = self::convertToArray($item);
             }
+        }else{
+            $data = [];
         }
 
         return $data;

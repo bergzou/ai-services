@@ -18,6 +18,7 @@ class SystemSocialUserModel extends BaseModel
     # 属性类型转换（自动映射数据库类型到PHP类型）
     protected $casts = [
         'id' => 'integer', # 主键(自增策略)
+        'snowflake_id' => 'string', # 雪花Id
         'type' => 'boolean', # 社交平台的类型
         'openid' => 'string', # 社交 openid
         'token' => 'string', # 社交 token
@@ -27,11 +28,13 @@ class SystemSocialUserModel extends BaseModel
         'raw_user_info' => 'string', # 原始用户数据，一般是 JSON 格式
         'code' => 'string', # 最后一次的认证 code
         'state' => 'string', # 最后一次的认证 state
-        'creator' => 'string', # 创建者
-        'create_time' => 'time', # 创建时间
-        'updater' => 'string', # 更新者
-        'update_time' => 'time', # 更新时间
-        'deleted' => 'boolean', # 是否删除
+        'created_at' => 'datetime', # 创建时间
+        'created_by' => 'string', # 创建人名称
+        'updated_at' => 'datetime', # 更新时间
+        'updated_by' => 'string', # 更新人名称
+        'is_deleted' => 'boolean', # 是否删除
+        'deleted_at' => 'datetime', # 删除时间
+        'deleted_by' => 'string', # 删除人名称
         'tenant_id' => 'integer', # 租户编号
     ];
 

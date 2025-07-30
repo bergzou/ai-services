@@ -1,0 +1,517 @@
+[2025-07-30 09:26:55] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [Illuminate\Database\QueryException]     ℹ️ 2025-07-30 09:26:55.344 ℹ️ ID: 83e2de53-65b2-4994-968d-bfb98417ab50 ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/admin/system/menu/list                                                   ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 42S22                                                                                               ║
+║ Error Message  : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'permission' in 'field list' (SQL: select `id║
+║ `, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visib║
+║ le`, `keep_alive`, `always_show` from `system_tenant` order by `id` desc)                                            ║
+║ Location       : \vendor\laravel\framework\src\Illuminate\Database\Connection.php:712                                ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 Illuminate\Database\Connection->runQueryCallback() in \vendor\laravel\framework\src\Illuminate\Database\Connect║
+║ ion.php:672                                                                                                          ║
+║ ║ #01 Illuminate\Database\Connection->run() in \vendor\laravel\framework\src\Illuminate\Database\Connection.php:376  ║
+║ ║ #02 Illuminate\Database\Connection->select() in \vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php║
+║ :2484                                                                                                                ║
+║ ║ #03 Illuminate\Database\Query\Builder->runSelect() in \vendor\laravel\framework\src\Illuminate\Database\Query\Build║
+║ er.php:2472                                                                                                          ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-30 09:27:57] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [Illuminate\Database\QueryException]     ℹ️ 2025-07-30 09:27:57.976 ℹ️ ID: c5e347ea-393d-4044-86c4-1084f107676e ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/admin/system/menu/list                                                   ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 42S22                                                                                               ║
+║ Error Message  : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'permission' in 'field list' (SQL: select `id║
+║ `, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visib║
+║ le`, `keep_alive`, `always_show` from `system_tenant` order by `id` desc)                                            ║
+║ Location       : \vendor\laravel\framework\src\Illuminate\Database\Connection.php:712                                ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 Illuminate\Database\Connection->runQueryCallback() in \vendor\laravel\framework\src\Illuminate\Database\Connect║
+║ ion.php:672                                                                                                          ║
+║ ║ #01 Illuminate\Database\Connection->run() in \vendor\laravel\framework\src\Illuminate\Database\Connection.php:376  ║
+║ ║ #02 Illuminate\Database\Connection->select() in \vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php║
+║ :2484                                                                                                                ║
+║ ║ #03 Illuminate\Database\Query\Builder->runSelect() in \vendor\laravel\framework\src\Illuminate\Database\Query\Build║
+║ er.php:2472                                                                                                          ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-30 11:53:22] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [ErrorException]                         ℹ️ 2025-07-30 11:53:22.397 ℹ️ ID: f22e7773-afde-4ebc-877c-3f660e545854 ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/admin/system/menu/list                                                   ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : foreach() argument must be of type array|object, null given                                         ║
+║ Location       : \app\Services\Admin\SystemMenuService.php:41                                                        ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 Illuminate\Foundation\Bootstrap\HandleExceptions->handleError() in \vendor\laravel\framework\src\Illuminate\Fou║
+║ ndation\Bootstrap\HandleExceptions.php:228                                                                           ║
+║ ║ #01 Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}() in \app\Services\║
+║ Admin\SystemMenuService.php:41                                                                                       ║
+║ ║ #02 App\Services\Admin\SystemMenuService->getList() in \app\Http\Controllers\Admin\SystemMenuController.php:29     ║
+║ ║ #03 App\Http\Controllers\Admin\SystemMenuController->getList() in \vendor\laravel\framework\src\Illuminate\Routing\║
+║ Controller.php:54                                                                                                    ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-30 14:22:55] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [ErrorException]                         ℹ️ 2025-07-30 14:22:55.536 ℹ️ ID: 9b38060a-27f0-4048-8d24-c6d89f99e889 ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/admin/system/menu/list                                                   ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : []                                                                                                  ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : foreach() argument must be of type array|object, null given                                         ║
+║ Location       : \app\Services\Admin\SystemMenuService.php:35                                                        ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 Illuminate\Foundation\Bootstrap\HandleExceptions->handleError() in \vendor\laravel\framework\src\Illuminate\Fou║
+║ ndation\Bootstrap\HandleExceptions.php:228                                                                           ║
+║ ║ #01 Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}() in \app\Services\║
+║ Admin\SystemMenuService.php:35                                                                                       ║
+║ ║ #02 App\Services\Admin\SystemMenuService->getList() in \app\Http\Controllers\Admin\SystemMenuController.php:29     ║
+║ ║ #03 App\Http\Controllers\Admin\SystemMenuController->getList() in \vendor\laravel\framework\src\Illuminate\Routing\║
+║ Controller.php:54                                                                                                    ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-30 14:33:26] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [ParseError]                             ℹ️ 2025-07-30 14:33:26.925 ℹ️ ID: 42792bc0-c9fe-4812-9109-b168efaf523b ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/admin/system/menu/add                                                    ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : {"name":"111111","permission":"","type":"1","sort":"111","parent_id":"0","path":"\/","icon":"ep:avat║
+║ ar","component":"","component_name":"","status":"0","visible":"1","keep_alive":"1","always_show":"1"}                ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : syntax error, unexpected token "=", expecting "function" or "const"                                 ║
+║ Location       : \app\Services\BaseService.php:13                                                                    ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 Composer\Autoload\{closure}() in \vendor\composer\ClassLoader.php:427                                          ║
+║ ║ #01 Composer\Autoload\ClassLoader->loadClass() in \app\Services\Admin\SystemMenuService.php:16                     ║
+║ ║ #02 include() in \vendor\composer\ClassLoader.php:576                                                              ║
+║ ║ #03 Composer\Autoload\{closure}() in \vendor\composer\ClassLoader.php:427                                          ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-30 14:33:59] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [App\Exceptions\BusinessException]       ℹ️ 2025-07-30 14:33:59.229 ℹ️ ID: 99dbb7be-a431-4d9a-8f68-0b43f4dd5a0b ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/admin/system/menu/add                                                    ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : {"name":"111111","permission":"","type":"1","sort":"111","parent_id":"0","path":"\/","icon":"ep:avat║
+║ ar","component":"","component_name":"","status":"0","visible":"1","keep_alive":"1","always_show":"1"}                ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : App\Exceptions\BusinessException: rules function name error in D:\project\ai-services\app\Validates\║
+║ BaseValidated.php:76
+Stack trace:
+#0 D:\project\ai-services\app\Services\Admin\SystemMenuService.php(55): App\Validat║
+║ es\BaseValidated->isRunFail()
+#1 [internal function]: App\Services\Admin\SystemMenuService->add(Array)
+#2 D:\project\║
+║ ai-services\app\Helpers\AopProxy.php(55): call_user_func_array(Array, Array)
+#3 D:\project\ai-services\app\Http\Contr║
+║ ollers\Admin\SystemMenuController.php(46): class@anonymous->__call('add', Array)
+#4 D:\project\ai-services\vendor\lar║
+║ avel\framework\src\Illuminate\Routing\Controller.php(54): App\Http\Controllers\Admin\SystemMenuController->add(Object║
+║ (Illuminate\Http\Request))
+#5 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispat║
+║ cher.php(45): Illuminate\Routing\Controller->callAction('add', Array)
+#6 D:\project\ai-services\vendor\laravel\framew║
+║ ork\src\Illuminate\Routing\Route.php(261): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routin║
+║ g\Route), Object(App\Http\Controllers\Admin\SystemMenuController), 'add')
+#7 D:\project\ai-services\vendor\laravel\fr║
+║ amework\src\Illuminate\Routing\Route.php(204): Illuminate\Routing\Route->runController()
+#8 D:\project\ai-services\ve║
+║ ndor\laravel\framework\src\Illuminate\Routing\Router.php(721): Illuminate\Routing\Route->run()
+#9 D:\project\ai-servi║
+║ ces\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(128): Illuminate\Routing\Router->Illuminate\Routing║
+║ \{closure}(Object(Illuminate\Http\Request))
+#10 D:\project\ai-services\app\Http\Middleware\AdminMiddleware.php(38): I║
+║ lluminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#11 D:\project\ai-service║
+║ s\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(167): App\Http\Middleware\AdminMiddleware->handle(Obj║
+║ ect(Illuminate\Http\Request), Object(Closure))
+#12 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Rou║
+║ ting\Middleware\SubstituteBindings.php(50): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illumi║
+║ nate\Http\Request))
+#13 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(167): Il║
+║ luminate\Routing\Middleware\SubstituteBindings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#14 D:\proje║
+║ ct\ai-services\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(103): Illuminate\Pipeline\Pipeline->Illu║
+║ minate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#15 D:\project\ai-services\vendor\laravel\framework\src\Il║
+║ luminate\Routing\Router.php(723): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#16 D:\project\ai-services\vend║
+║ or\laravel\framework\src\Illuminate\Routing\Router.php(698): Illuminate\Routing\Router->runRouteWithinStack(Object(Il║
+║ luminate\Routing\Route), Object(Illuminate\Http\Request))
+#17 D:\project\ai-services\vendor\laravel\framework\src\Ill║
+║ uminate\Routing\Router.php(662): Illuminate\Routing\Router->runRoute(Object(Illuminate\Http\Request), Object(Illumina║
+║ te\Routing\Route))
+#18 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Routing\Router.php(651): Illumi║
+║ nate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#19 D:\project\ai-services\vendor\laravel\frame║
+║ work\src\Illuminate\Foundation\Http\Kernel.php(167): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Reque║
+║ st))
+#20 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(128): Illuminate\Founda║
+║ tion\Http\Kernel->Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#21 D:\project\ai-services\ve║
+║ ndor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipel║
+║ ine->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#22 D:\project\ai-services\vendor\laravel\framewo║
+║ rk\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware║
+║ \TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#23 D:\project\ai-services\vendor\larave║
+║ l\framework\src\Illuminate\Pipeline\Pipeline.php(167): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNul║
+║ l->handle(Object(Illuminate\Http\Request), Object(Closure))
+#24 D:\project\ai-services\vendor\laravel\framework\src\I║
+║ lluminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{cl║
+║ osure}(Object(Illuminate\Http\Request))
+#25 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Foundation║
+║ \Http\Middleware\TrimStrings.php(40): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illumina║
+║ te\Http\Request), Object(Closure))
+#26 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeli║
+║ ne.php(167): Illuminate\Foundation\Http\Middleware\TrimStrings->handle(Object(Illuminate\Http\Request), Object(Closur║
+║ e))
+#27 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ValidatePostSize.ph║
+║ p(27): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#28 D:\project\ai║
+║ -services\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(167): Illuminate\Foundation\Http\Middleware\V║
+║ alidatePostSize->handle(Object(Illuminate\Http\Request), Object(Closure))
+#29 D:\project\ai-services\vendor\laravel\f║
+║ ramework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(86): Illuminate\Pipeline\Pipe║
+║ line->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#30 D:\project\ai-services\vendor\laravel\framew║
+║ ork\src\Illuminate\Pipeline\Pipeline.php(167): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance║
+║ ->handle(Object(Illuminate\Http\Request), Object(Closure))
+#31 D:\project\ai-services\vendor\laravel\framework\src\Il║
+║ luminate\Http\Middleware\TrustProxies.php(39): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Ill║
+║ uminate\Http\Request))
+#32 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(167):║
+║  Illuminate\Http\Middleware\TrustProxies->handle(Object(Illuminate\Http\Request), Object(Closure))
+#33 D:\project\ai-║
+║ services\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(103): Illuminate\Pipeline\Pipeline->Illuminate║
+║ \Pipeline\{closure}(Object(Illuminate\Http\Request))
+#34 D:\project\ai-services\vendor\laravel\framework\src\Illumina║
+║ te\Foundation\Http\Kernel.php(142): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#35 D:\project\ai-services\ve║
+║ ndor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(111): Illuminate\Foundation\Http\Kernel->sendRequest║
+║ ThroughRouter(Object(Illuminate\Http\Request))
+#36 D:\project\ai-services\public\index.php(52): Illuminate\Foundation║
+║ \Http\Kernel->handle(Object(Illuminate\Http\Request))
+#37 {main}                                                     ║
+║ Location       : \app\Services\Admin\SystemMenuService.php:90                                                        ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Services\Admin\SystemMenuService->add() in :0                                                              ║
+║ ║ #01 class@anonymous D:\project\ai-services\app\Helpers\AopProxy.php:25$155b->__call() in \app\Http\Controllers\Admi║
+║ n\SystemMenuController.php:46                                                                                        ║
+║ ║ #02 App\Http\Controllers\Admin\SystemMenuController->add() in \vendor\laravel\framework\src\Illuminate\Routing\Cont║
+║ roller.php:54                                                                                                        ║
+║ ║ #03 Illuminate\Routing\Controller->callAction() in \vendor\laravel\framework\src\Illuminate\Routing\ControllerDispa║
+║ tcher.php:45                                                                                                         ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-30 15:20:59] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [TypeError]                              ℹ️ 2025-07-30 15:20:59.837 ℹ️ ID: 2546bb24-4fc4-4e59-9805-e698777db22c ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/admin/system/menu/add                                                    ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : {"name":"111111","permission":"","type":"1","sort":"111","parent_id":"0","path":"\/","icon":"ep:avat║
+║ ar","component":"","component_name":"","status":"0","visible":"1","keep_alive":"1","always_show":"1"}                ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : App\Models\BaseModel::getSingleRecord(): Return value must be of type array, null returned          ║
+║ Location       : \app\Models\BaseModel.php:218                                                                       ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Models\BaseModel->getSingleRecord() in \app\Services\Admin\SystemMenuService.php:72                        ║
+║ ║ #01 App\Services\Admin\SystemMenuService->add() in :0                                                              ║
+║ ║ #02 class@anonymous D:\project\ai-services\app\Helpers\AopProxy.php:25$1725->__call() in \app\Http\Controllers\Admi║
+║ n\SystemMenuController.php:46                                                                                        ║
+║ ║ #03 App\Http\Controllers\Admin\SystemMenuController->add() in \vendor\laravel\framework\src\Illuminate\Routing\Cont║
+║ roller.php:54                                                                                                        ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-30 15:24:52] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [App\Exceptions\BusinessException]       ℹ️ 2025-07-30 15:24:52.803 ℹ️ ID: fbbbd97c-8cc4-4eca-9542-36563a5f2e4e ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/admin/system/menu/add                                                    ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : {"name":"111111","permission":"","type":"1","sort":"111","parent_id":"0","path":"\/","icon":"ep:avat║
+║ ar","component":"","component_name":"","status":"0","visible":"1","keep_alive":"1","always_show":"1"}                ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : App\Exceptions\BusinessException: 父菜单不存在 in D:\project\ai-services\app\Services\Admin\SystemMenuServ║
+║ ice.php:73
+Stack trace:
+#0 [internal function]: App\Services\Admin\SystemMenuService->add(Array)
+#1 D:\project\ai-ser║
+║ vices\app\Helpers\AopProxy.php(55): call_user_func_array(Array, Array)
+#2 D:\project\ai-services\app\Http\Controllers║
+║ \Admin\SystemMenuController.php(46): class@anonymous->__call('add', Array)
+#3 D:\project\ai-services\vendor\laravel\f║
+║ ramework\src\Illuminate\Routing\Controller.php(54): App\Http\Controllers\Admin\SystemMenuController->add(Object(Illum║
+║ inate\Http\Request))
+#4 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.p║
+║ hp(45): Illuminate\Routing\Controller->callAction('add', Array)
+#5 D:\project\ai-services\vendor\laravel\framework\sr║
+║ c\Illuminate\Routing\Route.php(261): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Rout║
+║ e), Object(App\Http\Controllers\Admin\SystemMenuController), 'add')
+#6 D:\project\ai-services\vendor\laravel\framewor║
+║ k\src\Illuminate\Routing\Route.php(204): Illuminate\Routing\Route->runController()
+#7 D:\project\ai-services\vendor\l║
+║ aravel\framework\src\Illuminate\Routing\Router.php(721): Illuminate\Routing\Route->run()
+#8 D:\project\ai-services\ve║
+║ ndor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(128): Illuminate\Routing\Router->Illuminate\Routing\{clos║
+║ ure}(Object(Illuminate\Http\Request))
+#9 D:\project\ai-services\app\Http\Middleware\AdminMiddleware.php(38): Illumina║
+║ te\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#10 D:\project\ai-services\vendo║
+║ r\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(167): App\Http\Middleware\AdminMiddleware->handle(Object(Ill║
+║ uminate\Http\Request), Object(Closure))
+#11 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Routing\Mi║
+║ ddleware\SubstituteBindings.php(50): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Ht║
+║ tp\Request))
+#12 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(167): Illuminat║
+║ e\Routing\Middleware\SubstituteBindings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#13 D:\project\ai-s║
+║ ervices\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(103): Illuminate\Pipeline\Pipeline->Illuminate\║
+║ Pipeline\{closure}(Object(Illuminate\Http\Request))
+#14 D:\project\ai-services\vendor\laravel\framework\src\Illuminat║
+║ e\Routing\Router.php(723): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#15 D:\project\ai-services\vendor\lara║
+║ vel\framework\src\Illuminate\Routing\Router.php(698): Illuminate\Routing\Router->runRouteWithinStack(Object(Illuminat║
+║ e\Routing\Route), Object(Illuminate\Http\Request))
+#16 D:\project\ai-services\vendor\laravel\framework\src\Illuminate║
+║ \Routing\Router.php(662): Illuminate\Routing\Router->runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Rout║
+║ ing\Route))
+#17 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Routing\Router.php(651): Illuminate\Ro║
+║ uting\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#18 D:\project\ai-services\vendor\laravel\framework\sr║
+║ c\Illuminate\Foundation\Http\Kernel.php(167): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#1║
+║ 9 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(128): Illuminate\Foundation\Ht║
+║ tp\Kernel->Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#20 D:\project\ai-services\vendor\la║
+║ ravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Il║
+║ luminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#21 D:\project\ai-services\vendor\laravel\framework\src\║
+║ Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\Transf║
+║ ormsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#22 D:\project\ai-services\vendor\laravel\frame║
+║ work\src\Illuminate\Pipeline\Pipeline.php(167): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->hand║
+║ le(Object(Illuminate\Http\Request), Object(Closure))
+#23 D:\project\ai-services\vendor\laravel\framework\src\Illumina║
+║ te\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(║
+║ Object(Illuminate\Http\Request))
+#24 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Foundation\Http\M║
+║ iddleware\TrimStrings.php(40): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http║
+║ \Request), Object(Closure))
+#25 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(║
+║ 167): Illuminate\Foundation\Http\Middleware\TrimStrings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#26║
+║  D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ValidatePostSize.php(27): ║
+║ Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#27 D:\project\ai-servic║
+║ es\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(167): Illuminate\Foundation\Http\Middleware\Validate║
+║ PostSize->handle(Object(Illuminate\Http\Request), Object(Closure))
+#28 D:\project\ai-services\vendor\laravel\framewor║
+║ k\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(86): Illuminate\Pipeline\Pipeline->I║
+║ lluminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#29 D:\project\ai-services\vendor\laravel\framework\src║
+║ \Illuminate\Pipeline\Pipeline.php(167): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handl║
+║ e(Object(Illuminate\Http\Request), Object(Closure))
+#30 D:\project\ai-services\vendor\laravel\framework\src\Illuminat║
+║ e\Http\Middleware\TrustProxies.php(39): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate║
+║ \Http\Request))
+#31 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(167): Illumi║
+║ nate\Http\Middleware\TrustProxies->handle(Object(Illuminate\Http\Request), Object(Closure))
+#32 D:\project\ai-service║
+║ s\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(103): Illuminate\Pipeline\Pipeline->Illuminate\Pipeli║
+║ ne\{closure}(Object(Illuminate\Http\Request))
+#33 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Foun║
+║ dation\Http\Kernel.php(142): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#34 D:\project\ai-services\vendor\la║
+║ ravel\framework\src\Illuminate\Foundation\Http\Kernel.php(111): Illuminate\Foundation\Http\Kernel->sendRequestThrough║
+║ Router(Object(Illuminate\Http\Request))
+#35 D:\project\ai-services\public\index.php(52): Illuminate\Foundation\Http\K║
+║ ernel->handle(Object(Illuminate\Http\Request))
+#36 {main}                                                            ║
+║ Location       : \app\Services\Admin\SystemMenuService.php:116                                                       ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Services\Admin\SystemMenuService->add() in :0                                                              ║
+║ ║ #01 class@anonymous D:\project\ai-services\app\Helpers\AopProxy.php:25$182c->__call() in \app\Http\Controllers\Admi║
+║ n\SystemMenuController.php:46                                                                                        ║
+║ ║ #02 App\Http\Controllers\Admin\SystemMenuController->add() in \vendor\laravel\framework\src\Illuminate\Routing\Cont║
+║ roller.php:54                                                                                                        ║
+║ ║ #03 Illuminate\Routing\Controller->callAction() in \vendor\laravel\framework\src\Illuminate\Routing\ControllerDispa║
+║ tcher.php:45                                                                                                         ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  
+[2025-07-30 15:33:10] local.ERROR: ╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬
+║ EXCEPTION LOG ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+║ ⛔ [App\Exceptions\BusinessException]       ℹ️ 2025-07-30 15:33:10.855 ℹ️ ID: 6a1ddff1-fa62-4e25-80a3-7ec610419850 ║
+║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ℹ️ REQUEST INFO ════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Request URL    : POST http://localhost:8918/admin/system/menu/add                                                    ║
+║ Client IP      : 127.0.0.1                                                                                           ║
+║ User Agent     : Apifox/1.0.0 (https://apifox.com)                                                                   ║
+║ Request Params : {"name":"111111","permission":"","type":"1","sort":"111","parent_id":"0","path":"\/","icon":"ep:avat║
+║ ar","component":"","component_name":"","status":"0","visible":"1","keep_alive":"1","always_show":"1"}                ║
+║ ⛔ EXCEPTION INFO ══════════════════════════════════════════════════════════════════════════════════════════════════║
+║ Exception Code : 0                                                                                                   ║
+║ Error Message  : App\Exceptions\BusinessException: 父菜单不存在 in D:\project\ai-services\app\Services\Admin\SystemMenuServ║
+║ ice.php:73
+Stack trace:
+#0 [internal function]: App\Services\Admin\SystemMenuService->add(Array)
+#1 D:\project\ai-ser║
+║ vices\app\Helpers\AopProxy.php(55): call_user_func_array(Array, Array)
+#2 D:\project\ai-services\app\Http\Controllers║
+║ \Admin\SystemMenuController.php(46): class@anonymous->__call('add', Array)
+#3 D:\project\ai-services\vendor\laravel\f║
+║ ramework\src\Illuminate\Routing\Controller.php(54): App\Http\Controllers\Admin\SystemMenuController->add(Object(Illum║
+║ inate\Http\Request))
+#4 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.p║
+║ hp(45): Illuminate\Routing\Controller->callAction('add', Array)
+#5 D:\project\ai-services\vendor\laravel\framework\sr║
+║ c\Illuminate\Routing\Route.php(261): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Rout║
+║ e), Object(App\Http\Controllers\Admin\SystemMenuController), 'add')
+#6 D:\project\ai-services\vendor\laravel\framewor║
+║ k\src\Illuminate\Routing\Route.php(204): Illuminate\Routing\Route->runController()
+#7 D:\project\ai-services\vendor\l║
+║ aravel\framework\src\Illuminate\Routing\Router.php(721): Illuminate\Routing\Route->run()
+#8 D:\project\ai-services\ve║
+║ ndor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(128): Illuminate\Routing\Router->Illuminate\Routing\{clos║
+║ ure}(Object(Illuminate\Http\Request))
+#9 D:\project\ai-services\app\Http\Middleware\AdminMiddleware.php(38): Illumina║
+║ te\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#10 D:\project\ai-services\vendo║
+║ r\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(167): App\Http\Middleware\AdminMiddleware->handle(Object(Ill║
+║ uminate\Http\Request), Object(Closure))
+#11 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Routing\Mi║
+║ ddleware\SubstituteBindings.php(50): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Ht║
+║ tp\Request))
+#12 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(167): Illuminat║
+║ e\Routing\Middleware\SubstituteBindings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#13 D:\project\ai-s║
+║ ervices\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(103): Illuminate\Pipeline\Pipeline->Illuminate\║
+║ Pipeline\{closure}(Object(Illuminate\Http\Request))
+#14 D:\project\ai-services\vendor\laravel\framework\src\Illuminat║
+║ e\Routing\Router.php(723): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#15 D:\project\ai-services\vendor\lara║
+║ vel\framework\src\Illuminate\Routing\Router.php(698): Illuminate\Routing\Router->runRouteWithinStack(Object(Illuminat║
+║ e\Routing\Route), Object(Illuminate\Http\Request))
+#16 D:\project\ai-services\vendor\laravel\framework\src\Illuminate║
+║ \Routing\Router.php(662): Illuminate\Routing\Router->runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Rout║
+║ ing\Route))
+#17 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Routing\Router.php(651): Illuminate\Ro║
+║ uting\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#18 D:\project\ai-services\vendor\laravel\framework\sr║
+║ c\Illuminate\Foundation\Http\Kernel.php(167): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#1║
+║ 9 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(128): Illuminate\Foundation\Ht║
+║ tp\Kernel->Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#20 D:\project\ai-services\vendor\la║
+║ ravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Il║
+║ luminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#21 D:\project\ai-services\vendor\laravel\framework\src\║
+║ Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\Transf║
+║ ormsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#22 D:\project\ai-services\vendor\laravel\frame║
+║ work\src\Illuminate\Pipeline\Pipeline.php(167): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->hand║
+║ le(Object(Illuminate\Http\Request), Object(Closure))
+#23 D:\project\ai-services\vendor\laravel\framework\src\Illumina║
+║ te\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(║
+║ Object(Illuminate\Http\Request))
+#24 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Foundation\Http\M║
+║ iddleware\TrimStrings.php(40): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http║
+║ \Request), Object(Closure))
+#25 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(║
+║ 167): Illuminate\Foundation\Http\Middleware\TrimStrings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#26║
+║  D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ValidatePostSize.php(27): ║
+║ Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#27 D:\project\ai-servic║
+║ es\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(167): Illuminate\Foundation\Http\Middleware\Validate║
+║ PostSize->handle(Object(Illuminate\Http\Request), Object(Closure))
+#28 D:\project\ai-services\vendor\laravel\framewor║
+║ k\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(86): Illuminate\Pipeline\Pipeline->I║
+║ lluminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#29 D:\project\ai-services\vendor\laravel\framework\src║
+║ \Illuminate\Pipeline\Pipeline.php(167): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handl║
+║ e(Object(Illuminate\Http\Request), Object(Closure))
+#30 D:\project\ai-services\vendor\laravel\framework\src\Illuminat║
+║ e\Http\Middleware\TrustProxies.php(39): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate║
+║ \Http\Request))
+#31 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(167): Illumi║
+║ nate\Http\Middleware\TrustProxies->handle(Object(Illuminate\Http\Request), Object(Closure))
+#32 D:\project\ai-service║
+║ s\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(103): Illuminate\Pipeline\Pipeline->Illuminate\Pipeli║
+║ ne\{closure}(Object(Illuminate\Http\Request))
+#33 D:\project\ai-services\vendor\laravel\framework\src\Illuminate\Foun║
+║ dation\Http\Kernel.php(142): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#34 D:\project\ai-services\vendor\la║
+║ ravel\framework\src\Illuminate\Foundation\Http\Kernel.php(111): Illuminate\Foundation\Http\Kernel->sendRequestThrough║
+║ Router(Object(Illuminate\Http\Request))
+#35 D:\project\ai-services\public\index.php(52): Illuminate\Foundation\Http\K║
+║ ernel->handle(Object(Illuminate\Http\Request))
+#36 {main}                                                            ║
+║ Location       : \app\Services\Admin\SystemMenuService.php:116                                                       ║
+║ Environment    : local                                                                                               ║
+║ STACK TRACE ═════════════════════════════════════════════════════════════════════════════════════════════════════════║
+║ ║ #00 App\Services\Admin\SystemMenuService->add() in :0                                                              ║
+║ ║ #01 class@anonymous D:\project\ai-services\app\Helpers\AopProxy.php:25$1933->__call() in \app\Http\Controllers\Admi║
+║ n\SystemMenuController.php:46                                                                                        ║
+║ ║ #02 App\Http\Controllers\Admin\SystemMenuController->add() in \vendor\laravel\framework\src\Illuminate\Routing\Cont║
+║ roller.php:54                                                                                                        ║
+║ ║ #03 Illuminate\Routing\Controller->callAction() in \vendor\laravel\framework\src\Illuminate\Routing\ControllerDispa║
+║ tcher.php:45                                                                                                         ║
+║
+║ END OF LOG ══════════════════════════════════════════════════════════════════════════════════════════════════════════║
+╬════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬  

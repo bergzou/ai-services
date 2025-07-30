@@ -10,11 +10,9 @@ namespace App\Services;
  */
 class BaseService
 {
-
-    public array $userInfo = [
-        'user_id' => 1,
-        'user_name' => 'admin',
+    protected $userInfo = [
+      'user_id' => 'System',
+      'user_name' => 'System',
     ];
-
 
 }

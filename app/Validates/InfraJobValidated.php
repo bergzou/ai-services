@@ -1,0 +1,60 @@
+<?php
+
+namespace App\Validates;
+
+use App\Interfaces\ValidatesInterface;
+use App\Validates\BaseValidated;
+
+class InfraJobValidated extends BaseValidated implements ValidatesInterface
+{
+    /**
+     * 定义验证规则数组
+     * @return array 键为字段名，值为验证规则字符串（如'required|max:64'）
+     */
+    public function rules(): array
+    {
+        return [
+            'snowflake_id' => 'required|string|max:64', # 雪花Id
+            'name' => 'required|string|max:32', # 任务名称
+            'status' => 'required|boolean', # 任务状态
+            'handler_name' => 'required|string|max:64', # 处理器的名字
+            'handler_param' => 'nullable|string|max:255', # 处理器的参数
+            'cron_expression' => 'required|string|max:32', # CRON 表达式
+            'retry_count' => 'nullable|integer', # 重试次数
+            'retry_interval' => 'nullable|integer', # 重试间隔
+            'monitor_timeout' => 'nullable|integer', # 监控超时时间
+            'created_by' => 'required|string|max:255', # 创建人名称
+            'updated_by' => 'required|string|max:255', # 更新人名称
+        ];
+    }
+
+    /**
+     * 定义验证错误消息数组
+     * @return array 键为'字段名.规则名'（如 'name.required'），值为自定义错误提示信息
+     */
+    public function messages(): array
+    {
+        return [];
+    }
+
+    /**
+     * 定义字段自定义别名数组（用于错误消息中显示友好名称）
+     * @return array 键为字段名，值为业务友好的字段显示名称（如 'name' => '用户姓名'）
+     * */
+    public function customAttributes(): array
+    {
+        return [
+            'snowflake_id' => __('validated.300277'), # 雪花Id
+            'name' => __('validated.300088'), # 任务名称
+            'status' => __('validated.300089'), # 任务状态
+            'handler_name' => __('validated.300090'), # 处理器的名字
+            'handler_param' => __('validated.300091'), # 处理器的参数
+            'cron_expression' => __('validated.300092'), # CRON 表达式
+            'retry_count' => __('validated.300093'), # 重试次数
+            'retry_interval' => __('validated.300094'), # 重试间隔
+            'monitor_timeout' => __('validated.300095'), # 监控超时时间
+            'created_by' => __('validated.300019'), # 创建人名称
+            'updated_by' => __('validated.300020'), # 更新人名称
+        ];
+    }
+}

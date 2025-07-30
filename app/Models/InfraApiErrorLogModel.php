@@ -18,9 +18,10 @@ class InfraApiErrorLogModel extends BaseModel
     # 属性类型转换（自动映射数据库类型到PHP类型）
     protected $casts = [
         'id' => 'integer', # 编号
+        'snowflake_id' => 'string', # 雪花Id
         'trace_id' => 'string', # 链路追踪编号
         'user_id' => 'integer', # 用户编号
-        'user_type' => 'boolean', # 用户类型
+        'user_type' => 'boolean', # 用户类型：10=会员， 20=管理员
         'application_name' => 'string', # 应用名
         'request_method' => 'string', # 请求方法名
         'request_url' => 'string', # 请求地址
@@ -36,15 +37,17 @@ class InfraApiErrorLogModel extends BaseModel
         'exception_file_name' => 'string', # 异常发生的类文件
         'exception_method_name' => 'string', # 异常发生的方法名
         'exception_line_number' => 'integer', # 异常发生的方法所在行
-        'process_status' => 'boolean', # 处理状态
+        'process_status' => 'boolean', # 处理状态：10：未处理，10：已处理，10：已忽略
         'process_time' => 'time', # 处理时间
         'process_user_id' => 'integer', # 处理用户编号
-        'creator' => 'string', # 创建者
-        'create_time' => 'time', # 创建时间
-        'updater' => 'string', # 更新者
-        'update_time' => 'time', # 更新时间
-        'deleted' => 'boolean', # 是否删除
         'tenant_id' => 'integer', # 租户编号
+        'created_at' => 'datetime', # 创建时间
+        'created_by' => 'string', # 创建人名称
+        'updated_at' => 'datetime', # 更新时间
+        'updated_by' => 'string', # 更新人名称
+        'is_deleted' => 'boolean', # 是否删除
+        'deleted_at' => 'datetime', # 删除时间
+        'deleted_by' => 'string', # 删除人名称
     ];
 
 }

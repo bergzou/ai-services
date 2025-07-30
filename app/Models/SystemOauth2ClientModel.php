@@ -18,6 +18,7 @@ class SystemOauth2ClientModel extends BaseModel
     # 属性类型转换（自动映射数据库类型到PHP类型）
     protected $casts = [
         'id' => 'integer', # 编号
+        'snowflake_id' => 'string', # 雪花Id
         'client_id' => 'string', # 客户端编号
         'secret' => 'string', # 客户端密钥
         'name' => 'string', # 应用名
@@ -33,11 +34,13 @@ class SystemOauth2ClientModel extends BaseModel
         'authorities' => 'string', # 权限
         'resource_ids' => 'string', # 资源
         'additional_information' => 'string', # 附加信息
-        'creator' => 'string', # 创建者
-        'create_time' => 'time', # 创建时间
-        'updater' => 'string', # 更新者
-        'update_time' => 'time', # 更新时间
-        'deleted' => 'boolean', # 是否删除
+        'created_at' => 'datetime', # 创建时间
+        'created_by' => 'string', # 创建人名称
+        'updated_at' => 'datetime', # 更新时间
+        'updated_by' => 'string', # 更新人名称
+        'is_deleted' => 'boolean', # 是否删除
+        'deleted_at' => 'datetime', # 删除时间
+        'deleted_by' => 'string', # 删除人名称
     ];
 
 }

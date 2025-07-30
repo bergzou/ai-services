@@ -18,6 +18,7 @@ class InfraConfigModel extends BaseModel
     # 属性类型转换（自动映射数据库类型到PHP类型）
     protected $casts = [
         'id' => 'integer', # 参数主键
+        'snowflake_id' => 'string', # 雪花Id
         'category' => 'string', # 参数分组
         'type' => 'boolean', # 参数类型
         'name' => 'string', # 参数名称
@@ -25,11 +26,13 @@ class InfraConfigModel extends BaseModel
         'value' => 'string', # 参数键值
         'visible' => 'boolean', # 是否可见
         'remark' => 'string', # 备注
-        'creator' => 'string', # 创建者
-        'create_time' => 'time', # 创建时间
-        'updater' => 'string', # 更新者
-        'update_time' => 'time', # 更新时间
-        'deleted' => 'boolean', # 是否删除
+        'created_at' => 'datetime', # 创建时间
+        'created_by' => 'string', # 创建人名称
+        'updated_at' => 'datetime', # 更新时间
+        'updated_by' => 'string', # 更新人名称
+        'is_deleted' => 'boolean', # 是否删除
+        'deleted_at' => 'datetime', # 删除时间
+        'deleted_by' => 'string', # 删除人名称
     ];
 
 }

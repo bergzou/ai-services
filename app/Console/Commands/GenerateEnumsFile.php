@@ -314,9 +314,10 @@ class GenerateEnumsFile extends Command
         // 尝试解析标准格式
         if (preg_match_all('/(\d+)\s*[=:：]\s*([^,\s]+)/u', $valuePart, $matches, PREG_SET_ORDER)) {
             foreach ($matches as $match) {
+                $description = str_replace(['，', ','], '', trim($match[2]));
                 $result['items'][] = [
                     'value' => $match[1],
-                    'description' => trim($match[2])
+                    'description' => $description
                 ];
             }
             return $result;
@@ -327,9 +328,10 @@ class GenerateEnumsFile extends Command
         foreach ($lines as $line) {
             $line = trim($line);
             if (preg_match('/^(\d+)\s*[=:：]\s*(.+)$/u', $line, $match)) {
+                $description = str_replace(['，', ','], '', trim($match[2]));
                 $result['items'][] = [
                     'value' => $match[1],
-                    'description' => trim($match[2])
+                    'description' => $description
                 ];
             }
         }

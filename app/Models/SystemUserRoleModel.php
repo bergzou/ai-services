@@ -18,14 +18,18 @@ class SystemUserRoleModel extends BaseModel
     # 属性类型转换（自动映射数据库类型到PHP类型）
     protected $casts = [
         'id' => 'integer', # 自增编号
+        'snowflake_id' => 'string', # 雪花Id
         'user_id' => 'integer', # 用户ID
         'role_id' => 'integer', # 角色ID
-        'creator' => 'string', # 创建者
+        'created_at' => 'datetime', # 创建时间
         'create_time' => 'time', # 创建时间
-        'updater' => 'string', # 更新者
+        'updated_at' => 'datetime', # 更新时间
         'update_time' => 'time', # 更新时间
         'deleted' => 'boolean', # 是否删除
         'tenant_id' => 'integer', # 租户编号
+        'is_deleted' => 'boolean', # 是否删除
+        'deleted_at' => 'datetime', # 删除时间
+        'deleted_by' => 'string', # 删除人名称
     ];
 
 }
