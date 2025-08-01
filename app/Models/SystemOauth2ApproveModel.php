@@ -12,11 +12,14 @@ class SystemOauth2ApproveModel extends BaseModel
     # 对应的数据库表名
     protected $table = 'system_oauth2_approve';
 
-    # 黑名单，指定不允许批量赋值的字段（空数组表示所有字段都可赋值）
-    protected $guarded = ['id'];
+    # 黑名单，指定不允许批量赋值的字段（如主键和敏感字段）
+    public $guarded = ['id','snowflake_id'];
+
+    # 白名单，指定可以被批量赋值的字段（注意：如果同时定义了$fillable和$guarded，则只有$fillable生效）
+    public $fillable = ['user_id','user_type','client_id','scope','approved','expires_time','tenant_id','created_at','created_by','updated_at','updated_by','is_deleted','deleted_at','deleted_by'];
 
     # 属性类型转换（自动映射数据库类型到PHP类型）
-    protected $casts = [
+    public $casts = [
         'id' => 'integer', # 编号
         'snowflake_id' => 'string', # 雪花Id
         'user_id' => 'integer', # 用户编号

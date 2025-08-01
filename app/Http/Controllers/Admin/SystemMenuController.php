@@ -69,6 +69,7 @@ class SystemMenuController extends BaseController implements ControllerInterface
      * 删除数据
      * @param Request $request 请求参数（包含数据标识）
      * @return JsonResponse 操作结果（JSON 格式）
+     * @throws BusinessException
      */
     public function delete(Request $request): JsonResponse
     {
@@ -85,6 +86,7 @@ class SystemMenuController extends BaseController implements ControllerInterface
      * 获取单条数据详情
      * @param Request $request 请求参数（包含数据标识）
      * @return JsonResponse 详情数据（JSON 格式）
+     * @throws BusinessException
      */
     public function getDetail(Request $request): JsonResponse
     {

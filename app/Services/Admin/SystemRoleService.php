@@ -14,7 +14,7 @@ use App\Validates\SystemMenuValidated;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
-class SystemMenuService extends BaseService
+class SystemRoleService extends BaseService
 {
 
     /**
@@ -301,7 +301,7 @@ class SystemMenuService extends BaseService
             DB::beginTransaction();
 
             // 参数验证（使用SystemMenuValidated验证器，场景为"delete"）
-            $validated = new SystemMenuValidated($params, 'detail');
+            $validated = new SystemMenuValidated($params, 'delete');
             $messages = $validated->isRunFail();
             if (!empty($messages)){
                 throw new BusinessException($messages, '400000'); // 参数验证失败异常

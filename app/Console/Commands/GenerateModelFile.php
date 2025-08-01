@@ -193,6 +193,7 @@ class GenerateModelFile extends Command
     ): string {
         $guarded = $this->determineGuarded($columns);  // 确定批量赋值黑名单字段
         $casts = $this->generateCasts($columns);       // 生成类型转换配置
+        $fillable = $this->generateFillable($columns, $guarded); // 生成白名单字段
 
         // 构建模型内容模板
         $content = "<?php\n\n";
@@ -211,13 +212,16 @@ class GenerateModelFile extends Command
             $content .= "    protected \$connection = '{$connection}';\n\n";
         }
 
-        $content .= "    # 黑名单，指定不允许批量赋值的字段（空数组表示所有字段都可赋值）\n";
-        $content .= "    protected \$guarded = [{$guarded}];\n\n";
+        $content .= "    # 黑名单，指定不允许批量赋值的字段（如主键和敏感字段）\n";
+        $content .= "    public \$guarded = [{$guarded}];\n\n";
+
+        $content .= "    # 白名单，指定可以被批量赋值的字段（注意：如果同时定义了\$fillable和\$guarded，则只有\$fillable生效）\n";
+        $content .= "    public \$fillable = [{$fillable}];\n\n";
 
         // 生成类型转换配置（如果有需要转换的字段）
         if (!empty($casts)) {
             $content .= "    # 属性类型转换（自动映射数据库类型到PHP类型）\n";
-            $content .= "    protected \$casts = [\n";
+            $content .= "    public \$casts = [\n";
             foreach ($casts as $field => $castInfo) {
                 $comment = $castInfo['comment'] ? ' # ' . $this->sanitizeComment($castInfo['comment']) : '';
                 $content .= "        '{$field}' => '{$castInfo['type']}',{$comment}\n";
@@ -244,27 +248,60 @@ class GenerateModelFile extends Command
     /**
      * 确定批量赋值黑名单字段（guarded属性）
      * @param array $columns 字段元数据数组
-     * @return string 黑名单字段字符串（如"'id'"或""）
+     * @return string 黑名单字段字符串（如"'id','snowflake_id'"）
      */
     private function determineGuarded(array $columns): string
     {
-        // 优先匹配常见主键字段名
-        $primaryKeys = ['id', 'uuid', 'uid', 'rowid', 'pk'];
+        $guarded = [];
+
+        // 优先匹配常见主键字段名（包括snowflake_id）
+        $primaryKeys = ['id', 'snowflake_id', 'uuid', 'uid', 'rowid', 'pk'];
         foreach ($primaryKeys as $candidate) {
             if (array_key_exists($candidate, $columns)) {
-                return "'{$candidate}'";
+                $guarded[] = $candidate;
             }
         }
 
-        // 匹配其他可能的主键模式（如user_id）
-        foreach ($columns as $field => $info) {
-            if (preg_match('/_id$/', $field) || $field === 'id') {
-                return "'{$field}'";
+        // 如果还没有找到主键，尝试匹配其他模式
+        if (empty($guarded)) {
+            foreach (array_keys($columns) as $field) {
+                if (preg_match('/_id$/', $field) || $field === 'id') {
+                    $guarded[] = $field;
+                    break; // 只取第一个匹配的
+                }
             }
         }
 
-        // 无主键时允许所有字段批量赋值
-        return "''";
+        // 格式化输出
+        return !empty($guarded)
+            ? "'" . implode("','", $guarded) . "'"
+            : "''";
+    }
+
+    /**
+     * 生成白名单字段（fillable属性）
+     * @param array $columns 字段元数据数组
+     * @param string $guarded 黑名单字段字符串
+     * @return string 白名单字段字符串
+     */
+    private function generateFillable(array $columns, string $guarded): string
+    {
+        // 解析黑名单字段为数组
+        $guardedFields = [];
+        if (!empty($guarded) && $guarded !== "''") {
+            $guardedFields = explode("','", trim($guarded, "'"));
+        }
+
+        // 获取所有字段名
+        $allFields = array_keys($columns);
+
+        // 排除黑名单字段
+        $fillableFields = array_diff($allFields, $guardedFields);
+
+        // 格式化输出
+        return !empty($fillableFields)
+            ? "'" . implode("','", $fillableFields) . "'"
+            : "''";
     }
 
     /**

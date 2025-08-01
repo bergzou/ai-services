@@ -14,16 +14,17 @@ class SystemSocialUserBindValidated extends BaseValidated implements ValidatesIn
     public function rules(): array
     {
         return [
-            'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'user_id' => 'required|integer', # 用户编号
-            'user_type' => 'required|integer', # 用户类型：10：会员， 20：管理员
-            'social_type' => 'required|integer', # 社交平台的类型
-            'social_user_id' => 'required|integer', # 社交用户的编号
-            'created_by' => 'required|string|max:255', # 创建人名称
-            'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'required|integer', # 是否删除
-            'deleted_by' => 'nullable|string|max:255', # 删除人名称
-            'tenant_id' => 'required|integer', # 租户编号
+            'id' => 'required', # 主键(自增策略)
+            'snowflake_id' => 'required', # 雪花Id
+            'user_id' => 'required', # 用户编号
+            'user_type' => 'required', # 用户类型：10：会员， 20：管理员
+            'social_type' => 'required', # 社交平台的类型
+            'social_user_id' => 'required', # 社交用户的编号
+            'created_by' => 'required', # 创建人名称
+            'updated_by' => 'required', # 更新人名称
+            'is_deleted' => 'required', # 是否删除
+            'deleted_by' => 'nullable', # 删除人名称
+            'tenant_id' => 'required', # 租户编号
         ];
     }
 
@@ -43,6 +44,7 @@ class SystemSocialUserBindValidated extends BaseValidated implements ValidatesIn
     public function customAttributes(): array
     {
         return [
+            'id' => __('validated.300292'), # 主键(自增策略)
             'snowflake_id' => __('validated.300277'), # 雪花Id
             'user_id' => __('validated.300001'), # 用户编号
             'user_type' => __('validated.300002'), # 用户类型
@@ -54,5 +56,41 @@ class SystemSocialUserBindValidated extends BaseValidated implements ValidatesIn
             'deleted_by' => __('validated.300185'), # 删除人名称
             'tenant_id' => __('validated.300018'), # 租户编号
         ];
+    }
+
+    /**
+     * 新增参数
+     * @return array
+     */
+    public function addParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 更新参数
+     * @return array
+     */
+    public function updateParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 删除参数
+     * @return array
+     */
+    public function deleteParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 详情参数
+     * @return array
+     */
+    public function detailParams(): array
+    {
+        return [];
     }
 }

@@ -14,33 +14,34 @@ class InfraApiErrorLogValidated extends BaseValidated implements ValidatesInterf
     public function rules(): array
     {
         return [
-            'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'trace_id' => 'required|string|max:64', # 链路追踪编号
-            'user_id' => 'required|integer', # 用户编号
-            'user_type' => 'required|integer', # 用户类型：10=会员， 20=管理员
-            'application_name' => 'required|string|max:50', # 应用名
-            'request_method' => 'required|string|max:16', # 请求方法名
-            'request_url' => 'required|string|max:255', # 请求地址
-            'request_params' => 'required|string|max:8000', # 请求参数
-            'user_ip' => 'required|string|max:50', # 用户 IP
-            'user_agent' => 'required|string|max:512', # 浏览器 UA
-            'exception_time' => 'required|date_format:Y-m-d H:i:s', # 异常发生时间
-            'exception_name' => 'required|string|max:128', # 异常名
-            'exception_message' => 'required|string|max:65535', # 异常导致的消息
-            'exception_root_cause_message' => 'required|string|max:65535', # 异常导致的根消息
-            'exception_stack_trace' => 'required|string|max:65535', # 异常的栈轨迹
-            'exception_class_name' => 'required|string|max:512', # 异常发生的类全名
-            'exception_file_name' => 'required|string|max:512', # 异常发生的类文件
-            'exception_method_name' => 'required|string|max:512', # 异常发生的方法名
-            'exception_line_number' => 'required|integer', # 异常发生的方法所在行
-            'process_status' => 'required|integer', # 处理状态：10：未处理，10：已处理，10：已忽略
-            'process_time' => 'nullable|date_format:Y-m-d H:i:s', # 处理时间
-            'process_user_id' => 'nullable|integer', # 处理用户编号
-            'tenant_id' => 'required|integer', # 租户编号
-            'created_by' => 'required|string|max:255', # 创建人名称
-            'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'required|integer', # 是否删除
-            'deleted_by' => 'nullable|string|max:255', # 删除人名称
+            'id' => 'required', # 编号
+            'snowflake_id' => 'required', # 雪花Id
+            'trace_id' => 'required', # 链路追踪编号
+            'user_id' => 'required', # 用户编号
+            'user_type' => 'required', # 用户类型：10=会员， 20=管理员
+            'application_name' => 'required', # 应用名
+            'request_method' => 'required', # 请求方法名
+            'request_url' => 'required', # 请求地址
+            'request_params' => 'required', # 请求参数
+            'user_ip' => 'required', # 用户 IP
+            'user_agent' => 'required', # 浏览器 UA
+            'exception_time' => 'required', # 异常发生时间
+            'exception_name' => 'required', # 异常名
+            'exception_message' => 'required', # 异常导致的消息
+            'exception_root_cause_message' => 'required', # 异常导致的根消息
+            'exception_stack_trace' => 'required', # 异常的栈轨迹
+            'exception_class_name' => 'required', # 异常发生的类全名
+            'exception_file_name' => 'required', # 异常发生的类文件
+            'exception_method_name' => 'required', # 异常发生的方法名
+            'exception_line_number' => 'required', # 异常发生的方法所在行
+            'process_status' => 'required', # 处理状态：10：未处理，10：已处理，10：已忽略
+            'process_time' => 'nullable', # 处理时间
+            'process_user_id' => 'nullable', # 处理用户编号
+            'tenant_id' => 'required', # 租户编号
+            'created_by' => 'required', # 创建人名称
+            'updated_by' => 'required', # 更新人名称
+            'is_deleted' => 'required', # 是否删除
+            'deleted_by' => 'nullable', # 删除人名称
         ];
     }
 
@@ -60,6 +61,7 @@ class InfraApiErrorLogValidated extends BaseValidated implements ValidatesInterf
     public function customAttributes(): array
     {
         return [
+            'id' => __('validated.300280'), # 编号
             'snowflake_id' => __('validated.300277'), # 雪花Id
             'trace_id' => __('validated.300000'), # 链路追踪编号
             'user_id' => __('validated.300001'), # 用户编号
@@ -88,5 +90,41 @@ class InfraApiErrorLogValidated extends BaseValidated implements ValidatesInterf
             'is_deleted' => __('validated.300184'), # 是否删除
             'deleted_by' => __('validated.300185'), # 删除人名称
         ];
+    }
+
+    /**
+     * 新增参数
+     * @return array
+     */
+    public function addParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 更新参数
+     * @return array
+     */
+    public function updateParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 删除参数
+     * @return array
+     */
+    public function deleteParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 详情参数
+     * @return array
+     */
+    public function detailParams(): array
+    {
+        return [];
     }
 }

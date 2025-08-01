@@ -14,20 +14,21 @@ class SystemLoginLogValidated extends BaseValidated implements ValidatesInterfac
     public function rules(): array
     {
         return [
-            'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'log_type' => 'required|integer', # 日志类型
-            'trace_id' => 'required|string|max:64', # 链路追踪编号
-            'user_id' => 'required|integer', # 用户编号
-            'user_type' => 'required|integer', # 用户类型：10=会员， 20=管理员
-            'username' => 'required|string|max:50', # 用户账号
-            'result' => 'required|integer', # 登陆结果
-            'user_ip' => 'required|string|max:50', # 用户 IP
-            'user_agent' => 'required|string|max:512', # 浏览器 UA
-            'tenant_id' => 'required|integer', # 租户编号
-            'created_by' => 'required|string|max:255', # 创建人名称
-            'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'required|integer', # 是否删除
-            'deleted_by' => 'nullable|string|max:255', # 删除人名称
+            'id' => 'required', # 访问ID
+            'snowflake_id' => 'required', # 雪花Id
+            'log_type' => 'required', # 日志类型
+            'trace_id' => 'required', # 链路追踪编号
+            'user_id' => 'required', # 用户编号
+            'user_type' => 'required', # 用户类型：10=会员， 20=管理员
+            'username' => 'required', # 用户账号
+            'result' => 'required', # 登陆结果
+            'user_ip' => 'required', # 用户 IP
+            'user_agent' => 'required', # 浏览器 UA
+            'tenant_id' => 'required', # 租户编号
+            'created_by' => 'required', # 创建人名称
+            'updated_by' => 'required', # 更新人名称
+            'is_deleted' => 'required', # 是否删除
+            'deleted_by' => 'nullable', # 删除人名称
         ];
     }
 
@@ -47,6 +48,7 @@ class SystemLoginLogValidated extends BaseValidated implements ValidatesInterfac
     public function customAttributes(): array
     {
         return [
+            'id' => __('validated.300288'), # 访问ID
             'snowflake_id' => __('validated.300277'), # 雪花Id
             'log_type' => __('validated.300115'), # 日志类型
             'trace_id' => __('validated.300000'), # 链路追踪编号
@@ -62,5 +64,41 @@ class SystemLoginLogValidated extends BaseValidated implements ValidatesInterfac
             'is_deleted' => __('validated.300184'), # 是否删除
             'deleted_by' => __('validated.300185'), # 删除人名称
         ];
+    }
+
+    /**
+     * 新增参数
+     * @return array
+     */
+    public function addParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 更新参数
+     * @return array
+     */
+    public function updateParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 删除参数
+     * @return array
+     */
+    public function deleteParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 详情参数
+     * @return array
+     */
+    public function detailParams(): array
+    {
+        return [];
     }
 }

@@ -14,17 +14,18 @@ class InfraFileValidated extends BaseValidated implements ValidatesInterface
     public function rules(): array
     {
         return [
-            'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'config_id' => 'nullable|integer', # 配置编号
-            'name' => 'nullable|string|max:256', # 文件名
-            'path' => 'required|string|max:512', # 文件路径
-            'url' => 'required|string|max:1024', # 文件 URL
-            'type' => 'nullable|string|max:128', # 文件类型
-            'size' => 'required|integer', # 文件大小
-            'created_by' => 'required|string|max:255', # 创建人名称
-            'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'required|integer', # 是否删除
-            'deleted_by' => 'nullable|string|max:255', # 删除人名称
+            'id' => 'required', # 文件编号
+            'snowflake_id' => 'required', # 雪花Id
+            'config_id' => 'nullable', # 配置编号
+            'name' => 'nullable', # 文件名
+            'path' => 'required', # 文件路径
+            'url' => 'required', # 文件 URL
+            'type' => 'nullable', # 文件类型
+            'size' => 'required', # 文件大小
+            'created_by' => 'required', # 创建人名称
+            'updated_by' => 'required', # 更新人名称
+            'is_deleted' => 'required', # 是否删除
+            'deleted_by' => 'nullable', # 删除人名称
         ];
     }
 
@@ -44,6 +45,7 @@ class InfraFileValidated extends BaseValidated implements ValidatesInterface
     public function customAttributes(): array
     {
         return [
+            'id' => __('validated.300283'), # 文件编号
             'snowflake_id' => __('validated.300277'), # 雪花Id
             'config_id' => __('validated.300077'), # 配置编号
             'name' => __('validated.300078'), # 文件名
@@ -56,5 +58,41 @@ class InfraFileValidated extends BaseValidated implements ValidatesInterface
             'is_deleted' => __('validated.300184'), # 是否删除
             'deleted_by' => __('validated.300185'), # 删除人名称
         ];
+    }
+
+    /**
+     * 新增参数
+     * @return array
+     */
+    public function addParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 更新参数
+     * @return array
+     */
+    public function updateParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 删除参数
+     * @return array
+     */
+    public function deleteParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 详情参数
+     * @return array
+     */
+    public function detailParams(): array
+    {
+        return [];
     }
 }

@@ -14,21 +14,22 @@ class SystemSocialUserValidated extends BaseValidated implements ValidatesInterf
     public function rules(): array
     {
         return [
-            'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'type' => 'required|integer', # 社交平台的类型
-            'openid' => 'required|string|max:32', # 社交 openid
-            'token' => 'nullable|string|max:256', # 社交 token
-            'raw_token_info' => 'required|string|max:1024', # 原始 Token 数据，一般是 JSON 格式
-            'nickname' => 'required|string|max:32', # 用户昵称
-            'avatar' => 'nullable|string|max:255', # 用户头像
-            'raw_user_info' => 'required|string|max:1024', # 原始用户数据，一般是 JSON 格式
-            'code' => 'required|string|max:256', # 最后一次的认证 code
-            'state' => 'nullable|string|max:256', # 最后一次的认证 state
-            'created_by' => 'required|string|max:255', # 创建人名称
-            'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'required|integer', # 是否删除
-            'deleted_by' => 'nullable|string|max:255', # 删除人名称
-            'tenant_id' => 'required|integer', # 租户编号
+            'id' => 'required', # 主键(自增策略)
+            'snowflake_id' => 'required', # 雪花Id
+            'type' => 'required', # 社交平台的类型
+            'openid' => 'required', # 社交 openid
+            'token' => 'nullable', # 社交 token
+            'raw_token_info' => 'required', # 原始 Token 数据，一般是 JSON 格式
+            'nickname' => 'required', # 用户昵称
+            'avatar' => 'nullable', # 用户头像
+            'raw_user_info' => 'required', # 原始用户数据，一般是 JSON 格式
+            'code' => 'required', # 最后一次的认证 code
+            'state' => 'nullable', # 最后一次的认证 state
+            'created_by' => 'required', # 创建人名称
+            'updated_by' => 'required', # 更新人名称
+            'is_deleted' => 'required', # 是否删除
+            'deleted_by' => 'nullable', # 删除人名称
+            'tenant_id' => 'required', # 租户编号
         ];
     }
 
@@ -48,6 +49,7 @@ class SystemSocialUserValidated extends BaseValidated implements ValidatesInterf
     public function customAttributes(): array
     {
         return [
+            'id' => __('validated.300292'), # 主键(自增策略)
             'snowflake_id' => __('validated.300277'), # 雪花Id
             'type' => __('validated.300230'), # 社交平台的类型
             'openid' => __('validated.300232'), # 社交 openid
@@ -64,5 +66,41 @@ class SystemSocialUserValidated extends BaseValidated implements ValidatesInterf
             'deleted_by' => __('validated.300185'), # 删除人名称
             'tenant_id' => __('validated.300018'), # 租户编号
         ];
+    }
+
+    /**
+     * 新增参数
+     * @return array
+     */
+    public function addParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 更新参数
+     * @return array
+     */
+    public function updateParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 删除参数
+     * @return array
+     */
+    public function deleteParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 详情参数
+     * @return array
+     */
+    public function detailParams(): array
+    {
+        return [];
     }
 }

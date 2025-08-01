@@ -14,19 +14,20 @@ class InfraJobValidated extends BaseValidated implements ValidatesInterface
     public function rules(): array
     {
         return [
-            'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'name' => 'required|string|max:32', # 任务名称
-            'status' => 'required|integer', # 任务状态
-            'handler_name' => 'required|string|max:64', # 处理器的名字
-            'handler_param' => 'nullable|string|max:255', # 处理器的参数
-            'cron_expression' => 'required|string|max:32', # CRON 表达式
-            'retry_count' => 'required|integer', # 重试次数
-            'retry_interval' => 'required|integer', # 重试间隔
-            'monitor_timeout' => 'required|integer', # 监控超时时间
-            'created_by' => 'required|string|max:255', # 创建人名称
-            'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'required|integer', # 是否删除
-            'deleted_by' => 'nullable|string|max:255', # 删除人名称
+            'id' => 'required', # 任务编号
+            'snowflake_id' => 'required', # 雪花Id
+            'name' => 'required', # 任务名称
+            'status' => 'required', # 任务状态
+            'handler_name' => 'required', # 处理器的名字
+            'handler_param' => 'nullable', # 处理器的参数
+            'cron_expression' => 'required', # CRON 表达式
+            'retry_count' => 'required', # 重试次数
+            'retry_interval' => 'required', # 重试间隔
+            'monitor_timeout' => 'required', # 监控超时时间
+            'created_by' => 'required', # 创建人名称
+            'updated_by' => 'required', # 更新人名称
+            'is_deleted' => 'required', # 是否删除
+            'deleted_by' => 'nullable', # 删除人名称
         ];
     }
 
@@ -46,6 +47,7 @@ class InfraJobValidated extends BaseValidated implements ValidatesInterface
     public function customAttributes(): array
     {
         return [
+            'id' => __('validated.300096'), # 任务编号
             'snowflake_id' => __('validated.300277'), # 雪花Id
             'name' => __('validated.300088'), # 任务名称
             'status' => __('validated.300089'), # 任务状态
@@ -60,5 +62,41 @@ class InfraJobValidated extends BaseValidated implements ValidatesInterface
             'is_deleted' => __('validated.300184'), # 是否删除
             'deleted_by' => __('validated.300185'), # 删除人名称
         ];
+    }
+
+    /**
+     * 新增参数
+     * @return array
+     */
+    public function addParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 更新参数
+     * @return array
+     */
+    public function updateParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 删除参数
+     * @return array
+     */
+    public function deleteParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 详情参数
+     * @return array
+     */
+    public function detailParams(): array
+    {
+        return [];
     }
 }

@@ -12,11 +12,14 @@ class InfraApiErrorLogModel extends BaseModel
     # 对应的数据库表名
     protected $table = 'infra_api_error_log';
 
-    # 黑名单，指定不允许批量赋值的字段（空数组表示所有字段都可赋值）
-    protected $guarded = ['id'];
+    # 黑名单，指定不允许批量赋值的字段（如主键和敏感字段）
+    public $guarded = ['id','snowflake_id'];
+
+    # 白名单，指定可以被批量赋值的字段（注意：如果同时定义了$fillable和$guarded，则只有$fillable生效）
+    public $fillable = ['trace_id','user_id','user_type','application_name','request_method','request_url','request_params','user_ip','user_agent','exception_time','exception_name','exception_message','exception_root_cause_message','exception_stack_trace','exception_class_name','exception_file_name','exception_method_name','exception_line_number','process_status','process_time','process_user_id','tenant_id','created_at','created_by','updated_at','updated_by','is_deleted','deleted_at','deleted_by'];
 
     # 属性类型转换（自动映射数据库类型到PHP类型）
-    protected $casts = [
+    public $casts = [
         'id' => 'integer', # 编号
         'snowflake_id' => 'string', # 雪花Id
         'trace_id' => 'string', # 链路追踪编号

@@ -14,20 +14,21 @@ class SystemRoleValidated extends BaseValidated implements ValidatesInterface
     public function rules(): array
     {
         return [
-            'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'name' => 'required|string|max:30', # 角色名称
-            'code' => 'required|string|max:100', # 角色权限字符串
-            'sort' => 'required|integer', # 显示顺序
-            'data_scope' => 'required|integer', # 数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）
-            'data_scope_dept_ids' => 'required|string|max:500', # 数据范围(指定部门数组)
-            'status' => 'required|integer', # 角色状态（0正常 1停用）
-            'type' => 'required|integer', # 角色类型
-            'remark' => 'nullable|string|max:500', # 备注
-            'created_by' => 'required|string|max:255', # 创建人名称
-            'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'required|integer', # 是否删除
-            'deleted_by' => 'nullable|string|max:255', # 删除人名称
-            'tenant_id' => 'required|integer', # 租户编号
+            'id' => 'required', # 角色ID
+            'snowflake_id' => 'required', # 雪花Id
+            'name' => 'required', # 角色名称
+            'code' => 'required', # 角色权限字符串
+            'sort' => 'required', # 显示顺序
+            'data_scope' => 'required', # 数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）
+            'data_scope_dept_ids' => 'required', # 数据范围(指定部门数组)
+            'status' => 'required', # 角色状态（0正常 1停用）
+            'type' => 'required', # 角色类型
+            'remark' => 'nullable', # 备注
+            'created_by' => 'required', # 创建人名称
+            'updated_by' => 'required', # 更新人名称
+            'is_deleted' => 'required', # 是否删除
+            'deleted_by' => 'nullable', # 删除人名称
+            'tenant_id' => 'required', # 租户编号
         ];
     }
 
@@ -47,6 +48,7 @@ class SystemRoleValidated extends BaseValidated implements ValidatesInterface
     public function customAttributes(): array
     {
         return [
+            'id' => __('validated.300201'), # 角色ID
             'snowflake_id' => __('validated.300277'), # 雪花Id
             'name' => __('validated.300195'), # 角色名称
             'code' => __('validated.300196'), # 角色权限字符串
@@ -62,5 +64,41 @@ class SystemRoleValidated extends BaseValidated implements ValidatesInterface
             'deleted_by' => __('validated.300185'), # 删除人名称
             'tenant_id' => __('validated.300018'), # 租户编号
         ];
+    }
+
+    /**
+     * 新增参数
+     * @return array
+     */
+    public function addParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 更新参数
+     * @return array
+     */
+    public function updateParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 删除参数
+     * @return array
+     */
+    public function deleteParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 详情参数
+     * @return array
+     */
+    public function detailParams(): array
+    {
+        return [];
     }
 }

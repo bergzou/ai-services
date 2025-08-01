@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exceptions\BusinessException;
 use App\Helpers\AopProxy;
 use App\Http\Controllers\BaseController;
 use App\Interfaces\ControllerInterface;
 use App\Libraries\Response;
-use App\Services\Admin\SystemTenantService;
+use App\Services\Admin\SystemPostService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class SystemTenantController extends BaseController implements ControllerInterface
+class SystemPostController extends BaseController implements ControllerInterface
 {
 
 
@@ -23,7 +24,7 @@ class SystemTenantController extends BaseController implements ControllerInterfa
     {
         $params = $request->all();
 
-        $services = new SystemTenantService();
+        $services = new SystemPostService();
 
         $result = $services->getList($params);
 
@@ -34,12 +35,13 @@ class SystemTenantController extends BaseController implements ControllerInterfa
      * 添加新数据
      * @param Request $request 请求参数（包含新增数据）
      * @return JsonResponse 操作结果（JSON 格式）
+     * @throws BusinessException
      */
     public function add(Request $request): JsonResponse
     {
         $params = $request->all();
 
-        $services = AopProxy::make(SystemTenantService::class);
+        $services = AopProxy::make(SystemPostService::class);
 
         $result = $services->add($params);
 
@@ -50,12 +52,13 @@ class SystemTenantController extends BaseController implements ControllerInterfa
      * 更新现有数据
      * @param Request $request 请求参数（包含更新数据及标识）
      * @return JsonResponse 操作结果（JSON 格式）
+     * @throws BusinessException
      */
     public function update(Request $request): JsonResponse
     {
         $params = $request->all();
 
-        $services = AopProxy::make(SystemTenantService::class);
+        $services = AopProxy::make(SystemPostService::class);
 
         $result = $services->update($params);
 
@@ -66,12 +69,13 @@ class SystemTenantController extends BaseController implements ControllerInterfa
      * 删除数据
      * @param Request $request 请求参数（包含数据标识）
      * @return JsonResponse 操作结果（JSON 格式）
+     * @throws BusinessException
      */
     public function delete(Request $request): JsonResponse
     {
         $params = $request->all();
 
-        $services = AopProxy::make(SystemTenantService::class);
+        $services = AopProxy::make(SystemPostService::class);
 
         $result = $services->delete($params);
 
@@ -82,12 +86,13 @@ class SystemTenantController extends BaseController implements ControllerInterfa
      * 获取单条数据详情
      * @param Request $request 请求参数（包含数据标识）
      * @return JsonResponse 详情数据（JSON 格式）
+     * @throws BusinessException
      */
     public function getDetail(Request $request): JsonResponse
     {
         $params = $request->all();
 
-        $services = new SystemTenantService();
+        $services = new SystemPostService();
 
         $result = $services->getDetail($params);
 

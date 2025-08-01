@@ -7,14 +7,14 @@ use App\Exceptions\BusinessException;
 use App\Libraries\Common;
 use App\Libraries\Snowflake;
 use App\Logging\SqlLogger;
-use App\Models\SystemMenuModel;
+use App\Models\SystemDeptModel;
 use App\Services\BaseService;
 use App\Services\CommonService;
 use App\Validates\SystemMenuValidated;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
-class SystemMenuService extends BaseService
+class SystemDeptService extends BaseService
 {
 
     /**
@@ -24,8 +24,8 @@ class SystemMenuService extends BaseService
      */
     public function getList(array $params): array
     {
-        // 初始化菜单模型
-        $systemMenuModel = new SystemMenuModel();
+        // 初始化部门模型
+        $systemDeptModel = new SystemDeptModel();
 
         // 定义查询条件映射（字段与查询方式的对应关系）
         $whereMap = [
@@ -34,12 +34,11 @@ class SystemMenuService extends BaseService
             'status' => ['field' => 'status', 'search' => 'where'],
         ];
 
-        // 定义需要查询的字段列表
-        $fields = ['id','snowflake_id','name','permission','type','sort','parent_id','path','icon','component','component_name','status',
-            'visible','keep_alive','always_show'];
+        // 定义需要查询的字段列表（根据模型的fillable属性）
+        $fields = $systemDeptModel->fillable;
 
         // 构建查询：设置字段、转换筛选条件、排序，获取多条记录（不分页）
-        $result = $systemMenuModel->setFields($fields)
+        $result = $systemDeptModel->setFields($fields)
             ->convertConditions($params, $whereMap) // 将参数转换为模型可识别的查询条件
             ->setOrderBy(['id' => 'asc'])
             ->getMultipleRecord(); // 获取分页结果
@@ -77,7 +76,7 @@ class SystemMenuService extends BaseService
             }
 
             // 过滤参数（仅保留模型允许批量赋值的字段）
-            $systemMenuMode = new SystemMenuModel();
+            $systemMenuMode = new SystemDeptModel();
             $params = CommonService::filterRecursive($params, $systemMenuMode->fillable);
 
             // 验证菜单数据有效性（名称唯一性、父菜单合法性等）
@@ -109,8 +108,8 @@ class SystemMenuService extends BaseService
             ];
 
             // 执行数据插入
-            $systemMenuModel = new SystemMenuModel();
-            $result = $systemMenuModel->insert($insertData);
+            $SystemDeptModel = new SystemDeptModel();
+            $result = $SystemDeptModel->insert($insertData);
             if ($result !== true) {
                 throw new BusinessException(__('errors.600000'), '600000'); // 插入失败异常
             }
@@ -136,7 +135,7 @@ class SystemMenuService extends BaseService
      */
     public function validatedMenu(array $params , $menuInfo = null): array
     {
-        $systemMenuModel = new SystemMenuModel();
+        $SystemDeptModel = new SystemDeptModel();
 
         // 验证菜单类型对应的必填字段（目录/菜单类型必须有路径）
         switch ($params['type']){
@@ -149,7 +148,7 @@ class SystemMenuService extends BaseService
         // 验证父菜单有效性（若存在父ID）
         if (!empty($params['parent_id'])){
             // 查询父菜单信息（仅获取类型、ID、名称）
-            $menu = $systemMenuModel->setFields(['type','id','name'])->getSingleRecord(['id' => $params['parent_id']]);
+            $menu = $SystemDeptModel->setFields(['type','id','name'])->getSingleRecord(['id' => $params['parent_id']]);
             if (empty($menu)) throw new BusinessException(__('errors.500010'), 500010); // 父菜单不存在
             if (!in_array($menu['type'], [EnumSystemMenu::TYPE_1, EnumSystemMenu::TYPE_2])) {
                 throw new BusinessException(__('errors.500011'), 500011); // 父菜单类型无效（仅允许目录/菜单作为父级）
@@ -160,11 +159,11 @@ class SystemMenuService extends BaseService
         // 验证菜单名称唯一性（新增/更新场景）
         if (!empty($menuInfo)){
             // 更新场景：检查除当前菜单外是否有同名菜单
-            $menu = $systemMenuModel->setFields(['type','id','name'])->getSingleRecord(['name' => $params['name']]);
+            $menu = $SystemDeptModel->setFields(['type','id','name'])->getSingleRecord(['name' => $params['name']]);
             if (!empty($menu) && $menu['id'] != $menuInfo['id']) throw new BusinessException(__('errors.500015'), 500015);
         }else{
             // 新增场景：检查是否已存在同名菜单
-            $exists = $systemMenuModel::query()->where('name', $params['name'])->exists();
+            $exists = $SystemDeptModel::query()->where('name', $params['name'])->exists();
             if ($exists) throw new BusinessException(__('errors.500015'), 500015);
         }
 
@@ -172,11 +171,11 @@ class SystemMenuService extends BaseService
         if (!empty($params['component_name'])){
             if (!empty($menuInfo)){
                 // 更新场景：检查除当前菜单外是否有同组件名
-                $exists = $systemMenuModel::query()->where('component_name', $params['component_name'])
+                $exists = $SystemDeptModel::query()->where('component_name', $params['component_name'])
                     ->where('id', '<>', $menuInfo['id'])->exists();
             }else{
                 // 新增场景：检查是否已存在同组件名
-                $exists = $systemMenuModel::query()->where('component_name', $params['component_name'])->exists();
+                $exists = $SystemDeptModel::query()->where('component_name', $params['component_name'])->exists();
             }
             if ($exists) throw new BusinessException(__('errors.500013'), 500013);
         }
@@ -206,19 +205,19 @@ class SystemMenuService extends BaseService
             }
 
             // 获取目标菜单信息（通过snowflake_id查询）
-            $systemMenuModel =  new SystemMenuModel();
-            $menu = (new SystemMenuModel())->getSingleRecord(['snowflake_id' => $params['snowflake_id']]);
+            $SystemDeptModel =  new SystemDeptModel();
+            $menu = (new SystemDeptModel())->getSingleRecord(['snowflake_id' => $params['snowflake_id']]);
             if (empty($menu)) throw new BusinessException(__('errors.500014'), 500014); // 菜单不存在
 
             // 验证菜单数据有效性（传入原菜单信息用于唯一性校验）
             $params = $this->validatedMenu($params,$menu);
 
             // 过滤更新参数（仅保留模型允许批量赋值的字段）
-            $systemMenuMode = new SystemMenuModel();
+            $systemMenuMode = new SystemDeptModel();
             $updateData = CommonService::filterRecursive($params, $systemMenuMode->fillable);
 
             // 执行更新操作（根据snowflake_id定位记录）
-            $result = $systemMenuModel::query()->where('snowflake_id', $params['snowflake_id'])->update($updateData);
+            $result = $SystemDeptModel::query()->where('snowflake_id', $params['snowflake_id'])->update($updateData);
             if (!$result) {
                 throw new BusinessException(__('errors.600000'), '600000'); // 更新失败异常
             }
@@ -257,8 +256,8 @@ class SystemMenuService extends BaseService
             }
 
             // 获取目标菜单信息（通过snowflake_id查询）
-            $systemMenuModel =  new SystemMenuModel();
-            $menu = (new SystemMenuModel())->getSingleRecord(['snowflake_id' => $params['snowflake_id']]);
+            $SystemDeptModel =  new SystemDeptModel();
+            $menu = (new SystemDeptModel())->getSingleRecord(['snowflake_id' => $params['snowflake_id']]);
             if (empty($menu)) throw new BusinessException(__('errors.500014'), 500014); // 菜单不存在
 
             // 构造软删除标记数据（标记删除时间、操作人）
@@ -269,7 +268,7 @@ class SystemMenuService extends BaseService
             ];
 
             // 执行删除操作（更新删除标记）
-            $result = $systemMenuModel::query()->where('snowflake_id', $params['snowflake_id'])->update($updateData);
+            $result = $SystemDeptModel::query()->where('snowflake_id', $params['snowflake_id'])->update($updateData);
             if (!$result) {
                 throw new BusinessException(__('errors.600000'), '600000'); // 删除失败异常
             }
@@ -301,7 +300,7 @@ class SystemMenuService extends BaseService
             DB::beginTransaction();
 
             // 参数验证（使用SystemMenuValidated验证器，场景为"delete"）
-            $validated = new SystemMenuValidated($params, 'detail');
+            $validated = new SystemMenuValidated($params, 'delete');
             $messages = $validated->isRunFail();
             if (!empty($messages)){
                 throw new BusinessException($messages, '400000'); // 参数验证失败异常
@@ -312,7 +311,7 @@ class SystemMenuService extends BaseService
                 'visible','keep_alive','always_show'];
 
             // 查询单条菜单记录（通过snowflake_id）
-            $result = (new SystemMenuModel())->setFields($fields)->getSingleRecord(['snowflake_id' => $params['snowflake_id']]);
+            $result = (new SystemDeptModel())->setFields($fields)->getSingleRecord(['snowflake_id' => $params['snowflake_id']]);
             if (empty($result)) throw new BusinessException(__('errors.500014'), 500014); // 菜单不存在（注：原代码中$menu未定义，此处修正为检查$result）
 
             // 事务提交

@@ -14,26 +14,27 @@ class SystemUsersValidated extends BaseValidated implements ValidatesInterface
     public function rules(): array
     {
         return [
-            'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'username' => 'required|string|max:30', # 用户账号
-            'password' => 'required|string|max:100', # 密码
-            'nickname' => 'required|string|max:30', # 用户昵称
-            'remark' => 'nullable|string|max:500', # 备注
-            'dept_id' => 'nullable|integer', # 部门ID
-            'post_ids' => 'nullable|string|max:255', # 岗位编号数组
-            'email' => 'nullable|string|max:50', # 用户邮箱
-            'mobile' => 'nullable|string|max:11', # 手机号码
-            'sex' => 'nullable|integer', # 用户性别
-            'avatar' => 'nullable|string|max:512', # 头像地址
-            'status' => 'required|integer', # 帐号状态： 1=正常， 2=停用
-            'login_ip' => 'nullable|string|max:50', # 最后登录IP
-            'login_date' => 'nullable|date_format:Y-m-d H:i:s', # 最后登录时间
-            'created_by' => 'required|string|max:255', # 创建人名称
-            'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'required|integer', # 是否删除
-            'deleted_by' => 'nullable|string|max:255', # 删除人名称
-            'tenant_id' => 'required|integer', # 租户编号
-            'level' => 'required|integer', # 会员等级：10=普通会员， 20=黄金会员， 30=铂金会员， 40=砖石会员， 50=终生会员
+            'id' => 'required', # 用户ID
+            'snowflake_id' => 'required', # 雪花Id
+            'username' => 'required', # 用户账号
+            'password' => 'required', # 密码
+            'nickname' => 'required', # 用户昵称
+            'remark' => 'nullable', # 备注
+            'dept_id' => 'nullable', # 部门ID
+            'post_ids' => 'nullable', # 岗位编号数组
+            'email' => 'nullable', # 用户邮箱
+            'mobile' => 'nullable', # 手机号码
+            'sex' => 'nullable', # 用户性别
+            'avatar' => 'nullable', # 头像地址
+            'status' => 'required', # 帐号状态： 1=正常， 2=停用
+            'login_ip' => 'nullable', # 最后登录IP
+            'login_date' => 'nullable', # 最后登录时间
+            'created_by' => 'required', # 创建人名称
+            'updated_by' => 'required', # 更新人名称
+            'is_deleted' => 'required', # 是否删除
+            'deleted_by' => 'nullable', # 删除人名称
+            'tenant_id' => 'required', # 租户编号
+            'level' => 'required', # 会员等级：10=普通会员， 20=黄金会员， 30=铂金会员， 40=砖石会员， 50=终生会员
         ];
     }
 
@@ -53,6 +54,7 @@ class SystemUsersValidated extends BaseValidated implements ValidatesInterface
     public function customAttributes(): array
     {
         return [
+            'id' => __('validated.300253'), # 用户ID
             'snowflake_id' => __('validated.300277'), # 雪花Id
             'username' => __('validated.300116'), # 用户账号
             'password' => __('validated.300076'), # 密码
@@ -74,5 +76,41 @@ class SystemUsersValidated extends BaseValidated implements ValidatesInterface
             'tenant_id' => __('validated.300018'), # 租户编号
             'level' => __('validated.300266'), # 会员等级
         ];
+    }
+
+    /**
+     * 新增参数
+     * @return array
+     */
+    public function addParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 更新参数
+     * @return array
+     */
+    public function updateParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 删除参数
+     * @return array
+     */
+    public function deleteParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 详情参数
+     * @return array
+     */
+    public function detailParams(): array
+    {
+        return [];
     }
 }

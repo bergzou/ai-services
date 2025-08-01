@@ -12,11 +12,14 @@ class SystemOauth2ClientModel extends BaseModel
     # 对应的数据库表名
     protected $table = 'system_oauth2_client';
 
-    # 黑名单，指定不允许批量赋值的字段（空数组表示所有字段都可赋值）
-    protected $guarded = ['id'];
+    # 黑名单，指定不允许批量赋值的字段（如主键和敏感字段）
+    public $guarded = ['id','snowflake_id'];
+
+    # 白名单，指定可以被批量赋值的字段（注意：如果同时定义了$fillable和$guarded，则只有$fillable生效）
+    public $fillable = ['client_id','secret','name','logo','description','status','access_token_validity_seconds','refresh_token_validity_seconds','redirect_uris','authorized_grant_types','scopes','auto_approve_scopes','authorities','resource_ids','additional_information','created_at','created_by','updated_at','updated_by','is_deleted','deleted_at','deleted_by'];
 
     # 属性类型转换（自动映射数据库类型到PHP类型）
-    protected $casts = [
+    public $casts = [
         'id' => 'integer', # 编号
         'snowflake_id' => 'string', # 雪花Id
         'client_id' => 'string', # 客户端编号

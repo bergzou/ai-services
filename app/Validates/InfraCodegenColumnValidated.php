@@ -14,28 +14,29 @@ class InfraCodegenColumnValidated extends BaseValidated implements ValidatesInte
     public function rules(): array
     {
         return [
-            'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'table_id' => 'required|integer', # 表编号
-            'column_name' => 'required|string|max:200', # 字段名
-            'data_type' => 'required|string|max:100', # 字段类型
-            'column_comment' => 'required|string|max:500', # 字段描述
-            'nullable' => 'required|integer', # 是否允许为空
-            'primary_key' => 'required|integer', # 是否主键
-            'ordinal_position' => 'required|integer', # 排序
-            'java_type' => 'required|string|max:32', # Java 属性类型
-            'java_field' => 'required|string|max:64', # Java 属性名
-            'dict_type' => 'nullable|string|max:200', # 字典类型
-            'example' => 'nullable|string|max:64', # 数据示例
-            'create_operation' => 'required|integer', # 是否为 Create 创建操作的字段
-            'update_operation' => 'required|integer', # 是否为 Update 更新操作的字段
-            'list_operation' => 'required|integer', # 是否为 List 查询操作的字段
-            'list_operation_condition' => 'required|string|max:32', # List 查询操作的条件类型
-            'list_operation_result' => 'required|integer', # 是否为 List 查询操作的返回字段
-            'html_type' => 'required|string|max:32', # 显示类型
-            'created_by' => 'required|string|max:255', # 创建人名称
-            'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'required|integer', # 是否删除
-            'deleted_by' => 'nullable|string|max:255', # 删除人名称
+            'id' => 'required', # 编号
+            'snowflake_id' => 'required', # 雪花Id
+            'table_id' => 'required', # 表编号
+            'column_name' => 'required', # 字段名
+            'data_type' => 'required', # 字段类型
+            'column_comment' => 'required', # 字段描述
+            'nullable' => 'required', # 是否允许为空
+            'primary_key' => 'required', # 是否主键
+            'ordinal_position' => 'required', # 排序
+            'java_type' => 'required', # Java 属性类型
+            'java_field' => 'required', # Java 属性名
+            'dict_type' => 'nullable', # 字典类型
+            'example' => 'nullable', # 数据示例
+            'create_operation' => 'required', # 是否为 Create 创建操作的字段
+            'update_operation' => 'required', # 是否为 Update 更新操作的字段
+            'list_operation' => 'required', # 是否为 List 查询操作的字段
+            'list_operation_condition' => 'required', # List 查询操作的条件类型
+            'list_operation_result' => 'required', # 是否为 List 查询操作的返回字段
+            'html_type' => 'required', # 显示类型
+            'created_by' => 'required', # 创建人名称
+            'updated_by' => 'required', # 更新人名称
+            'is_deleted' => 'required', # 是否删除
+            'deleted_by' => 'nullable', # 删除人名称
         ];
     }
 
@@ -55,6 +56,7 @@ class InfraCodegenColumnValidated extends BaseValidated implements ValidatesInte
     public function customAttributes(): array
     {
         return [
+            'id' => __('validated.300280'), # 编号
             'snowflake_id' => __('validated.300277'), # 雪花Id
             'table_id' => __('validated.300033'), # 表编号
             'column_name' => __('validated.300034'), # 字段名
@@ -78,5 +80,41 @@ class InfraCodegenColumnValidated extends BaseValidated implements ValidatesInte
             'is_deleted' => __('validated.300184'), # 是否删除
             'deleted_by' => __('validated.300185'), # 删除人名称
         ];
+    }
+
+    /**
+     * 新增参数
+     * @return array
+     */
+    public function addParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 更新参数
+     * @return array
+     */
+    public function updateParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 删除参数
+     * @return array
+     */
+    public function deleteParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 详情参数
+     * @return array
+     */
+    public function detailParams(): array
+    {
+        return [];
     }
 }

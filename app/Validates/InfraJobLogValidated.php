@@ -14,20 +14,21 @@ class InfraJobLogValidated extends BaseValidated implements ValidatesInterface
     public function rules(): array
     {
         return [
-            'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'job_id' => 'required|integer', # 任务编号
-            'handler_name' => 'required|string|max:64', # 处理器的名字
-            'handler_param' => 'nullable|string|max:255', # 处理器的参数
-            'execute_index' => 'required|integer', # 第几次执行
-            'begin_time' => 'required|date_format:Y-m-d H:i:s', # 开始执行时间
-            'end_time' => 'nullable|date_format:Y-m-d H:i:s', # 结束执行时间
-            'duration' => 'nullable|integer', # 执行时长
-            'status' => 'required|integer', # 任务状态
-            'result' => 'nullable|string|max:4000', # 结果数据
-            'created_by' => 'required|string|max:255', # 创建人名称
-            'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'required|integer', # 是否删除
-            'deleted_by' => 'nullable|string|max:255', # 删除人名称
+            'id' => 'required', # 日志编号
+            'snowflake_id' => 'required', # 雪花Id
+            'job_id' => 'required', # 任务编号
+            'handler_name' => 'required', # 处理器的名字
+            'handler_param' => 'nullable', # 处理器的参数
+            'execute_index' => 'required', # 第几次执行
+            'begin_time' => 'required', # 开始执行时间
+            'end_time' => 'nullable', # 结束执行时间
+            'duration' => 'nullable', # 执行时长
+            'status' => 'required', # 任务状态
+            'result' => 'nullable', # 结果数据
+            'created_by' => 'required', # 创建人名称
+            'updated_by' => 'required', # 更新人名称
+            'is_deleted' => 'required', # 是否删除
+            'deleted_by' => 'nullable', # 删除人名称
         ];
     }
 
@@ -47,6 +48,7 @@ class InfraJobLogValidated extends BaseValidated implements ValidatesInterface
     public function customAttributes(): array
     {
         return [
+            'id' => __('validated.300284'), # 日志编号
             'snowflake_id' => __('validated.300277'), # 雪花Id
             'job_id' => __('validated.300096'), # 任务编号
             'handler_name' => __('validated.300090'), # 处理器的名字
@@ -62,5 +64,41 @@ class InfraJobLogValidated extends BaseValidated implements ValidatesInterface
             'is_deleted' => __('validated.300184'), # 是否删除
             'deleted_by' => __('validated.300185'), # 删除人名称
         ];
+    }
+
+    /**
+     * 新增参数
+     * @return array
+     */
+    public function addParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 更新参数
+     * @return array
+     */
+    public function updateParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 删除参数
+     * @return array
+     */
+    public function deleteParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 详情参数
+     * @return array
+     */
+    public function detailParams(): array
+    {
+        return [];
     }
 }

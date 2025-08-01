@@ -264,29 +264,30 @@ class BaseModel extends Model
         return CommonService::convertToArray($results);
     }
 
-    /**
-     * 构建基础查询构建器（处理表别名和联表）
-     * @param array $joins 联表配置数组（格式同getPaginateResults）
-     * @return Builder 查询构建器实例
-     */
     protected function buildBaseQuery(array $joins): Builder
     {
-        $table = $this->getTable();  // 获取模型对应的数据库表名
-        $alias = $this->alias;       // 获取设置的表别名
+        // 使用 Eloquent 查询构建器（自动应用全局作用域）
+        $query = $this->newQuery();
 
-        // 拼接表名（带别名或原始表名）
-        $tableName = $alias ? "{$table} as {$alias}" : $table;
-        $query = DB::table($tableName);
+        // 设置表别名
+        if ($this->alias) {
+            $query->from($this->getTable() . ' as ' . $this->alias);
+        }
 
-        // 处理联表操作（支持多种联表类型）
+        // 处理联表操作
         if (!empty($joins)) {
             foreach ($joins as $join) {
                 $table = $join['table'];
                 $conditions = $join['conditions'];
-                $type = $join['type'];  // 联表类型（如innerJoin、leftJoin）
-                $query->join($table, function ($join) use ($conditions) {
+                $type = $join['type'] ?? 'innerJoin'; // 默认内连接
+
+                $query->join($table, function ($joinQuery) use ($conditions) {
                     foreach ($conditions as $condition) {
-                        $join->on($condition['first'], $condition['operator'], $condition['second']);
+                        $joinQuery->on(
+                            $condition['first'],
+                            $condition['operator'],
+                            $condition['second']
+                        );
                     }
                 }, null, null, $type);
             }
@@ -294,6 +295,7 @@ class BaseModel extends Model
 
         return $query;
     }
+
 
     /**
      * 应用查询字段到构建器（处理select语句）

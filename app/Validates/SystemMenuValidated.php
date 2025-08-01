@@ -14,24 +14,25 @@ class SystemMenuValidated extends BaseValidated implements ValidatesInterface
     public function rules(): array
     {
         return [
-            'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'name' => 'required|string|max:50', # 菜单名称
-            'permission' => 'required|string|max:100', # 权限标识
-            'type' => 'required|integer', # 菜单类型：1=目录， 2=菜单， 3=按钮
-            'sort' => 'required|integer', # 显示顺序
-            'parent_id' => 'required|integer', # 父菜单ID
-            'path' => 'nullable|string|max:200', # 路由地址
-            'icon' => 'nullable|string|max:100', # 菜单图标
-            'component' => 'nullable|string|max:255', # 组件路径
-            'component_name' => 'nullable|string|max:255', # 组件名
-            'status' => 'required|integer', # 菜单状态：1=启用， 2=停用
-            'visible' => 'required|integer', # 是否可见：1=显示， 2=隐藏
-            'keep_alive' => 'required|integer', # 是否缓存：1=缓存， 2=不缓存
-            'always_show' => 'required|integer', # 是否总是显示：1=总是， 2=不是
-            'created_by' => 'required|string|max:255', # 创建人名称
-            'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'required|integer', # 是否删除
-            'deleted_by' => 'nullable|string|max:255', # 删除人名称
+            'id' => 'required', # 菜单ID
+            'snowflake_id' => 'required', # 雪花Id
+            'name' => 'required', # 菜单名称
+            'permission' => 'required', # 权限标识
+            'type' => 'required', # 菜单类型：1=目录， 2=菜单， 3=按钮
+            'sort' => 'required', # 显示顺序
+            'parent_id' => 'required', # 父菜单ID
+            'path' => 'nullable', # 路由地址
+            'icon' => 'nullable', # 菜单图标
+            'component' => 'nullable', # 组件路径
+            'component_name' => 'nullable', # 组件名
+            'status' => 'required', # 菜单状态：1=启用， 2=停用
+            'visible' => 'required', # 是否可见：1=显示， 2=隐藏
+            'keep_alive' => 'required', # 是否缓存：1=缓存， 2=不缓存
+            'always_show' => 'required', # 是否总是显示：1=总是， 2=不是
+            'created_by' => 'required', # 创建人名称
+            'updated_by' => 'required', # 更新人名称
+            'is_deleted' => 'required', # 是否删除
+            'deleted_by' => 'nullable', # 删除人名称
         ];
     }
 
@@ -51,6 +52,7 @@ class SystemMenuValidated extends BaseValidated implements ValidatesInterface
     public function customAttributes(): array
     {
         return [
+            'id' => __('validated.300202'), # 菜单ID
             'snowflake_id' => __('validated.300277'), # 雪花Id
             'name' => __('validated.300142'), # 菜单名称
             'permission' => __('validated.300143'), # 权限标识
@@ -94,4 +96,25 @@ class SystemMenuValidated extends BaseValidated implements ValidatesInterface
         ];
     }
 
+    /**
+     * 删除参数
+     * @return array
+     */
+    public function deleteParams(): array
+    {
+        return [
+            'snowflake_id',
+        ];
+    }
+
+    /**
+     * 详情参数
+     * @return array
+     */
+    public function detailParams(): array
+    {
+        return [
+            'snowflake_id',
+        ];
+    }
 }

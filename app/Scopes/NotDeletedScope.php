@@ -2,6 +2,7 @@
 
 namespace App\Scopes;
 
+use App\Enums\EnumCommon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
@@ -27,7 +28,7 @@ class NotDeletedScope implements Scope
     public function apply(Builder $builder, Model $model)
     {
         // 附加未删除条件：is_deleted字段值为0表示未删除
-        $builder->where('is_deleted', 0);
+        $builder->where('is_deleted', EnumCommon::IS_DELETED_0);
     }
 
 }

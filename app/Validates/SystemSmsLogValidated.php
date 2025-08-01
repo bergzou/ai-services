@@ -14,32 +14,33 @@ class SystemSmsLogValidated extends BaseValidated implements ValidatesInterface
     public function rules(): array
     {
         return [
-            'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'channel_id' => 'required|integer', # 短信渠道编号
-            'channel_code' => 'required|string|max:63', # 短信渠道编码
-            'template_id' => 'required|integer', # 模板编号
-            'template_code' => 'required|string|max:63', # 模板编码
-            'template_type' => 'required|integer', # 短信类型
-            'template_content' => 'required|string|max:255', # 短信内容
-            'template_params' => 'required|string|max:255', # 短信参数
-            'api_template_id' => 'required|string|max:63', # 短信 API 的模板编号
-            'mobile' => 'required|string|max:11', # 手机号
-            'user_id' => 'nullable|integer', # 用户编号
-            'user_type' => 'nullable|integer', # 用户类型
-            'send_status' => 'required|integer', # 发送状态
-            'send_time' => 'nullable|date_format:Y-m-d H:i:s', # 发送时间
-            'api_send_code' => 'nullable|string|max:63', # 短信 API 发送结果的编码
-            'api_send_msg' => 'nullable|string|max:255', # 短信 API 发送失败的提示
-            'api_request_id' => 'nullable|string|max:255', # 短信 API 发送返回的唯一请求 ID
-            'api_serial_no' => 'nullable|string|max:255', # 短信 API 发送返回的序号
-            'receive_status' => 'required|integer', # 接收状态
-            'receive_time' => 'nullable|date_format:Y-m-d H:i:s', # 接收时间
-            'api_receive_code' => 'nullable|string|max:63', # API 接收结果的编码
-            'api_receive_msg' => 'nullable|string|max:255', # API 接收结果的说明
-            'created_by' => 'required|string|max:255', # 创建人名称
-            'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'required|integer', # 是否删除
-            'deleted_by' => 'nullable|string|max:255', # 删除人名称
+            'id' => 'required', # 编号
+            'snowflake_id' => 'required', # 雪花Id
+            'channel_id' => 'required', # 短信渠道编号
+            'channel_code' => 'required', # 短信渠道编码
+            'template_id' => 'required', # 模板编号
+            'template_code' => 'required', # 模板编码
+            'template_type' => 'required', # 短信类型
+            'template_content' => 'required', # 短信内容
+            'template_params' => 'required', # 短信参数
+            'api_template_id' => 'required', # 短信 API 的模板编号
+            'mobile' => 'required', # 手机号
+            'user_id' => 'nullable', # 用户编号
+            'user_type' => 'nullable', # 用户类型
+            'send_status' => 'required', # 发送状态
+            'send_time' => 'nullable', # 发送时间
+            'api_send_code' => 'nullable', # 短信 API 发送结果的编码
+            'api_send_msg' => 'nullable', # 短信 API 发送失败的提示
+            'api_request_id' => 'nullable', # 短信 API 发送返回的唯一请求 ID
+            'api_serial_no' => 'nullable', # 短信 API 发送返回的序号
+            'receive_status' => 'required', # 接收状态
+            'receive_time' => 'nullable', # 接收时间
+            'api_receive_code' => 'nullable', # API 接收结果的编码
+            'api_receive_msg' => 'nullable', # API 接收结果的说明
+            'created_by' => 'required', # 创建人名称
+            'updated_by' => 'required', # 更新人名称
+            'is_deleted' => 'required', # 是否删除
+            'deleted_by' => 'nullable', # 删除人名称
         ];
     }
 
@@ -59,6 +60,7 @@ class SystemSmsLogValidated extends BaseValidated implements ValidatesInterface
     public function customAttributes(): array
     {
         return [
+            'id' => __('validated.300280'), # 编号
             'snowflake_id' => __('validated.300277'), # 雪花Id
             'channel_id' => __('validated.300216'), # 短信渠道编号
             'channel_code' => __('validated.300217'), # 短信渠道编码
@@ -86,5 +88,41 @@ class SystemSmsLogValidated extends BaseValidated implements ValidatesInterface
             'is_deleted' => __('validated.300184'), # 是否删除
             'deleted_by' => __('validated.300185'), # 删除人名称
         ];
+    }
+
+    /**
+     * 新增参数
+     * @return array
+     */
+    public function addParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 更新参数
+     * @return array
+     */
+    public function updateParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 删除参数
+     * @return array
+     */
+    public function deleteParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 详情参数
+     * @return array
+     */
+    public function detailParams(): array
+    {
+        return [];
     }
 }

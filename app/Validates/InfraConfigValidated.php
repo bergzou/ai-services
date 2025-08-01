@@ -14,18 +14,19 @@ class InfraConfigValidated extends BaseValidated implements ValidatesInterface
     public function rules(): array
     {
         return [
-            'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'category' => 'required|string|max:50', # 参数分组
-            'type' => 'required|integer', # 参数类型
-            'name' => 'required|string|max:100', # 参数名称
-            'config_key' => 'required|string|max:100', # 参数键名
-            'value' => 'required|string|max:500', # 参数键值
-            'visible' => 'required|integer', # 是否可见
-            'remark' => 'nullable|string|max:500', # 备注
-            'created_by' => 'required|string|max:255', # 创建人名称
-            'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'required|integer', # 是否删除
-            'deleted_by' => 'nullable|string|max:255', # 删除人名称
+            'id' => 'required', # 参数主键
+            'snowflake_id' => 'required', # 雪花Id
+            'category' => 'required', # 参数分组
+            'type' => 'required', # 参数类型
+            'name' => 'required', # 参数名称
+            'config_key' => 'required', # 参数键名
+            'value' => 'required', # 参数键值
+            'visible' => 'required', # 是否可见
+            'remark' => 'nullable', # 备注
+            'created_by' => 'required', # 创建人名称
+            'updated_by' => 'required', # 更新人名称
+            'is_deleted' => 'required', # 是否删除
+            'deleted_by' => 'nullable', # 删除人名称
         ];
     }
 
@@ -45,6 +46,7 @@ class InfraConfigValidated extends BaseValidated implements ValidatesInterface
     public function customAttributes(): array
     {
         return [
+            'id' => __('validated.300281'), # 参数主键
             'snowflake_id' => __('validated.300277'), # 雪花Id
             'category' => __('validated.300068'), # 参数分组
             'type' => __('validated.300069'), # 参数类型
@@ -58,5 +60,41 @@ class InfraConfigValidated extends BaseValidated implements ValidatesInterface
             'is_deleted' => __('validated.300184'), # 是否删除
             'deleted_by' => __('validated.300185'), # 删除人名称
         ];
+    }
+
+    /**
+     * 新增参数
+     * @return array
+     */
+    public function addParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 更新参数
+     * @return array
+     */
+    public function updateParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 删除参数
+     * @return array
+     */
+    public function deleteParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 详情参数
+     * @return array
+     */
+    public function detailParams(): array
+    {
+        return [];
     }
 }

@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exceptions\BusinessException;
 use App\Helpers\AopProxy;
 use App\Http\Controllers\BaseController;
 use App\Interfaces\ControllerInterface;
 use App\Libraries\Response;
-use App\Services\Admin\SystemTenantService;
+use App\Services\Admin\SystemDeptService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class SystemTenantPackageController extends BaseController implements ControllerInterface
+class SystemDeptController extends BaseController implements ControllerInterface
 {
 
 
@@ -23,8 +24,9 @@ class SystemTenantPackageController extends BaseController implements Controller
     {
         $params = $request->all();
 
-        $services = new SystemTenantService();
+        $services = new SystemDeptService();
 
+        
         $result = $services->getList($params);
 
         return Response::success($result);
@@ -34,12 +36,13 @@ class SystemTenantPackageController extends BaseController implements Controller
      * 添加新数据
      * @param Request $request 请求参数（包含新增数据）
      * @return JsonResponse 操作结果（JSON 格式）
+     * @throws BusinessException
      */
     public function add(Request $request): JsonResponse
     {
         $params = $request->all();
 
-        $services = AopProxy::make(SystemTenantService::class);
+        $services = AopProxy::make(SystemDeptService::class);
 
         $result = $services->add($params);
 
@@ -50,12 +53,13 @@ class SystemTenantPackageController extends BaseController implements Controller
      * 更新现有数据
      * @param Request $request 请求参数（包含更新数据及标识）
      * @return JsonResponse 操作结果（JSON 格式）
+     * @throws BusinessException
      */
     public function update(Request $request): JsonResponse
     {
         $params = $request->all();
 
-        $services = AopProxy::make(SystemTenantService::class);
+        $services = AopProxy::make(SystemDeptService::class);
 
         $result = $services->update($params);
 
@@ -66,12 +70,13 @@ class SystemTenantPackageController extends BaseController implements Controller
      * 删除数据
      * @param Request $request 请求参数（包含数据标识）
      * @return JsonResponse 操作结果（JSON 格式）
+     * @throws BusinessException
      */
     public function delete(Request $request): JsonResponse
     {
         $params = $request->all();
 
-        $services = AopProxy::make(SystemTenantService::class);
+        $services = AopProxy::make(SystemDeptService::class);
 
         $result = $services->delete($params);
 
@@ -82,12 +87,13 @@ class SystemTenantPackageController extends BaseController implements Controller
      * 获取单条数据详情
      * @param Request $request 请求参数（包含数据标识）
      * @return JsonResponse 详情数据（JSON 格式）
+     * @throws BusinessException
      */
     public function getDetail(Request $request): JsonResponse
     {
         $params = $request->all();
 
-        $services = new SystemTenantService();
+        $services = new SystemDeptService();
 
         $result = $services->getDetail($params);
 

@@ -14,20 +14,21 @@ class SystemNotifyTemplateValidated extends BaseValidated implements ValidatesIn
     public function rules(): array
     {
         return [
-            'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'name' => 'required|string|max:63', # 模板名称
-            'code' => 'required|string|max:64', # 模版编码
-            'nickname' => 'required|string|max:255', # 发送人名称
-            'content' => 'required|string|max:1024', # 模版内容
-            'type' => 'required|integer', # 类型
-            'params' => 'nullable|string|max:255', # 参数数组
-            'status' => 'required|integer', # 状态
-            'remark' => 'nullable|string|max:255', # 备注
-            'created_by' => 'required|string|max:255', # 创建人名称
-            'updated_by' => 'required|string|max:255', # 更新人名称
-            'tenant_id' => 'required|integer', # 租户编号
-            'is_deleted' => 'required|integer', # 是否删除
-            'deleted_by' => 'nullable|string|max:255', # 删除人名称
+            'id' => 'required', # 主键
+            'snowflake_id' => 'required', # 雪花Id
+            'name' => 'required', # 模板名称
+            'code' => 'required', # 模版编码
+            'nickname' => 'required', # 发送人名称
+            'content' => 'required', # 模版内容
+            'type' => 'required', # 类型
+            'params' => 'nullable', # 参数数组
+            'status' => 'required', # 状态
+            'remark' => 'nullable', # 备注
+            'created_by' => 'required', # 创建人名称
+            'updated_by' => 'required', # 更新人名称
+            'tenant_id' => 'required', # 租户编号
+            'is_deleted' => 'required', # 是否删除
+            'deleted_by' => 'nullable', # 删除人名称
         ];
     }
 
@@ -47,6 +48,7 @@ class SystemNotifyTemplateValidated extends BaseValidated implements ValidatesIn
     public function customAttributes(): array
     {
         return [
+            'id' => __('validated.300289'), # 主键
             'snowflake_id' => __('validated.300277'), # 雪花Id
             'name' => __('validated.300135'), # 模板名称
             'code' => __('validated.300164'), # 模版编码
@@ -62,5 +64,41 @@ class SystemNotifyTemplateValidated extends BaseValidated implements ValidatesIn
             'is_deleted' => __('validated.300184'), # 是否删除
             'deleted_by' => __('validated.300185'), # 删除人名称
         ];
+    }
+
+    /**
+     * 新增参数
+     * @return array
+     */
+    public function addParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 更新参数
+     * @return array
+     */
+    public function updateParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 删除参数
+     * @return array
+     */
+    public function deleteParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 详情参数
+     * @return array
+     */
+    public function detailParams(): array
+    {
+        return [];
     }
 }

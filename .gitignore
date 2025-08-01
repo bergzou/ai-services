@@ -18,3 +18,4 @@ yarn-error.log
 /.idea/
 .env.*
 .env
+storage/logs/

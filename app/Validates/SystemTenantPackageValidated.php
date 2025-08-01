@@ -14,16 +14,17 @@ class SystemTenantPackageValidated extends BaseValidated implements ValidatesInt
     public function rules(): array
     {
         return [
-            'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'name' => 'required|string|max:30', # 套餐名
-            'status' => 'required|integer', # 套餐状态：1=正常， 2=停用
-            'remark' => 'nullable|string|max:256', # 备注
-            'menu_ids' => 'required|string|max:4096', # 关联的菜单编号
-            'creator' => 'required|string|max:64', # 创建者
-            'created_by' => 'required|string|max:255', # 创建人名称
-            'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'required|integer', # 是否删除
-            'deleted_by' => 'nullable|string|max:255', # 删除人名称
+            'id' => 'required', # 套餐编号
+            'snowflake_id' => 'required', # 雪花Id
+            'name' => 'required', # 套餐名
+            'status' => 'required', # 套餐状态：1=正常， 2=停用
+            'remark' => 'nullable', # 备注
+            'menu_ids' => 'required', # 关联的菜单编号
+            'creator' => 'required', # 创建者
+            'created_by' => 'required', # 创建人名称
+            'updated_by' => 'required', # 更新人名称
+            'is_deleted' => 'required', # 是否删除
+            'deleted_by' => 'nullable', # 删除人名称
         ];
     }
 
@@ -43,6 +44,7 @@ class SystemTenantPackageValidated extends BaseValidated implements ValidatesInt
     public function customAttributes(): array
     {
         return [
+            'id' => __('validated.300293'), # 套餐编号
             'snowflake_id' => __('validated.300277'), # 雪花Id
             'name' => __('validated.300250'), # 套餐名
             'status' => __('validated.300251'), # 套餐状态
@@ -54,5 +56,41 @@ class SystemTenantPackageValidated extends BaseValidated implements ValidatesInt
             'is_deleted' => __('validated.300184'), # 是否删除
             'deleted_by' => __('validated.300185'), # 删除人名称
         ];
+    }
+
+    /**
+     * 新增参数
+     * @return array
+     */
+    public function addParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 更新参数
+     * @return array
+     */
+    public function updateParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 删除参数
+     * @return array
+     */
+    public function deleteParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 详情参数
+     * @return array
+     */
+    public function detailParams(): array
+    {
+        return [];
     }
 }

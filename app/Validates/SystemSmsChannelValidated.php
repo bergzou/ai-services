@@ -14,18 +14,19 @@ class SystemSmsChannelValidated extends BaseValidated implements ValidatesInterf
     public function rules(): array
     {
         return [
-            'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'signature' => 'required|string|max:12', # 短信签名
-            'code' => 'required|string|max:63', # 渠道编码
-            'status' => 'required|integer', # 开启状态
-            'remark' => 'nullable|string|max:255', # 备注
-            'api_key' => 'required|string|max:128', # 短信 API 的账号
-            'api_secret' => 'nullable|string|max:128', # 短信 API 的秘钥
-            'callback_url' => 'nullable|string|max:255', # 短信发送回调 URL
-            'created_by' => 'required|string|max:255', # 创建人名称
-            'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'required|integer', # 是否删除
-            'deleted_by' => 'nullable|string|max:255', # 删除人名称
+            'id' => 'required', # 编号
+            'snowflake_id' => 'required', # 雪花Id
+            'signature' => 'required', # 短信签名
+            'code' => 'required', # 渠道编码
+            'status' => 'required', # 开启状态
+            'remark' => 'nullable', # 备注
+            'api_key' => 'required', # 短信 API 的账号
+            'api_secret' => 'nullable', # 短信 API 的秘钥
+            'callback_url' => 'nullable', # 短信发送回调 URL
+            'created_by' => 'required', # 创建人名称
+            'updated_by' => 'required', # 更新人名称
+            'is_deleted' => 'required', # 是否删除
+            'deleted_by' => 'nullable', # 删除人名称
         ];
     }
 
@@ -45,6 +46,7 @@ class SystemSmsChannelValidated extends BaseValidated implements ValidatesInterf
     public function customAttributes(): array
     {
         return [
+            'id' => __('validated.300280'), # 编号
             'snowflake_id' => __('validated.300277'), # 雪花Id
             'signature' => __('validated.300203'), # 短信签名
             'code' => __('validated.300204'), # 渠道编码
@@ -58,5 +60,41 @@ class SystemSmsChannelValidated extends BaseValidated implements ValidatesInterf
             'is_deleted' => __('validated.300184'), # 是否删除
             'deleted_by' => __('validated.300185'), # 删除人名称
         ];
+    }
+
+    /**
+     * 新增参数
+     * @return array
+     */
+    public function addParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 更新参数
+     * @return array
+     */
+    public function updateParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 删除参数
+     * @return array
+     */
+    public function deleteParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 详情参数
+     * @return array
+     */
+    public function detailParams(): array
+    {
+        return [];
     }
 }

@@ -14,15 +14,16 @@ class InfraDataSourceConfigValidated extends BaseValidated implements ValidatesI
     public function rules(): array
     {
         return [
-            'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'name' => 'required|string|max:100', # 参数名称
-            'url' => 'required|string|max:1024', # 数据源连接
-            'username' => 'required|string|max:255', # 用户名
-            'password' => 'required|string|max:255', # 密码
-            'created_by' => 'required|string|max:255', # 创建人名称
-            'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'required|integer', # 是否删除
-            'deleted_by' => 'nullable|string|max:255', # 删除人名称
+            'id' => 'required', # 主键编号
+            'snowflake_id' => 'required', # 雪花Id
+            'name' => 'required', # 参数名称
+            'url' => 'required', # 数据源连接
+            'username' => 'required', # 用户名
+            'password' => 'required', # 密码
+            'created_by' => 'required', # 创建人名称
+            'updated_by' => 'required', # 更新人名称
+            'is_deleted' => 'required', # 是否删除
+            'deleted_by' => 'nullable', # 删除人名称
         ];
     }
 
@@ -42,6 +43,7 @@ class InfraDataSourceConfigValidated extends BaseValidated implements ValidatesI
     public function customAttributes(): array
     {
         return [
+            'id' => __('validated.300282'), # 主键编号
             'snowflake_id' => __('validated.300277'), # 雪花Id
             'name' => __('validated.300070'), # 参数名称
             'url' => __('validated.300074'), # 数据源连接
@@ -52,5 +54,41 @@ class InfraDataSourceConfigValidated extends BaseValidated implements ValidatesI
             'is_deleted' => __('validated.300184'), # 是否删除
             'deleted_by' => __('validated.300185'), # 删除人名称
         ];
+    }
+
+    /**
+     * 新增参数
+     * @return array
+     */
+    public function addParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 更新参数
+     * @return array
+     */
+    public function updateParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 删除参数
+     * @return array
+     */
+    public function deleteParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 详情参数
+     * @return array
+     */
+    public function detailParams(): array
+    {
+        return [];
     }
 }

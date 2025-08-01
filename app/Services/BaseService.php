@@ -13,6 +13,7 @@ class BaseService
     protected $userInfo = [
       'user_id' => 'System',
       'user_name' => 'System',
+      'tenant_id' => 1,
     ];
 
 }

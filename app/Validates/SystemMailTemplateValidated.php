@@ -14,20 +14,21 @@ class SystemMailTemplateValidated extends BaseValidated implements ValidatesInte
     public function rules(): array
     {
         return [
-            'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'name' => 'required|string|max:63', # 模板名称
-            'code' => 'required|string|max:63', # 模板编码
-            'account_id' => 'required|integer', # 发送的邮箱账号编号
-            'nickname' => 'nullable|string|max:255', # 发送人名称
-            'title' => 'required|string|max:255', # 模板标题
-            'content' => 'required|string|max:10240', # 模板内容
-            'params' => 'required|string|max:255', # 参数数组
-            'status' => 'required|integer', # 开启状态：1=启用， 2=停用
-            'remark' => 'nullable|string|max:255', # 备注
-            'created_by' => 'required|string|max:255', # 创建人名称
-            'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'required|integer', # 是否删除
-            'deleted_by' => 'nullable|string|max:255', # 删除人名称
+            'id' => 'required', # 编号
+            'snowflake_id' => 'required', # 雪花Id
+            'name' => 'required', # 模板名称
+            'code' => 'required', # 模板编码
+            'account_id' => 'required', # 发送的邮箱账号编号
+            'nickname' => 'nullable', # 发送人名称
+            'title' => 'required', # 模板标题
+            'content' => 'required', # 模板内容
+            'params' => 'required', # 参数数组
+            'status' => 'required', # 开启状态：1=启用， 2=停用
+            'remark' => 'nullable', # 备注
+            'created_by' => 'required', # 创建人名称
+            'updated_by' => 'required', # 更新人名称
+            'is_deleted' => 'required', # 是否删除
+            'deleted_by' => 'nullable', # 删除人名称
         ];
     }
 
@@ -47,6 +48,7 @@ class SystemMailTemplateValidated extends BaseValidated implements ValidatesInte
     public function customAttributes(): array
     {
         return [
+            'id' => __('validated.300280'), # 编号
             'snowflake_id' => __('validated.300277'), # 雪花Id
             'name' => __('validated.300135'), # 模板名称
             'code' => __('validated.300126'), # 模板编码
@@ -62,5 +64,41 @@ class SystemMailTemplateValidated extends BaseValidated implements ValidatesInte
             'is_deleted' => __('validated.300184'), # 是否删除
             'deleted_by' => __('validated.300185'), # 删除人名称
         ];
+    }
+
+    /**
+     * 新增参数
+     * @return array
+     */
+    public function addParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 更新参数
+     * @return array
+     */
+    public function updateParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 删除参数
+     * @return array
+     */
+    public function deleteParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 详情参数
+     * @return array
+     */
+    public function detailParams(): array
+    {
+        return [];
     }
 }

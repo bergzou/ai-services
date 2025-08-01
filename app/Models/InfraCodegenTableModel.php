@@ -12,11 +12,14 @@ class InfraCodegenTableModel extends BaseModel
     # 对应的数据库表名
     protected $table = 'infra_codegen_table';
 
-    # 黑名单，指定不允许批量赋值的字段（空数组表示所有字段都可赋值）
-    protected $guarded = ['id'];
+    # 黑名单，指定不允许批量赋值的字段（如主键和敏感字段）
+    public $guarded = ['id','snowflake_id'];
+
+    # 白名单，指定可以被批量赋值的字段（注意：如果同时定义了$fillable和$guarded，则只有$fillable生效）
+    public $fillable = ['data_source_config_id','scene','table_name','table_comment','remark','module_name','business_name','class_name','class_comment','author','template_type','front_type','parent_menu_id','master_table_id','sub_join_column_id','sub_join_many','tree_parent_column_id','tree_name_column_id','created_at','created_by','updated_at','updated_by','is_deleted','deleted_at','deleted_by'];
 
     # 属性类型转换（自动映射数据库类型到PHP类型）
-    protected $casts = [
+    public $casts = [
         'id' => 'integer', # 编号
         'snowflake_id' => 'string', # 雪花Id
         'data_source_config_id' => 'integer', # 数据源配置的编号

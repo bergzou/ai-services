@@ -14,25 +14,26 @@ class SystemOperateLogValidated extends BaseValidated implements ValidatesInterf
     public function rules(): array
     {
         return [
-            'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'trace_id' => 'required|string|max:64', # 链路追踪编号
-            'user_id' => 'required|integer', # 用户编号
-            'user_type' => 'required|integer', # 用户类型
-            'type' => 'required|string|max:50', # 操作模块类型
-            'sub_type' => 'required|string|max:50', # 操作名
-            'biz_id' => 'required|integer', # 操作数据模块编号
-            'action' => 'required|string|max:2000', # 操作内容
-            'success' => 'required|integer', # 操作结果
-            'extra' => 'required|string|max:2000', # 拓展字段
-            'request_method' => 'nullable|string|max:16', # 请求方法名
-            'request_url' => 'nullable|string|max:255', # 请求地址
-            'user_ip' => 'nullable|string|max:50', # 用户 IP
-            'user_agent' => 'nullable|string|max:512', # 浏览器 UA
-            'created_by' => 'required|string|max:255', # 创建人名称
-            'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'required|integer', # 是否删除
-            'deleted_by' => 'nullable|string|max:255', # 删除人名称
-            'tenant_id' => 'required|integer', # 租户编号
+            'id' => 'required', # 日志主键
+            'snowflake_id' => 'required', # 雪花Id
+            'trace_id' => 'required', # 链路追踪编号
+            'user_id' => 'required', # 用户编号
+            'user_type' => 'required', # 用户类型
+            'type' => 'required', # 操作模块类型
+            'sub_type' => 'required', # 操作名
+            'biz_id' => 'required', # 操作数据模块编号
+            'action' => 'required', # 操作内容
+            'success' => 'required', # 操作结果
+            'extra' => 'required', # 拓展字段
+            'request_method' => 'nullable', # 请求方法名
+            'request_url' => 'nullable', # 请求地址
+            'user_ip' => 'nullable', # 用户 IP
+            'user_agent' => 'nullable', # 浏览器 UA
+            'created_by' => 'required', # 创建人名称
+            'updated_by' => 'required', # 更新人名称
+            'is_deleted' => 'required', # 是否删除
+            'deleted_by' => 'nullable', # 删除人名称
+            'tenant_id' => 'required', # 租户编号
         ];
     }
 
@@ -52,6 +53,7 @@ class SystemOperateLogValidated extends BaseValidated implements ValidatesInterf
     public function customAttributes(): array
     {
         return [
+            'id' => __('validated.300279'), # 日志主键
             'snowflake_id' => __('validated.300277'), # 雪花Id
             'trace_id' => __('validated.300000'), # 链路追踪编号
             'user_id' => __('validated.300001'), # 用户编号
@@ -72,5 +74,41 @@ class SystemOperateLogValidated extends BaseValidated implements ValidatesInterf
             'deleted_by' => __('validated.300185'), # 删除人名称
             'tenant_id' => __('validated.300018'), # 租户编号
         ];
+    }
+
+    /**
+     * 新增参数
+     * @return array
+     */
+    public function addParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 更新参数
+     * @return array
+     */
+    public function updateParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 删除参数
+     * @return array
+     */
+    public function deleteParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * 详情参数
+     * @return array
+     */
+    public function detailParams(): array
+    {
+        return [];
     }
 }

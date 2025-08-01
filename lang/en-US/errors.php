@@ -16,4 +16,8 @@ return [
     '500012' => 'A menu with that name already exists',
     '500013' => 'A menu with the component name already exists',
     '500014' => 'The menu does not exist',
+    '500015' => 'The menu name already exists',
+    '500016' => 'Duplicate job codes',
+    '500017' => 'Duplicate job title',
+    '500018' => 'The position does not exist',
 ];
