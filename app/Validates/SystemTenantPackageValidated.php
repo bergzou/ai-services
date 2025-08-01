@@ -16,13 +16,13 @@ class SystemTenantPackageValidated extends BaseValidated implements ValidatesInt
         return [
             'snowflake_id' => 'required|string|max:64', # 雪花Id
             'name' => 'required|string|max:30', # 套餐名
-            'status' => 'nullable|boolean', # 套餐状态：1=正常， 2=停用
+            'status' => 'required|integer', # 套餐状态：1=正常， 2=停用
             'remark' => 'nullable|string|max:256', # 备注
             'menu_ids' => 'required|string|max:4096', # 关联的菜单编号
-            'creator' => 'nullable|string|max:64', # 创建者
+            'creator' => 'required|string|max:64', # 创建者
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'nullable|boolean', # 是否删除
+            'is_deleted' => 'required|integer', # 是否删除
             'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }

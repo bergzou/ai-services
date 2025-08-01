@@ -57,8 +57,10 @@ class SystemMenuService extends BaseService
 
             DB::beginTransaction();
 
+            var_dump($params);
             $validated = new SystemMenuValidated($params, 'add');
             $messages = $validated->isRunFail();
+            var_dump($messages);die;
             if (!empty($messages)){
                 throw new BusinessException($messages, '400000'); // 参数验证失败异常
             }

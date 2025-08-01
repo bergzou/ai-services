@@ -20,7 +20,7 @@ class InfraJobModel extends BaseModel
         'id' => 'integer', # 任务编号
         'snowflake_id' => 'string', # 雪花Id
         'name' => 'string', # 任务名称
-        'status' => 'boolean', # 任务状态
+        'status' => 'integer', # 任务状态
         'handler_name' => 'string', # 处理器的名字
         'handler_param' => 'string', # 处理器的参数
         'cron_expression' => 'string', # CRON 表达式
@@ -31,7 +31,7 @@ class InfraJobModel extends BaseModel
         'created_by' => 'string', # 创建人名称
         'updated_at' => 'datetime', # 更新时间
         'updated_by' => 'string', # 更新人名称
-        'is_deleted' => 'boolean', # 是否删除
+        'is_deleted' => 'integer', # 是否删除
         'deleted_at' => 'datetime', # 删除时间
         'deleted_by' => 'string', # 删除人名称
     ];

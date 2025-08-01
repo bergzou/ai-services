@@ -20,17 +20,17 @@ class InfraConfigModel extends BaseModel
         'id' => 'integer', # 参数主键
         'snowflake_id' => 'string', # 雪花Id
         'category' => 'string', # 参数分组
-        'type' => 'boolean', # 参数类型
+        'type' => 'integer', # 参数类型
         'name' => 'string', # 参数名称
         'config_key' => 'string', # 参数键名
         'value' => 'string', # 参数键值
-        'visible' => 'boolean', # 是否可见
+        'visible' => 'integer', # 是否可见
         'remark' => 'string', # 备注
         'created_at' => 'datetime', # 创建时间
         'created_by' => 'string', # 创建人名称
         'updated_at' => 'datetime', # 更新时间
         'updated_by' => 'string', # 更新人名称
-        'is_deleted' => 'boolean', # 是否删除
+        'is_deleted' => 'integer', # 是否删除
         'deleted_at' => 'datetime', # 删除时间
         'deleted_by' => 'string', # 删除人名称
     ];

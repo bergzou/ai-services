@@ -282,14 +282,14 @@ class GenerateModelFile extends Command
             'bigint'     => 'integer',
             'mediumint'  => 'integer',
             'smallint'   => 'integer',
-            'tinyint'    => 'boolean',  // 小整数通常表示布尔值（0/1）
+            'tinyint'    => 'integer',  // 小整数通常表示布尔值（0/1）
             'float'      => 'float',
             'double'     => 'float',
             'real'       => 'float',
             'decimal'    => 'decimal:2', // 保留两位小数
             'numeric'    => 'decimal:2',
-            'boolean'    => 'boolean',
-            'bool'       => 'boolean',
+            'boolean'    => 'integer',
+            'bool'       => 'integer',
             'datetime'   => 'datetime',
             'timestamp'  => 'datetime',
             'datetimetz' => 'datetime',
@@ -308,8 +308,8 @@ class GenerateModelFile extends Command
 
         // 特殊字段名模式匹配（优先级高于通用映射）
         $specialHandling = [
-            '/^is_/'       => 'boolean',      // 以"is_"开头的字段（如is_active）
-            '/^has_/'      => 'boolean',      // 以"has_"开头的字段（如has_permission）
+            '/^is_/'       => 'integer',      // 以"is_"开头的字段（如is_active）
+            '/^has_/'      => 'integer',      // 以"has_"开头的字段（如has_permission）
             '/_at$/'       => 'datetime',     // 以"_at"结尾的字段（如created_at）
             '/_date$/'     => 'date',         // 以"_date"结尾的字段（如start_date）
             '/_time$/'     => 'time',         // 以"_time"结尾的字段（如login_time）

@@ -15,7 +15,7 @@ class SystemSocialUserValidated extends BaseValidated implements ValidatesInterf
     {
         return [
             'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'type' => 'required|boolean', # 社交平台的类型
+            'type' => 'required|integer', # 社交平台的类型
             'openid' => 'required|string|max:32', # 社交 openid
             'token' => 'nullable|string|max:256', # 社交 token
             'raw_token_info' => 'required|string|max:1024', # 原始 Token 数据，一般是 JSON 格式
@@ -26,9 +26,9 @@ class SystemSocialUserValidated extends BaseValidated implements ValidatesInterf
             'state' => 'nullable|string|max:256', # 最后一次的认证 state
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'nullable|boolean', # 是否删除
+            'is_deleted' => 'required|integer', # 是否删除
             'deleted_by' => 'nullable|string|max:255', # 删除人名称
-            'tenant_id' => 'nullable|integer', # 租户编号
+            'tenant_id' => 'required|integer', # 租户编号
         ];
     }
 

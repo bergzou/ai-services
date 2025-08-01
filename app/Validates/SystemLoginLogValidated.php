@@ -16,16 +16,18 @@ class SystemLoginLogValidated extends BaseValidated implements ValidatesInterfac
         return [
             'snowflake_id' => 'required|string|max:64', # 雪花Id
             'log_type' => 'required|integer', # 日志类型
-            'trace_id' => 'nullable|string|max:64', # 链路追踪编号
-            'user_id' => 'nullable|integer', # 用户编号
-            'user_type' => 'nullable|boolean', # 用户类型：10=会员， 20=管理员
-            'username' => 'nullable|string|max:50', # 用户账号
-            'result' => 'required|boolean', # 登陆结果
+            'trace_id' => 'required|string|max:64', # 链路追踪编号
+            'user_id' => 'required|integer', # 用户编号
+            'user_type' => 'required|integer', # 用户类型：10=会员， 20=管理员
+            'username' => 'required|string|max:50', # 用户账号
+            'result' => 'required|integer', # 登陆结果
             'user_ip' => 'required|string|max:50', # 用户 IP
             'user_agent' => 'required|string|max:512', # 浏览器 UA
-            'tenant_id' => 'nullable|integer', # 租户编号
+            'tenant_id' => 'required|integer', # 租户编号
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
+            'is_deleted' => 'required|integer', # 是否删除
+            'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }
 
@@ -57,6 +59,8 @@ class SystemLoginLogValidated extends BaseValidated implements ValidatesInterfac
             'tenant_id' => __('validated.300018'), # 租户编号
             'created_by' => __('validated.300019'), # 创建人名称
             'updated_by' => __('validated.300020'), # 更新人名称
+            'is_deleted' => __('validated.300184'), # 是否删除
+            'deleted_by' => __('validated.300185'), # 删除人名称
         ];
     }
 }

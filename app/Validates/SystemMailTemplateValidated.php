@@ -22,10 +22,12 @@ class SystemMailTemplateValidated extends BaseValidated implements ValidatesInte
             'title' => 'required|string|max:255', # 模板标题
             'content' => 'required|string|max:10240', # 模板内容
             'params' => 'required|string|max:255', # 参数数组
-            'status' => 'required|boolean', # 开启状态：1=启用， 2=停用
+            'status' => 'required|integer', # 开启状态：1=启用， 2=停用
             'remark' => 'nullable|string|max:255', # 备注
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
+            'is_deleted' => 'required|integer', # 是否删除
+            'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }
 
@@ -57,6 +59,8 @@ class SystemMailTemplateValidated extends BaseValidated implements ValidatesInte
             'remark' => __('validated.300054'), # 备注
             'created_by' => __('validated.300019'), # 创建人名称
             'updated_by' => __('validated.300020'), # 更新人名称
+            'is_deleted' => __('validated.300184'), # 是否删除
+            'deleted_by' => __('validated.300185'), # 删除人名称
         ];
     }
 }

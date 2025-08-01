@@ -24,7 +24,7 @@ class SystemOauth2ClientModel extends BaseModel
         'name' => 'string', # 应用名
         'logo' => 'string', # 应用图标
         'description' => 'string', # 应用描述
-        'status' => 'boolean', # 状态
+        'status' => 'integer', # 状态
         'access_token_validity_seconds' => 'integer', # 访问令牌的有效期
         'refresh_token_validity_seconds' => 'integer', # 刷新令牌的有效期
         'redirect_uris' => 'string', # 可重定向的 URI 地址
@@ -38,7 +38,7 @@ class SystemOauth2ClientModel extends BaseModel
         'created_by' => 'string', # 创建人名称
         'updated_at' => 'datetime', # 更新时间
         'updated_by' => 'string', # 更新人名称
-        'is_deleted' => 'boolean', # 是否删除
+        'is_deleted' => 'integer', # 是否删除
         'deleted_at' => 'datetime', # 删除时间
         'deleted_by' => 'string', # 删除人名称
     ];

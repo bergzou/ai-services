@@ -24,13 +24,13 @@ class SystemMailAccountModel extends BaseModel
         'password' => 'string', # 密码
         'host' => 'string', # SMTP 服务器域名
         'port' => 'integer', # SMTP 服务器端口
-        'ssl_enable' => 'boolean', # 是否开启 SSL
-        'starttls_enable' => 'boolean', # 是否开启 STARTTLS
+        'ssl_enable' => 'integer', # 是否开启 SSL
+        'starttls_enable' => 'integer', # 是否开启 STARTTLS
         'created_at' => 'datetime', # 创建时间
         'created_by' => 'string', # 创建人名称
         'updated_at' => 'datetime', # 更新时间
         'updated_by' => 'string', # 更新人名称
-        'is_deleted' => 'boolean', # 是否删除
+        'is_deleted' => 'integer', # 是否删除
         'deleted_at' => 'datetime', # 删除时间
         'deleted_by' => 'string', # 删除人名称
     ];

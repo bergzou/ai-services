@@ -20,7 +20,7 @@ class SystemOauth2CodeModel extends BaseModel
         'id' => 'integer', # 编号
         'snowflake_id' => 'string', # 雪花Id
         'user_id' => 'integer', # 用户编号
-        'user_type' => 'boolean', # 用户类型
+        'user_type' => 'integer', # 用户类型
         'code' => 'string', # 授权码
         'client_id' => 'string', # 客户端编号
         'scopes' => 'string', # 授权范围
@@ -31,7 +31,7 @@ class SystemOauth2CodeModel extends BaseModel
         'created_by' => 'string', # 创建人名称
         'updated_at' => 'datetime', # 更新时间
         'updated_by' => 'string', # 更新人名称
-        'is_deleted' => 'boolean', # 是否删除
+        'is_deleted' => 'integer', # 是否删除
         'deleted_at' => 'datetime', # 删除时间
         'deleted_by' => 'string', # 删除人名称
         'tenant_id' => 'integer', # 租户编号

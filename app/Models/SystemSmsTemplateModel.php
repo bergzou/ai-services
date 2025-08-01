@@ -19,8 +19,8 @@ class SystemSmsTemplateModel extends BaseModel
     protected $casts = [
         'id' => 'integer', # 编号
         'snowflake_id' => 'string', # 雪花Id
-        'type' => 'boolean', # 模板类型
-        'status' => 'boolean', # 开启状态
+        'type' => 'integer', # 模板类型
+        'status' => 'integer', # 开启状态
         'code' => 'string', # 模板编码
         'name' => 'string', # 模板名称
         'content' => 'string', # 模板内容
@@ -33,7 +33,7 @@ class SystemSmsTemplateModel extends BaseModel
         'created_by' => 'string', # 创建人名称
         'updated_at' => 'datetime', # 更新时间
         'updated_by' => 'string', # 更新人名称
-        'is_deleted' => 'boolean', # 是否删除
+        'is_deleted' => 'integer', # 是否删除
         'deleted_at' => 'datetime', # 删除时间
         'deleted_by' => 'string', # 删除人名称
     ];

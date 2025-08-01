@@ -16,25 +16,27 @@ class InfraCodegenTableValidated extends BaseValidated implements ValidatesInter
         return [
             'snowflake_id' => 'required|string|max:64', # 雪花Id
             'data_source_config_id' => 'required|integer', # 数据源配置的编号
-            'scene' => 'nullable|boolean', # 生成场景
-            'table_name' => 'nullable|string|max:200', # 表名称
-            'table_comment' => 'nullable|string|max:500', # 表描述
+            'scene' => 'required|integer', # 生成场景
+            'table_name' => 'required|string|max:200', # 表名称
+            'table_comment' => 'required|string|max:500', # 表描述
             'remark' => 'nullable|string|max:500', # 备注
             'module_name' => 'required|string|max:30', # 模块名
             'business_name' => 'required|string|max:30', # 业务名
-            'class_name' => 'nullable|string|max:100', # 类名称
+            'class_name' => 'required|string|max:100', # 类名称
             'class_comment' => 'required|string|max:50', # 类描述
             'author' => 'required|string|max:50', # 作者
-            'template_type' => 'nullable|boolean', # 模板类型
-            'front_type' => 'required|boolean', # 前端类型
+            'template_type' => 'required|integer', # 模板类型
+            'front_type' => 'required|integer', # 前端类型
             'parent_menu_id' => 'nullable|integer', # 父菜单编号
             'master_table_id' => 'nullable|integer', # 主表的编号
             'sub_join_column_id' => 'nullable|integer', # 子表关联主表的字段编号
-            'sub_join_many' => 'nullable|boolean', # 主表与子表是否一对多
+            'sub_join_many' => 'nullable|integer', # 主表与子表是否一对多
             'tree_parent_column_id' => 'nullable|integer', # 树表的父字段编号
             'tree_name_column_id' => 'nullable|integer', # 树表的名字字段编号
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
+            'is_deleted' => 'required|integer', # 是否删除
+            'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }
 
@@ -75,6 +77,8 @@ class InfraCodegenTableValidated extends BaseValidated implements ValidatesInter
             'tree_name_column_id' => __('validated.300067'), # 树表的名字字段编号
             'created_by' => __('validated.300019'), # 创建人名称
             'updated_by' => __('validated.300020'), # 更新人名称
+            'is_deleted' => __('validated.300184'), # 是否删除
+            'deleted_by' => __('validated.300185'), # 删除人名称
         ];
     }
 }

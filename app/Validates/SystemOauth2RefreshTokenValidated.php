@@ -17,15 +17,15 @@ class SystemOauth2RefreshTokenValidated extends BaseValidated implements Validat
             'snowflake_id' => 'required|string|max:64', # 雪花Id
             'user_id' => 'required|integer', # 用户编号
             'refresh_token' => 'required|string|max:32', # 刷新令牌
-            'user_type' => 'required|boolean', # 用户类型
+            'user_type' => 'required|integer', # 用户类型
             'client_id' => 'required|string|max:255', # 客户端编号
             'scopes' => 'nullable|string|max:255', # 授权范围
             'expires_time' => 'required|date_format:Y-m-d H:i:s', # 过期时间
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'nullable|boolean', # 是否删除
+            'is_deleted' => 'required|integer', # 是否删除
             'deleted_by' => 'nullable|string|max:255', # 删除人名称
-            'tenant_id' => 'nullable|integer', # 租户编号
+            'tenant_id' => 'required|integer', # 租户编号
         ];
     }
 

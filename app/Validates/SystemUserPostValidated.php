@@ -15,13 +15,13 @@ class SystemUserPostValidated extends BaseValidated implements ValidatesInterfac
     {
         return [
             'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'user_id' => 'nullable|integer', # 用户ID
-            'post_id' => 'nullable|integer', # 岗位ID
+            'user_id' => 'required|integer', # 用户ID
+            'post_id' => 'required|integer', # 岗位ID
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'nullable|boolean', # 是否删除
+            'is_deleted' => 'required|integer', # 是否删除
             'deleted_by' => 'nullable|string|max:255', # 删除人名称
-            'tenant_id' => 'nullable|integer', # 租户编号
+            'tenant_id' => 'required|integer', # 租户编号
         ];
     }
 

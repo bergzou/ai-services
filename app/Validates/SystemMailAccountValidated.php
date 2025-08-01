@@ -20,10 +20,12 @@ class SystemMailAccountValidated extends BaseValidated implements ValidatesInter
             'password' => 'required|string|max:255', # 密码
             'host' => 'required|string|max:255', # SMTP 服务器域名
             'port' => 'required|integer', # SMTP 服务器端口
-            'ssl_enable' => 'nullable|boolean', # 是否开启 SSL
-            'starttls_enable' => 'nullable|boolean', # 是否开启 STARTTLS
+            'ssl_enable' => 'required|integer', # 是否开启 SSL
+            'starttls_enable' => 'required|integer', # 是否开启 STARTTLS
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
+            'is_deleted' => 'required|integer', # 是否删除
+            'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }
 
@@ -53,6 +55,8 @@ class SystemMailAccountValidated extends BaseValidated implements ValidatesInter
             'starttls_enable' => __('validated.300121'), # 是否开启 STARTTLS
             'created_by' => __('validated.300019'), # 创建人名称
             'updated_by' => __('validated.300020'), # 更新人名称
+            'is_deleted' => __('validated.300184'), # 是否删除
+            'deleted_by' => __('validated.300185'), # 删除人名称
         ];
     }
 }

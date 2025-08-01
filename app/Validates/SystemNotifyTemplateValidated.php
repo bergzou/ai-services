@@ -19,13 +19,15 @@ class SystemNotifyTemplateValidated extends BaseValidated implements ValidatesIn
             'code' => 'required|string|max:64', # 模版编码
             'nickname' => 'required|string|max:255', # 发送人名称
             'content' => 'required|string|max:1024', # 模版内容
-            'type' => 'required|boolean', # 类型
+            'type' => 'required|integer', # 类型
             'params' => 'nullable|string|max:255', # 参数数组
-            'status' => 'required|boolean', # 状态
+            'status' => 'required|integer', # 状态
             'remark' => 'nullable|string|max:255', # 备注
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
-            'tenant_id' => 'nullable|integer', # 租户编号
+            'tenant_id' => 'required|integer', # 租户编号
+            'is_deleted' => 'required|integer', # 是否删除
+            'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }
 
@@ -57,6 +59,8 @@ class SystemNotifyTemplateValidated extends BaseValidated implements ValidatesIn
             'created_by' => __('validated.300019'), # 创建人名称
             'updated_by' => __('validated.300020'), # 更新人名称
             'tenant_id' => __('validated.300018'), # 租户编号
+            'is_deleted' => __('validated.300184'), # 是否删除
+            'deleted_by' => __('validated.300185'), # 删除人名称
         ];
     }
 }

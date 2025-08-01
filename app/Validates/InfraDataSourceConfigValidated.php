@@ -15,12 +15,14 @@ class InfraDataSourceConfigValidated extends BaseValidated implements ValidatesI
     {
         return [
             'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'name' => 'nullable|string|max:100', # 参数名称
+            'name' => 'required|string|max:100', # 参数名称
             'url' => 'required|string|max:1024', # 数据源连接
             'username' => 'required|string|max:255', # 用户名
-            'password' => 'nullable|string|max:255', # 密码
+            'password' => 'required|string|max:255', # 密码
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
+            'is_deleted' => 'required|integer', # 是否删除
+            'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }
 
@@ -47,6 +49,8 @@ class InfraDataSourceConfigValidated extends BaseValidated implements ValidatesI
             'password' => __('validated.300076'), # 密码
             'created_by' => __('validated.300019'), # 创建人名称
             'updated_by' => __('validated.300020'), # 更新人名称
+            'is_deleted' => __('validated.300184'), # 是否删除
+            'deleted_by' => __('validated.300185'), # 删除人名称
         ];
     }
 }

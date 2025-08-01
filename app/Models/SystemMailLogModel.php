@@ -20,7 +20,7 @@ class SystemMailLogModel extends BaseModel
         'id' => 'integer', # 编号
         'snowflake_id' => 'string', # 雪花Id
         'user_id' => 'integer', # 用户编号
-        'user_type' => 'boolean', # 用户类型
+        'user_type' => 'integer', # 用户类型
         'to_mail' => 'string', # 接收邮箱地址
         'account_id' => 'integer', # 邮箱账号编号
         'from_mail' => 'string', # 发送邮箱地址
@@ -30,7 +30,7 @@ class SystemMailLogModel extends BaseModel
         'template_title' => 'string', # 邮件标题
         'template_content' => 'string', # 邮件内容
         'template_params' => 'string', # 邮件参数
-        'send_status' => 'boolean', # 发送状态
+        'send_status' => 'integer', # 发送状态
         'send_time' => 'time', # 发送时间
         'send_message_id' => 'string', # 发送返回的消息 ID
         'send_exception' => 'string', # 发送异常
@@ -38,7 +38,7 @@ class SystemMailLogModel extends BaseModel
         'created_by' => 'string', # 创建人名称
         'updated_at' => 'datetime', # 更新时间
         'updated_by' => 'string', # 更新人名称
-        'is_deleted' => 'boolean', # 是否删除
+        'is_deleted' => 'integer', # 是否删除
         'deleted_at' => 'datetime', # 删除时间
         'deleted_by' => 'string', # 删除人名称
     ];

@@ -15,16 +15,18 @@ class SystemDeptValidated extends BaseValidated implements ValidatesInterface
     {
         return [
             'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'name' => 'nullable|string|max:30', # 部门名称
-            'parent_id' => 'nullable|integer', # 父部门id
-            'sort' => 'nullable|integer', # 显示顺序
+            'name' => 'required|string|max:30', # 部门名称
+            'parent_id' => 'required|integer', # 父部门id
+            'sort' => 'required|integer', # 显示顺序
             'leader_user_id' => 'nullable|integer', # 负责人
             'phone' => 'nullable|string|max:11', # 联系电话
             'email' => 'nullable|string|max:50', # 邮箱
-            'status' => 'required|boolean', # 部门状态：1=启用， 2=停用
-            'tenant_id' => 'nullable|integer', # 租户编号
+            'status' => 'required|integer', # 部门状态：1=启用， 2=停用
+            'tenant_id' => 'required|integer', # 租户编号
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
+            'is_deleted' => 'required|integer', # 是否删除
+            'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }
 
@@ -55,6 +57,8 @@ class SystemDeptValidated extends BaseValidated implements ValidatesInterface
             'tenant_id' => __('validated.300018'), # 租户编号
             'created_by' => __('validated.300019'), # 创建人名称
             'updated_by' => __('validated.300020'), # 更新人名称
+            'is_deleted' => __('validated.300184'), # 是否删除
+            'deleted_by' => __('validated.300185'), # 删除人名称
         ];
     }
 }

@@ -19,15 +19,15 @@ class SystemTenantValidated extends BaseValidated implements ValidatesInterface
             'contact_user_id' => 'nullable|integer', # 联系人的用户编号
             'contact_name' => 'required|string|max:30', # 联系人
             'contact_mobile' => 'nullable|string|max:500', # 联系手机
-            'status' => 'nullable|integer', # 租户状态：1=正常， 2=停用
+            'status' => 'required|integer', # 租户状态：1=正常， 2=停用
             'website' => 'nullable|string|max:256', # 绑定域名
             'package_id' => 'required|integer', # 租户套餐编号
             'expire_time' => 'required|date_format:Y-m-d H:i:s', # 过期时间
             'account_count' => 'required|integer', # 账号数量
-            'creator' => 'nullable|string|max:64', # 创建者
+            'creator' => 'required|string|max:64', # 创建者
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'nullable|boolean', # 是否删除
+            'is_deleted' => 'required|integer', # 是否删除
             'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }

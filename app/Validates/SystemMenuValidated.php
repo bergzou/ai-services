@@ -16,20 +16,22 @@ class SystemMenuValidated extends BaseValidated implements ValidatesInterface
         return [
             'snowflake_id' => 'required|string|max:64', # 雪花Id
             'name' => 'required|string|max:50', # 菜单名称
-            'permission' => 'nullable|string|max:100', # 权限标识
-            'type' => 'required|boolean', # 菜单类型：1=目录， 2=菜单， 3=按钮
-            'sort' => 'nullable|integer', # 显示顺序
-            'parent_id' => 'nullable|integer', # 父菜单ID
+            'permission' => 'required|string|max:100', # 权限标识
+            'type' => 'required|integer', # 菜单类型：1=目录， 2=菜单， 3=按钮
+            'sort' => 'required|integer', # 显示顺序
+            'parent_id' => 'required|integer', # 父菜单ID
             'path' => 'nullable|string|max:200', # 路由地址
             'icon' => 'nullable|string|max:100', # 菜单图标
             'component' => 'nullable|string|max:255', # 组件路径
             'component_name' => 'nullable|string|max:255', # 组件名
-            'status' => 'nullable|boolean', # 菜单状态：1=启用， 2=停用
-            'visible' => 'nullable|boolean', # 是否可见：1=显示， 2=隐藏
-            'keep_alive' => 'nullable|boolean', # 是否缓存：1=缓存， 2=不缓存
-            'always_show' => 'nullable|boolean', # 是否总是显示：1=总是， 2=不是
+            'status' => 'required|integer', # 菜单状态：1=启用， 2=停用
+            'visible' => 'required|integer', # 是否可见：1=显示， 2=隐藏
+            'keep_alive' => 'required|integer', # 是否缓存：1=缓存， 2=不缓存
+            'always_show' => 'required|integer', # 是否总是显示：1=总是， 2=不是
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
+            'is_deleted' => 'required|integer', # 是否删除
+            'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }
 
@@ -65,6 +67,8 @@ class SystemMenuValidated extends BaseValidated implements ValidatesInterface
             'always_show' => __('validated.300152'), # 是否总是显示
             'created_by' => __('validated.300019'), # 创建人名称
             'updated_by' => __('validated.300020'), # 更新人名称
+            'is_deleted' => __('validated.300184'), # 是否删除
+            'deleted_by' => __('validated.300185'), # 删除人名称
         ];
     }
 

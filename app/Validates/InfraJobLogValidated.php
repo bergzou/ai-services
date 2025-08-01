@@ -18,14 +18,16 @@ class InfraJobLogValidated extends BaseValidated implements ValidatesInterface
             'job_id' => 'required|integer', # 任务编号
             'handler_name' => 'required|string|max:64', # 处理器的名字
             'handler_param' => 'nullable|string|max:255', # 处理器的参数
-            'execute_index' => 'nullable|boolean', # 第几次执行
+            'execute_index' => 'required|integer', # 第几次执行
             'begin_time' => 'required|date_format:Y-m-d H:i:s', # 开始执行时间
             'end_time' => 'nullable|date_format:Y-m-d H:i:s', # 结束执行时间
             'duration' => 'nullable|integer', # 执行时长
-            'status' => 'required|boolean', # 任务状态
+            'status' => 'required|integer', # 任务状态
             'result' => 'nullable|string|max:4000', # 结果数据
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
+            'is_deleted' => 'required|integer', # 是否删除
+            'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }
 
@@ -57,6 +59,8 @@ class InfraJobLogValidated extends BaseValidated implements ValidatesInterface
             'result' => __('validated.300100'), # 结果数据
             'created_by' => __('validated.300019'), # 创建人名称
             'updated_by' => __('validated.300020'), # 更新人名称
+            'is_deleted' => __('validated.300184'), # 是否删除
+            'deleted_by' => __('validated.300185'), # 删除人名称
         ];
     }
 }

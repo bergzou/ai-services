@@ -20,14 +20,14 @@ class SystemTenantPackageModel extends BaseModel
         'id' => 'integer', # 套餐编号
         'snowflake_id' => 'string', # 雪花Id
         'name' => 'string', # 套餐名
-        'status' => 'boolean', # 套餐状态：1=正常， 2=停用
+        'status' => 'integer', # 套餐状态：1=正常， 2=停用
         'remark' => 'string', # 备注
         'menu_ids' => 'string', # 关联的菜单编号
         'creator' => 'string', # 创建者
         'created_by' => 'string', # 创建人名称
         'updated_at' => 'datetime', # 更新时间
         'updated_by' => 'string', # 更新人名称
-        'is_deleted' => 'boolean', # 是否删除
+        'is_deleted' => 'integer', # 是否删除
         'deleted_at' => 'datetime', # 删除时间
         'deleted_by' => 'string', # 删除人名称
     ];

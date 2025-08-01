@@ -22,17 +22,17 @@ class InfraJobLogModel extends BaseModel
         'job_id' => 'integer', # 任务编号
         'handler_name' => 'string', # 处理器的名字
         'handler_param' => 'string', # 处理器的参数
-        'execute_index' => 'boolean', # 第几次执行
+        'execute_index' => 'integer', # 第几次执行
         'begin_time' => 'time', # 开始执行时间
         'end_time' => 'time', # 结束执行时间
         'duration' => 'integer', # 执行时长
-        'status' => 'boolean', # 任务状态
+        'status' => 'integer', # 任务状态
         'result' => 'string', # 结果数据
         'created_at' => 'datetime', # 创建时间
         'created_by' => 'string', # 创建人名称
         'updated_at' => 'datetime', # 更新时间
         'updated_by' => 'string', # 更新人名称
-        'is_deleted' => 'boolean', # 是否删除
+        'is_deleted' => 'integer', # 是否删除
         'deleted_at' => 'datetime', # 删除时间
         'deleted_by' => 'string', # 删除人名称
     ];

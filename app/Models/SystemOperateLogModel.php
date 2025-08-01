@@ -21,12 +21,12 @@ class SystemOperateLogModel extends BaseModel
         'snowflake_id' => 'string', # 雪花Id
         'trace_id' => 'string', # 链路追踪编号
         'user_id' => 'integer', # 用户编号
-        'user_type' => 'boolean', # 用户类型
+        'user_type' => 'integer', # 用户类型
         'type' => 'string', # 操作模块类型
         'sub_type' => 'string', # 操作名
         'biz_id' => 'integer', # 操作数据模块编号
         'action' => 'string', # 操作内容
-        'success' => 'boolean', # 操作结果
+        'success' => 'integer', # 操作结果
         'extra' => 'string', # 拓展字段
         'request_method' => 'string', # 请求方法名
         'request_url' => 'string', # 请求地址
@@ -36,7 +36,7 @@ class SystemOperateLogModel extends BaseModel
         'created_by' => 'string', # 创建人名称
         'updated_at' => 'datetime', # 更新时间
         'updated_by' => 'string', # 更新人名称
-        'is_deleted' => 'boolean', # 是否删除
+        'is_deleted' => 'integer', # 是否删除
         'deleted_at' => 'datetime', # 删除时间
         'deleted_by' => 'string', # 删除人名称
         'tenant_id' => 'integer', # 租户编号

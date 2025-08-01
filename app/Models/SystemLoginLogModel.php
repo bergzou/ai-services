@@ -22,9 +22,9 @@ class SystemLoginLogModel extends BaseModel
         'log_type' => 'integer', # 日志类型
         'trace_id' => 'string', # 链路追踪编号
         'user_id' => 'integer', # 用户编号
-        'user_type' => 'boolean', # 用户类型：10=会员， 20=管理员
+        'user_type' => 'integer', # 用户类型：10=会员， 20=管理员
         'username' => 'string', # 用户账号
-        'result' => 'boolean', # 登陆结果
+        'result' => 'integer', # 登陆结果
         'user_ip' => 'string', # 用户 IP
         'user_agent' => 'string', # 浏览器 UA
         'tenant_id' => 'integer', # 租户编号
@@ -32,7 +32,7 @@ class SystemLoginLogModel extends BaseModel
         'created_by' => 'string', # 创建人名称
         'updated_at' => 'datetime', # 更新时间
         'updated_by' => 'string', # 更新人名称
-        'is_deleted' => 'boolean', # 是否删除
+        'is_deleted' => 'integer', # 是否删除
         'deleted_at' => 'datetime', # 删除时间
         'deleted_by' => 'string', # 删除人名称
     ];

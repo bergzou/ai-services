@@ -18,16 +18,16 @@ class SystemSmsCodeValidated extends BaseValidated implements ValidatesInterface
             'mobile' => 'required|string|max:11', # 手机号
             'code' => 'required|string|max:6', # 验证码
             'create_ip' => 'required|string|max:15', # 创建 IP
-            'scene' => 'required|boolean', # 发送场景
-            'today_index' => 'required|boolean', # 今日发送的第几条
-            'used' => 'required|boolean', # 是否使用
+            'scene' => 'required|integer', # 发送场景
+            'today_index' => 'required|integer', # 今日发送的第几条
+            'used' => 'required|integer', # 是否使用
             'used_time' => 'nullable|date_format:Y-m-d H:i:s', # 使用时间
             'used_ip' => 'nullable|string|max:255', # 使用 IP
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'nullable|boolean', # 是否删除
+            'is_deleted' => 'required|integer', # 是否删除
             'deleted_by' => 'nullable|string|max:255', # 删除人名称
-            'tenant_id' => 'nullable|integer', # 租户编号
+            'tenant_id' => 'required|integer', # 租户编号
         ];
     }
 

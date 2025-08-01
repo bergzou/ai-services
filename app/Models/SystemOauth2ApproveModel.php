@@ -20,17 +20,17 @@ class SystemOauth2ApproveModel extends BaseModel
         'id' => 'integer', # 编号
         'snowflake_id' => 'string', # 雪花Id
         'user_id' => 'integer', # 用户编号
-        'user_type' => 'boolean', # 用户类型
+        'user_type' => 'integer', # 用户类型
         'client_id' => 'string', # 客户端编号
         'scope' => 'string', # 授权范围
-        'approved' => 'boolean', # 是否接受
+        'approved' => 'integer', # 是否接受
         'expires_time' => 'time', # 过期时间
         'tenant_id' => 'integer', # 租户编号
         'created_at' => 'datetime', # 创建时间
         'created_by' => 'string', # 创建人名称
         'updated_at' => 'datetime', # 更新时间
         'updated_by' => 'string', # 更新人名称
-        'is_deleted' => 'boolean', # 是否删除
+        'is_deleted' => 'integer', # 是否删除
         'deleted_at' => 'datetime', # 删除时间
         'deleted_by' => 'string', # 删除人名称
     ];

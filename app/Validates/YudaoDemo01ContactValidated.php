@@ -15,16 +15,16 @@ class YudaoDemo01ContactValidated extends BaseValidated implements ValidatesInte
     {
         return [
             'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'name' => 'nullable|string|max:100', # 名字
-            'sex' => 'required|boolean', # 性别
+            'name' => 'required|string|max:100', # 名字
+            'sex' => 'required|integer', # 性别
             'birthday' => 'required|date_format:Y-m-d H:i:s', # 出生年
             'description' => 'required|string|max:255', # 简介
             'avatar' => 'nullable|string|max:512', # 头像
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'nullable|boolean', # 是否删除
+            'is_deleted' => 'required|integer', # 是否删除
             'deleted_by' => 'nullable|string|max:255', # 删除人名称
-            'tenant_id' => 'nullable|integer', # 租户编号
+            'tenant_id' => 'required|integer', # 租户编号
         ];
     }
 

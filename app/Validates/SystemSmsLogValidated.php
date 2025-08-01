@@ -19,26 +19,26 @@ class SystemSmsLogValidated extends BaseValidated implements ValidatesInterface
             'channel_code' => 'required|string|max:63', # 短信渠道编码
             'template_id' => 'required|integer', # 模板编号
             'template_code' => 'required|string|max:63', # 模板编码
-            'template_type' => 'required|boolean', # 短信类型
+            'template_type' => 'required|integer', # 短信类型
             'template_content' => 'required|string|max:255', # 短信内容
             'template_params' => 'required|string|max:255', # 短信参数
             'api_template_id' => 'required|string|max:63', # 短信 API 的模板编号
             'mobile' => 'required|string|max:11', # 手机号
             'user_id' => 'nullable|integer', # 用户编号
-            'user_type' => 'nullable|boolean', # 用户类型
-            'send_status' => 'nullable|boolean', # 发送状态
+            'user_type' => 'nullable|integer', # 用户类型
+            'send_status' => 'required|integer', # 发送状态
             'send_time' => 'nullable|date_format:Y-m-d H:i:s', # 发送时间
             'api_send_code' => 'nullable|string|max:63', # 短信 API 发送结果的编码
             'api_send_msg' => 'nullable|string|max:255', # 短信 API 发送失败的提示
             'api_request_id' => 'nullable|string|max:255', # 短信 API 发送返回的唯一请求 ID
             'api_serial_no' => 'nullable|string|max:255', # 短信 API 发送返回的序号
-            'receive_status' => 'nullable|boolean', # 接收状态
+            'receive_status' => 'required|integer', # 接收状态
             'receive_time' => 'nullable|date_format:Y-m-d H:i:s', # 接收时间
             'api_receive_code' => 'nullable|string|max:63', # API 接收结果的编码
             'api_receive_msg' => 'nullable|string|max:255', # API 接收结果的说明
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'nullable|boolean', # 是否删除
+            'is_deleted' => 'required|integer', # 是否删除
             'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }

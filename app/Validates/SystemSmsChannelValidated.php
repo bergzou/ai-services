@@ -17,14 +17,14 @@ class SystemSmsChannelValidated extends BaseValidated implements ValidatesInterf
             'snowflake_id' => 'required|string|max:64', # 雪花Id
             'signature' => 'required|string|max:12', # 短信签名
             'code' => 'required|string|max:63', # 渠道编码
-            'status' => 'required|boolean', # 开启状态
+            'status' => 'required|integer', # 开启状态
             'remark' => 'nullable|string|max:255', # 备注
             'api_key' => 'required|string|max:128', # 短信 API 的账号
             'api_secret' => 'nullable|string|max:128', # 短信 API 的秘钥
             'callback_url' => 'nullable|string|max:255', # 短信发送回调 URL
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'nullable|boolean', # 是否删除
+            'is_deleted' => 'required|integer', # 是否删除
             'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }

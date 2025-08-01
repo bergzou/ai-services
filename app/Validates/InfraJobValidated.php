@@ -16,15 +16,17 @@ class InfraJobValidated extends BaseValidated implements ValidatesInterface
         return [
             'snowflake_id' => 'required|string|max:64', # 雪花Id
             'name' => 'required|string|max:32', # 任务名称
-            'status' => 'required|boolean', # 任务状态
+            'status' => 'required|integer', # 任务状态
             'handler_name' => 'required|string|max:64', # 处理器的名字
             'handler_param' => 'nullable|string|max:255', # 处理器的参数
             'cron_expression' => 'required|string|max:32', # CRON 表达式
-            'retry_count' => 'nullable|integer', # 重试次数
-            'retry_interval' => 'nullable|integer', # 重试间隔
-            'monitor_timeout' => 'nullable|integer', # 监控超时时间
+            'retry_count' => 'required|integer', # 重试次数
+            'retry_interval' => 'required|integer', # 重试间隔
+            'monitor_timeout' => 'required|integer', # 监控超时时间
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
+            'is_deleted' => 'required|integer', # 是否删除
+            'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }
 
@@ -55,6 +57,8 @@ class InfraJobValidated extends BaseValidated implements ValidatesInterface
             'monitor_timeout' => __('validated.300095'), # 监控超时时间
             'created_by' => __('validated.300019'), # 创建人名称
             'updated_by' => __('validated.300020'), # 更新人名称
+            'is_deleted' => __('validated.300184'), # 是否删除
+            'deleted_by' => __('validated.300185'), # 删除人名称
         ];
     }
 }

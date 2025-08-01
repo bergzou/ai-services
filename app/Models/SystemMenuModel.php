@@ -21,22 +21,22 @@ class SystemMenuModel extends BaseModel
         'snowflake_id' => 'string', # 雪花Id
         'name' => 'string', # 菜单名称
         'permission' => 'string', # 权限标识
-        'type' => 'boolean', # 菜单类型：1=目录， 2=菜单， 3=按钮
+        'type' => 'integer', # 菜单类型：1=目录， 2=菜单， 3=按钮
         'sort' => 'integer', # 显示顺序
         'parent_id' => 'integer', # 父菜单ID
         'path' => 'string', # 路由地址
         'icon' => 'string', # 菜单图标
         'component' => 'string', # 组件路径
         'component_name' => 'string', # 组件名
-        'status' => 'boolean', # 菜单状态：1=启用， 2=停用
-        'visible' => 'boolean', # 是否可见：1=显示， 2=隐藏
-        'keep_alive' => 'boolean', # 是否缓存：1=缓存， 2=不缓存
-        'always_show' => 'boolean', # 是否总是显示：1=总是， 2=不是
+        'status' => 'integer', # 菜单状态：1=启用， 2=停用
+        'visible' => 'integer', # 是否可见：1=显示， 2=隐藏
+        'keep_alive' => 'integer', # 是否缓存：1=缓存， 2=不缓存
+        'always_show' => 'integer', # 是否总是显示：1=总是， 2=不是
         'created_at' => 'datetime', # 创建时间
         'created_by' => 'string', # 创建人名称
         'updated_at' => 'datetime', # 更新时间
         'updated_by' => 'string', # 更新人名称
-        'is_deleted' => 'boolean', # 是否删除
+        'is_deleted' => 'integer', # 是否删除
         'deleted_at' => 'datetime', # 删除时间
         'deleted_by' => 'string', # 删除人名称
     ];

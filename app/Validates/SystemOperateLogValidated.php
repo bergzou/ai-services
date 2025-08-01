@@ -15,24 +15,24 @@ class SystemOperateLogValidated extends BaseValidated implements ValidatesInterf
     {
         return [
             'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'trace_id' => 'nullable|string|max:64', # 链路追踪编号
+            'trace_id' => 'required|string|max:64', # 链路追踪编号
             'user_id' => 'required|integer', # 用户编号
-            'user_type' => 'nullable|boolean', # 用户类型
+            'user_type' => 'required|integer', # 用户类型
             'type' => 'required|string|max:50', # 操作模块类型
             'sub_type' => 'required|string|max:50', # 操作名
             'biz_id' => 'required|integer', # 操作数据模块编号
-            'action' => 'nullable|string|max:2000', # 操作内容
-            'success' => 'nullable|boolean', # 操作结果
-            'extra' => 'nullable|string|max:2000', # 拓展字段
+            'action' => 'required|string|max:2000', # 操作内容
+            'success' => 'required|integer', # 操作结果
+            'extra' => 'required|string|max:2000', # 拓展字段
             'request_method' => 'nullable|string|max:16', # 请求方法名
             'request_url' => 'nullable|string|max:255', # 请求地址
             'user_ip' => 'nullable|string|max:50', # 用户 IP
             'user_agent' => 'nullable|string|max:512', # 浏览器 UA
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'nullable|boolean', # 是否删除
+            'is_deleted' => 'required|integer', # 是否删除
             'deleted_by' => 'nullable|string|max:255', # 删除人名称
-            'tenant_id' => 'nullable|integer', # 租户编号
+            'tenant_id' => 'required|integer', # 租户编号
         ];
     }
 

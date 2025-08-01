@@ -17,11 +17,13 @@ class SystemNoticeValidated extends BaseValidated implements ValidatesInterface
             'snowflake_id' => 'required|string|max:64', # 雪花Id
             'title' => 'required|string|max:50', # 公告标题
             'content' => 'required|string|max:65535', # 公告内容
-            'type' => 'required|boolean', # 公告类型（1通知 2公告）
-            'status' => 'nullable|boolean', # 公告状态：1=启用， 2=停用
-            'tenant_id' => 'nullable|integer', # 租户编号
+            'type' => 'required|integer', # 公告类型（1通知 2公告）
+            'status' => 'required|integer', # 公告状态：1=启用， 2=停用
+            'tenant_id' => 'required|integer', # 租户编号
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
+            'is_deleted' => 'required|integer', # 是否删除
+            'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }
 
@@ -49,6 +51,8 @@ class SystemNoticeValidated extends BaseValidated implements ValidatesInterface
             'tenant_id' => __('validated.300018'), # 租户编号
             'created_by' => __('validated.300019'), # 创建人名称
             'updated_by' => __('validated.300020'), # 更新人名称
+            'is_deleted' => __('validated.300184'), # 是否删除
+            'deleted_by' => __('validated.300185'), # 删除人名称
         ];
     }
 }

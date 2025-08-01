@@ -21,14 +21,14 @@ class SystemNoticeModel extends BaseModel
         'snowflake_id' => 'string', # 雪花Id
         'title' => 'string', # 公告标题
         'content' => 'string', # 公告内容
-        'type' => 'boolean', # 公告类型（1通知 2公告）
-        'status' => 'boolean', # 公告状态：1=启用， 2=停用
+        'type' => 'integer', # 公告类型（1通知 2公告）
+        'status' => 'integer', # 公告状态：1=启用， 2=停用
         'tenant_id' => 'integer', # 租户编号
         'created_at' => 'datetime', # 创建时间
         'created_by' => 'string', # 创建人名称
         'updated_at' => 'datetime', # 更新时间
         'updated_by' => 'string', # 更新人名称
-        'is_deleted' => 'boolean', # 是否删除
+        'is_deleted' => 'integer', # 是否删除
         'deleted_at' => 'datetime', # 删除时间
         'deleted_by' => 'string', # 删除人名称
     ];

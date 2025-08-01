@@ -16,14 +16,16 @@ class InfraConfigValidated extends BaseValidated implements ValidatesInterface
         return [
             'snowflake_id' => 'required|string|max:64', # 雪花Id
             'category' => 'required|string|max:50', # 参数分组
-            'type' => 'required|boolean', # 参数类型
-            'name' => 'nullable|string|max:100', # 参数名称
-            'config_key' => 'nullable|string|max:100', # 参数键名
-            'value' => 'nullable|string|max:500', # 参数键值
-            'visible' => 'required|boolean', # 是否可见
+            'type' => 'required|integer', # 参数类型
+            'name' => 'required|string|max:100', # 参数名称
+            'config_key' => 'required|string|max:100', # 参数键名
+            'value' => 'required|string|max:500', # 参数键值
+            'visible' => 'required|integer', # 是否可见
             'remark' => 'nullable|string|max:500', # 备注
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
+            'is_deleted' => 'required|integer', # 是否删除
+            'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }
 
@@ -53,6 +55,8 @@ class InfraConfigValidated extends BaseValidated implements ValidatesInterface
             'remark' => __('validated.300054'), # 备注
             'created_by' => __('validated.300019'), # 创建人名称
             'updated_by' => __('validated.300020'), # 更新人名称
+            'is_deleted' => __('validated.300184'), # 是否删除
+            'deleted_by' => __('validated.300185'), # 删除人名称
         ];
     }
 }

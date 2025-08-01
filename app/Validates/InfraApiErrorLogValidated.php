@@ -16,8 +16,8 @@ class InfraApiErrorLogValidated extends BaseValidated implements ValidatesInterf
         return [
             'snowflake_id' => 'required|string|max:64', # 雪花Id
             'trace_id' => 'required|string|max:64', # 链路追踪编号
-            'user_id' => 'nullable|integer', # 用户编号
-            'user_type' => 'nullable|boolean', # 用户类型：10=会员， 20=管理员
+            'user_id' => 'required|integer', # 用户编号
+            'user_type' => 'required|integer', # 用户类型：10=会员， 20=管理员
             'application_name' => 'required|string|max:50', # 应用名
             'request_method' => 'required|string|max:16', # 请求方法名
             'request_url' => 'required|string|max:255', # 请求地址
@@ -25,7 +25,7 @@ class InfraApiErrorLogValidated extends BaseValidated implements ValidatesInterf
             'user_ip' => 'required|string|max:50', # 用户 IP
             'user_agent' => 'required|string|max:512', # 浏览器 UA
             'exception_time' => 'required|date_format:Y-m-d H:i:s', # 异常发生时间
-            'exception_name' => 'nullable|string|max:128', # 异常名
+            'exception_name' => 'required|string|max:128', # 异常名
             'exception_message' => 'required|string|max:65535', # 异常导致的消息
             'exception_root_cause_message' => 'required|string|max:65535', # 异常导致的根消息
             'exception_stack_trace' => 'required|string|max:65535', # 异常的栈轨迹
@@ -33,12 +33,14 @@ class InfraApiErrorLogValidated extends BaseValidated implements ValidatesInterf
             'exception_file_name' => 'required|string|max:512', # 异常发生的类文件
             'exception_method_name' => 'required|string|max:512', # 异常发生的方法名
             'exception_line_number' => 'required|integer', # 异常发生的方法所在行
-            'process_status' => 'required|boolean', # 处理状态：10：未处理，10：已处理，10：已忽略
+            'process_status' => 'required|integer', # 处理状态：10：未处理，10：已处理，10：已忽略
             'process_time' => 'nullable|date_format:Y-m-d H:i:s', # 处理时间
             'process_user_id' => 'nullable|integer', # 处理用户编号
-            'tenant_id' => 'nullable|integer', # 租户编号
+            'tenant_id' => 'required|integer', # 租户编号
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
+            'is_deleted' => 'required|integer', # 是否删除
+            'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }
 
@@ -83,6 +85,8 @@ class InfraApiErrorLogValidated extends BaseValidated implements ValidatesInterf
             'tenant_id' => __('validated.300018'), # 租户编号
             'created_by' => __('validated.300019'), # 创建人名称
             'updated_by' => __('validated.300020'), # 更新人名称
+            'is_deleted' => __('validated.300184'), # 是否删除
+            'deleted_by' => __('validated.300185'), # 删除人名称
         ];
     }
 }

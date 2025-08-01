@@ -16,7 +16,7 @@ class SystemMailLogValidated extends BaseValidated implements ValidatesInterface
         return [
             'snowflake_id' => 'required|string|max:64', # 雪花Id
             'user_id' => 'nullable|integer', # 用户编号
-            'user_type' => 'nullable|boolean', # 用户类型
+            'user_type' => 'nullable|integer', # 用户类型
             'to_mail' => 'required|string|max:255', # 接收邮箱地址
             'account_id' => 'required|integer', # 邮箱账号编号
             'from_mail' => 'required|string|max:255', # 发送邮箱地址
@@ -26,12 +26,14 @@ class SystemMailLogValidated extends BaseValidated implements ValidatesInterface
             'template_title' => 'required|string|max:255', # 邮件标题
             'template_content' => 'required|string|max:65535', # 邮件内容
             'template_params' => 'required|string|max:255', # 邮件参数
-            'send_status' => 'nullable|boolean', # 发送状态
+            'send_status' => 'required|integer', # 发送状态
             'send_time' => 'nullable|date_format:Y-m-d H:i:s', # 发送时间
             'send_message_id' => 'nullable|string|max:255', # 发送返回的消息 ID
             'send_exception' => 'nullable|string|max:65535', # 发送异常
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
+            'is_deleted' => 'required|integer', # 是否删除
+            'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }
 
@@ -69,6 +71,8 @@ class SystemMailLogValidated extends BaseValidated implements ValidatesInterface
             'send_exception' => __('validated.300134'), # 发送异常
             'created_by' => __('validated.300019'), # 创建人名称
             'updated_by' => __('validated.300020'), # 更新人名称
+            'is_deleted' => __('validated.300184'), # 是否删除
+            'deleted_by' => __('validated.300185'), # 删除人名称
         ];
     }
 }

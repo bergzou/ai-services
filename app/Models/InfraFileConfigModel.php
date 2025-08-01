@@ -20,15 +20,15 @@ class InfraFileConfigModel extends BaseModel
         'id' => 'integer', # 编号
         'snowflake_id' => 'string', # 雪花Id
         'name' => 'string', # 配置名
-        'storage' => 'boolean', # 存储器
+        'storage' => 'integer', # 存储器
         'remark' => 'string', # 备注
-        'master' => 'boolean', # 是否为主配置
+        'master' => 'integer', # 是否为主配置
         'config' => 'string', # 存储配置
         'created_at' => 'datetime', # 创建时间
         'created_by' => 'string', # 创建人名称
         'updated_at' => 'datetime', # 更新时间
         'updated_by' => 'string', # 更新人名称
-        'is_deleted' => 'boolean', # 是否删除
+        'is_deleted' => 'integer', # 是否删除
         'deleted_at' => 'datetime', # 删除时间
         'deleted_by' => 'string', # 删除人名称
     ];

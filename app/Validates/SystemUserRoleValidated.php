@@ -19,8 +19,10 @@ class SystemUserRoleValidated extends BaseValidated implements ValidatesInterfac
             'role_id' => 'required|integer', # 角色ID
             'create_time' => 'nullable|date_format:Y-m-d H:i:s', # 创建时间
             'update_time' => 'nullable|date_format:Y-m-d H:i:s', # 更新时间
-            'deleted' => 'nullable|boolean', # 是否删除
-            'tenant_id' => 'nullable|integer', # 租户编号
+            'deleted' => 'nullable|integer', # 是否删除
+            'tenant_id' => 'required|integer', # 租户编号
+            'is_deleted' => 'required|integer', # 是否删除
+            'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }
 
@@ -47,6 +49,8 @@ class SystemUserRoleValidated extends BaseValidated implements ValidatesInterfac
             'update_time' => __('validated.300256'), # 更新时间
             'deleted' => __('validated.300184'), # 是否删除
             'tenant_id' => __('validated.300018'), # 租户编号
+            'is_deleted' => __('validated.300184'), # 是否删除
+            'deleted_by' => __('validated.300185'), # 删除人名称
         ];
     }
 }

@@ -25,9 +25,9 @@ class SystemUserRoleModel extends BaseModel
         'create_time' => 'time', # 创建时间
         'updated_at' => 'datetime', # 更新时间
         'update_time' => 'time', # 更新时间
-        'deleted' => 'boolean', # 是否删除
+        'deleted' => 'integer', # 是否删除
         'tenant_id' => 'integer', # 租户编号
-        'is_deleted' => 'boolean', # 是否删除
+        'is_deleted' => 'integer', # 是否删除
         'deleted_at' => 'datetime', # 删除时间
         'deleted_by' => 'string', # 删除人名称
     ];

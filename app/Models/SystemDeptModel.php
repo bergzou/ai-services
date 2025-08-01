@@ -25,13 +25,13 @@ class SystemDeptModel extends BaseModel
         'leader_user_id' => 'integer', # 负责人
         'phone' => 'string', # 联系电话
         'email' => 'string', # 邮箱
-        'status' => 'boolean', # 部门状态：1=启用， 2=停用
+        'status' => 'integer', # 部门状态：1=启用， 2=停用
         'tenant_id' => 'integer', # 租户编号
         'created_at' => 'datetime', # 创建时间
         'created_by' => 'string', # 创建人名称
         'updated_at' => 'datetime', # 更新时间
         'updated_by' => 'string', # 更新人名称
-        'is_deleted' => 'boolean', # 是否删除
+        'is_deleted' => 'integer', # 是否删除
         'deleted_at' => 'datetime', # 删除时间
         'deleted_by' => 'string', # 删除人名称
     ];

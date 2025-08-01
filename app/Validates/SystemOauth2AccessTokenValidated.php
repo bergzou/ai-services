@@ -16,16 +16,18 @@ class SystemOauth2AccessTokenValidated extends BaseValidated implements Validate
         return [
             'snowflake_id' => 'required|string|max:64', # 雪花Id
             'user_id' => 'required|integer', # 用户编号
-            'user_type' => 'required|boolean', # 用户类型
+            'user_type' => 'required|integer', # 用户类型
             'user_info' => 'required|string|max:512', # 用户信息
             'access_token' => 'required|string|max:255', # 访问令牌
             'refresh_token' => 'required|string|max:32', # 刷新令牌
             'client_id' => 'required|string|max:255', # 客户端编号
             'scopes' => 'nullable|string|max:255', # 授权范围
             'expires_time' => 'required|date_format:Y-m-d H:i:s', # 过期时间
-            'tenant_id' => 'nullable|integer', # 租户编号
+            'tenant_id' => 'required|integer', # 租户编号
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
+            'is_deleted' => 'required|integer', # 是否删除
+            'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }
 
@@ -57,6 +59,8 @@ class SystemOauth2AccessTokenValidated extends BaseValidated implements Validate
             'tenant_id' => __('validated.300018'), # 租户编号
             'created_by' => __('validated.300019'), # 创建人名称
             'updated_by' => __('validated.300020'), # 更新人名称
+            'is_deleted' => __('validated.300184'), # 是否删除
+            'deleted_by' => __('validated.300185'), # 删除人名称
         ];
     }
 }

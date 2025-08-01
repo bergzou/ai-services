@@ -16,18 +16,20 @@ class SystemNotifyMessageValidated extends BaseValidated implements ValidatesInt
         return [
             'snowflake_id' => 'required|string|max:64', # 雪花Id
             'user_id' => 'required|integer', # 用户id
-            'user_type' => 'required|boolean', # 用户类型：10=会员， 20=管理员
+            'user_type' => 'required|integer', # 用户类型：10=会员， 20=管理员
             'template_id' => 'required|integer', # 模版编号
             'template_code' => 'required|string|max:64', # 模板编码
             'template_nickname' => 'required|string|max:63', # 模版发送人名称
             'template_content' => 'required|string|max:1024', # 模版内容
             'template_type' => 'required|integer', # 模版类型
             'template_params' => 'required|string|max:255', # 模版参数
-            'read_status' => 'required|boolean', # 是否已读
+            'read_status' => 'required|integer', # 是否已读
             'read_time' => 'nullable|date_format:Y-m-d H:i:s', # 阅读时间
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
-            'tenant_id' => 'nullable|integer', # 租户编号
+            'tenant_id' => 'required|integer', # 租户编号
+            'is_deleted' => 'required|integer', # 是否删除
+            'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }
 
@@ -61,6 +63,8 @@ class SystemNotifyMessageValidated extends BaseValidated implements ValidatesInt
             'created_by' => __('validated.300019'), # 创建人名称
             'updated_by' => __('validated.300020'), # 更新人名称
             'tenant_id' => __('validated.300018'), # 租户编号
+            'is_deleted' => __('validated.300184'), # 是否删除
+            'deleted_by' => __('validated.300185'), # 删除人名称
         ];
     }
 }

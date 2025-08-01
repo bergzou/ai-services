@@ -15,12 +15,14 @@ class SystemDictTypeValidated extends BaseValidated implements ValidatesInterfac
     {
         return [
             'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'name' => 'nullable|string|max:100', # 字典名称
-            'type' => 'nullable|string|max:100', # 字典类型
-            'status' => 'nullable|boolean', # 状态：1=启用， 2=停用
+            'name' => 'required|string|max:100', # 字典名称
+            'type' => 'required|string|max:100', # 字典类型
+            'status' => 'required|integer', # 状态：1=启用， 2=停用
             'remark' => 'nullable|string|max:500', # 备注
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
+            'is_deleted' => 'required|integer', # 是否删除
+            'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }
 
@@ -47,6 +49,8 @@ class SystemDictTypeValidated extends BaseValidated implements ValidatesInterfac
             'remark' => __('validated.300054'), # 备注
             'created_by' => __('validated.300019'), # 创建人名称
             'updated_by' => __('validated.300020'), # 更新人名称
+            'is_deleted' => __('validated.300184'), # 是否删除
+            'deleted_by' => __('validated.300185'), # 删除人名称
         ];
     }
 }

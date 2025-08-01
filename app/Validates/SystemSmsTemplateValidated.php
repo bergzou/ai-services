@@ -15,8 +15,8 @@ class SystemSmsTemplateValidated extends BaseValidated implements ValidatesInter
     {
         return [
             'snowflake_id' => 'required|string|max:64', # 雪花Id
-            'type' => 'required|boolean', # 模板类型
-            'status' => 'required|boolean', # 开启状态
+            'type' => 'required|integer', # 模板类型
+            'status' => 'required|integer', # 开启状态
             'code' => 'required|string|max:63', # 模板编码
             'name' => 'required|string|max:63', # 模板名称
             'content' => 'required|string|max:255', # 模板内容
@@ -27,7 +27,7 @@ class SystemSmsTemplateValidated extends BaseValidated implements ValidatesInter
             'channel_code' => 'required|string|max:63', # 短信渠道编码
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'nullable|boolean', # 是否删除
+            'is_deleted' => 'required|integer', # 是否删除
             'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }

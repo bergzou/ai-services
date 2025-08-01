@@ -19,21 +19,23 @@ class InfraCodegenColumnValidated extends BaseValidated implements ValidatesInte
             'column_name' => 'required|string|max:200', # 字段名
             'data_type' => 'required|string|max:100', # 字段类型
             'column_comment' => 'required|string|max:500', # 字段描述
-            'nullable' => 'required|boolean', # 是否允许为空
-            'primary_key' => 'required|boolean', # 是否主键
+            'nullable' => 'required|integer', # 是否允许为空
+            'primary_key' => 'required|integer', # 是否主键
             'ordinal_position' => 'required|integer', # 排序
             'java_type' => 'required|string|max:32', # Java 属性类型
             'java_field' => 'required|string|max:64', # Java 属性名
             'dict_type' => 'nullable|string|max:200', # 字典类型
             'example' => 'nullable|string|max:64', # 数据示例
-            'create_operation' => 'required|boolean', # 是否为 Create 创建操作的字段
-            'update_operation' => 'required|boolean', # 是否为 Update 更新操作的字段
-            'list_operation' => 'required|boolean', # 是否为 List 查询操作的字段
-            'list_operation_condition' => 'nullable|string|max:32', # List 查询操作的条件类型
-            'list_operation_result' => 'required|boolean', # 是否为 List 查询操作的返回字段
+            'create_operation' => 'required|integer', # 是否为 Create 创建操作的字段
+            'update_operation' => 'required|integer', # 是否为 Update 更新操作的字段
+            'list_operation' => 'required|integer', # 是否为 List 查询操作的字段
+            'list_operation_condition' => 'required|string|max:32', # List 查询操作的条件类型
+            'list_operation_result' => 'required|integer', # 是否为 List 查询操作的返回字段
             'html_type' => 'required|string|max:32', # 显示类型
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
+            'is_deleted' => 'required|integer', # 是否删除
+            'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }
 
@@ -73,6 +75,8 @@ class InfraCodegenColumnValidated extends BaseValidated implements ValidatesInte
             'html_type' => __('validated.300049'), # 显示类型
             'created_by' => __('validated.300019'), # 创建人名称
             'updated_by' => __('validated.300020'), # 更新人名称
+            'is_deleted' => __('validated.300184'), # 是否删除
+            'deleted_by' => __('validated.300185'), # 删除人名称
         ];
     }
 }

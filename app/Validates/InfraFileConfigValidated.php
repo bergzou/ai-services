@@ -16,12 +16,14 @@ class InfraFileConfigValidated extends BaseValidated implements ValidatesInterfa
         return [
             'snowflake_id' => 'required|string|max:64', # 雪花Id
             'name' => 'required|string|max:63', # 配置名
-            'storage' => 'required|boolean', # 存储器
+            'storage' => 'required|integer', # 存储器
             'remark' => 'nullable|string|max:255', # 备注
-            'master' => 'required|boolean', # 是否为主配置
+            'master' => 'required|integer', # 是否为主配置
             'config' => 'required|string|max:4096', # 存储配置
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
+            'is_deleted' => 'required|integer', # 是否删除
+            'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }
 
@@ -49,6 +51,8 @@ class InfraFileConfigValidated extends BaseValidated implements ValidatesInterfa
             'config' => __('validated.300086'), # 存储配置
             'created_by' => __('validated.300019'), # 创建人名称
             'updated_by' => __('validated.300020'), # 更新人名称
+            'is_deleted' => __('validated.300184'), # 是否删除
+            'deleted_by' => __('validated.300185'), # 删除人名称
         ];
     }
 }

@@ -20,7 +20,7 @@ class SystemOauth2ClientValidated extends BaseValidated implements ValidatesInte
             'name' => 'required|string|max:255', # 应用名
             'logo' => 'required|string|max:255', # 应用图标
             'description' => 'nullable|string|max:255', # 应用描述
-            'status' => 'required|boolean', # 状态
+            'status' => 'required|integer', # 状态
             'access_token_validity_seconds' => 'required|integer', # 访问令牌的有效期
             'refresh_token_validity_seconds' => 'required|integer', # 刷新令牌的有效期
             'redirect_uris' => 'required|string|max:255', # 可重定向的 URI 地址
@@ -32,7 +32,7 @@ class SystemOauth2ClientValidated extends BaseValidated implements ValidatesInte
             'additional_information' => 'nullable|string|max:4096', # 附加信息
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'nullable|boolean', # 是否删除
+            'is_deleted' => 'required|integer', # 是否删除
             'deleted_by' => 'nullable|string|max:255', # 删除人名称
         ];
     }

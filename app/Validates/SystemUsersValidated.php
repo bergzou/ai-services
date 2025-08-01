@@ -16,24 +16,24 @@ class SystemUsersValidated extends BaseValidated implements ValidatesInterface
         return [
             'snowflake_id' => 'required|string|max:64', # 雪花Id
             'username' => 'required|string|max:30', # 用户账号
-            'password' => 'nullable|string|max:100', # 密码
+            'password' => 'required|string|max:100', # 密码
             'nickname' => 'required|string|max:30', # 用户昵称
             'remark' => 'nullable|string|max:500', # 备注
             'dept_id' => 'nullable|integer', # 部门ID
             'post_ids' => 'nullable|string|max:255', # 岗位编号数组
             'email' => 'nullable|string|max:50', # 用户邮箱
             'mobile' => 'nullable|string|max:11', # 手机号码
-            'sex' => 'nullable|boolean', # 用户性别
+            'sex' => 'nullable|integer', # 用户性别
             'avatar' => 'nullable|string|max:512', # 头像地址
-            'status' => 'nullable|boolean', # 帐号状态： 1=正常， 2=停用
+            'status' => 'required|integer', # 帐号状态： 1=正常， 2=停用
             'login_ip' => 'nullable|string|max:50', # 最后登录IP
             'login_date' => 'nullable|date_format:Y-m-d H:i:s', # 最后登录时间
             'created_by' => 'required|string|max:255', # 创建人名称
             'updated_by' => 'required|string|max:255', # 更新人名称
-            'is_deleted' => 'nullable|boolean', # 是否删除
+            'is_deleted' => 'required|integer', # 是否删除
             'deleted_by' => 'nullable|string|max:255', # 删除人名称
-            'tenant_id' => 'nullable|integer', # 租户编号
-            'level' => 'nullable|boolean', # 会员等级：10=普通会员， 20=黄金会员， 30=铂金会员， 40=砖石会员， 50=终生会员
+            'tenant_id' => 'required|integer', # 租户编号
+            'level' => 'required|integer', # 会员等级：10=普通会员， 20=黄金会员， 30=铂金会员， 40=砖石会员， 50=终生会员
         ];
     }
 

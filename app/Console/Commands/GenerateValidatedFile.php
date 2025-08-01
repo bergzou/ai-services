@@ -291,7 +291,7 @@ PHP;
             $fieldRules = [];
 
             // 必填规则
-            if ($info['notnull'] && $info['default'] === null) {
+            if ($info['notnull']) {
                 $fieldRules[] = 'required';
             } else {
                 $fieldRules[] = 'nullable';
@@ -302,6 +302,7 @@ PHP;
                 case 'integer':
                 case 'bigint':
                 case 'smallint':
+                case 'boolean':
                 case 'tinyint':
                     $fieldRules[] = 'integer';
                     break;
@@ -309,9 +310,6 @@ PHP;
                 case 'float':
                 case 'double':
                     $fieldRules[] = 'numeric';
-                    break;
-                case 'boolean':
-                    $fieldRules[] = 'boolean';
                     break;
                 case 'date':
                     $fieldRules[] = 'date';
