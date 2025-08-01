@@ -20,4 +20,8 @@ return [
     '500016' => 'Duplicate job codes',
     '500017' => 'Duplicate job title',
     '500018' => 'The position does not exist',
+    '500019' => 'The parent department does not exist',
+    '500020' => 'The department name cannot be duplicated with the parent department name',
+    '500021' => 'Department name already exists',
+    '500022' => 'The department does not exist',
 ];

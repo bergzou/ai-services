@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\Admin\SystemDeptController;
 use App\Http\Controllers\Admin\SystemMenuController;
 use App\Http\Controllers\Admin\SystemPostController;
 use App\Http\Controllers\Admin\SystemRoleController;
@@ -49,6 +50,8 @@ Route::namespace('App\Http\Controllers\Admin')->prefix('admin')->group( function
     Route::post('/system/dept/update', [SystemDeptController::class,'update']); // 部门管理-更新部门
     Route::post('/system/dept/delete', [SystemDeptController::class,'delete']); // 部门管理-删除部门
     Route::post('/system/dept/detail', [SystemDeptController::class,'getDetail']); // 部门管理-部门详情
+
+
 
 });
 

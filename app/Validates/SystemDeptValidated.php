@@ -64,13 +64,14 @@ class SystemDeptValidated extends BaseValidated implements ValidatesInterface
         ];
     }
 
+
     /**
      * 新增参数
      * @return array
      */
     public function addParams(): array
     {
-        return [];
+        return ['name','parent_id','sort','leader_user_id','phone','email','status'];
     }
 
     /**
@@ -79,7 +80,7 @@ class SystemDeptValidated extends BaseValidated implements ValidatesInterface
      */
     public function updateParams(): array
     {
-        return [];
+        return ['snowflake_id','name','parent_id','sort','leader_user_id','phone','email','status'];
     }
 
     /**
@@ -88,7 +89,7 @@ class SystemDeptValidated extends BaseValidated implements ValidatesInterface
      */
     public function deleteParams(): array
     {
-        return [];
+        return ['snowflake_id'];
     }
 
     /**
@@ -97,6 +98,6 @@ class SystemDeptValidated extends BaseValidated implements ValidatesInterface
      */
     public function detailParams(): array
     {
-        return [];
+        return ['snowflake_id'];
     }
 }
