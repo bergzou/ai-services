@@ -211,7 +211,20 @@ class SystemDeptService extends BaseService
 
             // 过滤更新参数（仅保留模型允许批量赋值的字段）
             $systemDeptMode = new SystemDeptModel();
-            $updateData = CommonService::filterRecursive($params, $systemDeptMode->fillable);
+            $params = CommonService::filterRecursive($params, $systemDeptMode->fillable);
+
+            // 构造插入数据（包含基础信息、操作人及时间戳）
+            $updateData[] = [
+                'name' => $params['name'],                   // 部门名称
+                'parent_id' => $params['parent_id'],         // 父部门ID（0表示顶级部门）
+                'sort' => $params['sort'],                   // 显示顺序（用于排序）
+                'leader_user_id' => $params['leader_user_id'] ?? '', // 负责人用户ID（可选）
+                'phone' => $params['phone'] ?? '',           // 联系电话（可选）
+                'email' => $params['email'] ?? '',           // 邮箱（可选）
+                'status' => $params['status'],               // 部门状态（启用/停用）
+                'updated_by' => $this->userInfo['user_name'],// 更新人（当前登录用户）
+                'updated_at' => date('Y-m-d H:i:s'),         // 更新时间（初始与创建时间一致）
+            ];
 
             // 执行更新操作（根据snowflake_id定位记录）
             $result = $SystemDeptModel::query()

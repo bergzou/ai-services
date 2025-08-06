@@ -38,4 +38,7 @@ return [
     '100035' => 'delete',
     '100036' => '“export”',
     '100037' => 'import',
+    '100038' => 'All data permissions',
+    '100039' => 'Data permission 4 for this department=data permission for this department and below',
+    '100040' => 'Data permissions for this department and below',
 ];

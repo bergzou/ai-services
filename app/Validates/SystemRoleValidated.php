@@ -3,7 +3,6 @@
 namespace App\Validates;
 
 use App\Interfaces\ValidatesInterface;
-use App\Validates\BaseValidated;
 
 class SystemRoleValidated extends BaseValidated implements ValidatesInterface
 {
@@ -72,7 +71,7 @@ class SystemRoleValidated extends BaseValidated implements ValidatesInterface
      */
     public function addParams(): array
     {
-        return [];
+        return ['name','code','sort','status','remark'];
     }
 
     /**
@@ -81,7 +80,7 @@ class SystemRoleValidated extends BaseValidated implements ValidatesInterface
      */
     public function updateParams(): array
     {
-        return [];
+        return ['snowflake_id','name','code','sort','status','remark'];
     }
 
     /**
@@ -90,7 +89,7 @@ class SystemRoleValidated extends BaseValidated implements ValidatesInterface
      */
     public function deleteParams(): array
     {
-        return [];
+        return ['snowflake_id'];
     }
 
     /**
@@ -99,6 +98,6 @@ class SystemRoleValidated extends BaseValidated implements ValidatesInterface
      */
     public function detailParams(): array
     {
-        return [];
+        return ['snowflake_id'];
     }
 }

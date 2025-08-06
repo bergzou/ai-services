@@ -215,7 +215,27 @@ class SystemMenuService extends BaseService
 
             // 过滤更新参数（仅保留模型允许批量赋值的字段）
             $systemMenuMode = new SystemMenuModel();
-            $updateData = CommonService::filterRecursive($params, $systemMenuMode->fillable);
+            $params = CommonService::filterRecursive($params, $systemMenuMode->fillable);
+
+            // 构造插入数据（包含基础信息、操作人及时间戳）
+            $updateData[] = [
+                'name' => $params['name'],
+                'permission' => $params['permission'],
+                'type' => $params['type'],
+                'sort' => $params['sort'],
+                'parent_id' => $params['parent_id'],
+                'path' => $params['path'],
+                'icon' => $params['icon'] ?? '',
+                'component' => $params['component'] ?? '',
+                'component_name' => $params['component_name'] ?? '',
+                'status' => $params['status'] ?? EnumSystemMenu::STATUS_1, // 默认启用
+                'visible' => $params['visible'] ?? EnumSystemMenu::VISIBLE_1 , // 默认显示
+                'keep_alive' => $params['keep_alive'] ?? EnumSystemMenu::KEEP_ALIVE_1, // 默认缓存
+                'always_show' => $params['always_show'] ?? EnumSystemMenu::ALWAYS_SHOW_1, // 默认总是显示
+                'updated_by' => $this->userInfo['user_name'], // 更新人（当前登录用户）
+                'updated_at' => date('Y-m-d H:i:s'), // 更新时间
+            ];
+
 
             // 执行更新操作（根据snowflake_id定位记录）
             $result = $systemMenuModel::query()->where('snowflake_id', $params['snowflake_id'])->update($updateData);

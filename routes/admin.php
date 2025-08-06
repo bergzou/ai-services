@@ -24,6 +24,12 @@ Route::namespace('App\Http\Controllers\Admin')->prefix('admin')->group( function
     Route::post('/system/users/detail', [SystemUsersController::class, 'getDetail']); // 用户管理-用户详情
 
 
+    // 角色管理
+    Route::post('/system/role/list', [SystemRoleController::class, 'getList']); // 角色管理-角色列表
+    Route::post('/system/role/add', [SystemRoleController::class, 'add']); // 角色管理-添加角色
+    Route::post('/system/role/update', [SystemRoleController::class, 'update']); // 角色管理-更新角色
+    Route::post('/system/role/delete', [SystemRoleController::class, 'delete']); // 角色管理-删除角色
+    Route::post('/system/role/detail', [SystemRoleController::class, 'getDetail']); // 角色管理-角色详情
 
 
 
@@ -34,12 +40,14 @@ Route::namespace('App\Http\Controllers\Admin')->prefix('admin')->group( function
     Route::post('/system/menu/delete', [SystemMenuController::class, 'delete']); // 菜单管理-删除菜单
     Route::post('/system/menu/detail', [SystemMenuController::class, 'getDetail']); // 菜单管理-菜单详情
 
+
     // 岗位管理
     Route::post('/system/post/list', [SystemPostController::class,'getList']); // 岗位管理-岗位列表
     Route::post('/system/post/add', [SystemPostController::class,'add']); // 岗位管理-添加岗位
     Route::post('/system/post/update', [SystemPostController::class,'update']); // 岗位管理-更新岗位
     Route::post('/system/post/delete', [SystemPostController::class,'delete']); // 岗位管理-删除岗位
     Route::post('/system/post/detail', [SystemPostController::class,'getDetail']); // 岗位管理-岗位详情
+
 
 
     // 部门管理
@@ -50,12 +58,14 @@ Route::namespace('App\Http\Controllers\Admin')->prefix('admin')->group( function
     Route::post('/system/dept/detail', [SystemDeptController::class,'getDetail']); // 部门管理-部门详情
 
 
+
     // 租户管理
     Route::post('/system/tenant/list', [SystemTenantController::class, 'getList']); // 租户管理-租户列表
     Route::post('/system/tenant/add', [SystemTenantController::class, 'add']); // 租户管理-添加租户
     Route::post('/system/tenant/update', [SystemTenantController::class, 'update']); // 租户管理-更新租户
     Route::post('/system/tenant/delete', [SystemTenantController::class, 'delete']); // 租户管理-删除租户
     Route::post('/system/tenant/detail', [SystemTenantController::class, 'getDetail']); // 租户管理-租户详情
+
 
     // 租户套餐管理
     Route::post('/system/tenant/package/list', [SystemTenantPackageController::class, 'getList']); // 租户套餐管理-套餐列表

@@ -36,4 +36,8 @@ return [
     '500033' => 'Department deactivated',
     '500034' => 'Position deactivated',
     '500035' => 'user does not exist',
+    '500036' => 'The role already exists',
+    '500037' => 'The role name already exists',
+    '500038' => 'The role identifier already exists',
+    '500039' => 'The character does not exist',
 ];

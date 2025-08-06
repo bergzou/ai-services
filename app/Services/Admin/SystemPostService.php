@@ -97,7 +97,6 @@ class SystemPostService extends BaseService
                 'created_by' => $this->userInfo['user_name'],// 创建人（当前登录用户）
                 'updated_at' => date('Y-m-d H:i:s'),         // 更新时间（初始与创建时间一致）
                 'updated_by' => $this->userInfo['user_name'],// 更新人（当前登录用户）
-                'is_deleted' => EnumCommon::IS_DELETED_0,    // 未删除标记（0表示正常）
                 'tenant_id' => $this->userInfo['tenant_id'], // 租户ID（多租户隔离）
             ];
 
@@ -203,7 +202,18 @@ class SystemPostService extends BaseService
 
             // 过滤更新参数（仅保留模型允许批量赋值的字段）
             $systemPostMode = new SystemPostModel();
-            $updateData = CommonService::filterRecursive($params, $systemPostMode->fillable);
+            $params = CommonService::filterRecursive($params, $systemPostMode->fillable);
+
+            // 构造插入数据（包含基础信息、操作人及时间戳）
+            $updateData[] = [
+                'code' => $params['code'],                   // 岗位编码
+                'name' => $params['name'],                   // 岗位名称
+                'sort' => $params['sort'],                   // 显示顺序（用于排序）
+                'status' => $params['status'],               // 状态（启用/停用）
+                'remark' => $params['remark'] ?? '',         // 备注（可选）
+                'updated_at' => date('Y-m-d H:i:s'),         // 更新时间（初始与创建时间一致）
+                'updated_by' => $this->userInfo['user_name'],// 更新人（当前登录用户）
+            ];
 
             // 执行更新操作（根据snowflake_id定位记录）
             $result = $SystemPostModel::query()

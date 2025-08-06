@@ -2,15 +2,15 @@
 namespace App\Services\Admin;
 
 use App\Enums\EnumCommon;
-use App\Enums\EnumSystemMenu;
+use App\Enums\EnumSystemRole;
 use App\Exceptions\BusinessException;
 use App\Libraries\Common;
 use App\Libraries\Snowflake;
 use App\Logging\SqlLogger;
-use App\Models\SystemMenuModel;
+use App\Models\SystemRoleModel;
 use App\Services\BaseService;
 use App\Services\CommonService;
-use App\Validates\SystemMenuValidated;
+use App\Validates\SystemRoleValidated;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -25,21 +25,24 @@ class SystemRoleService extends BaseService
     public function getList(array $params): array
     {
         // 初始化菜单模型
-        $systemMenuModel = new SystemMenuModel();
+        $SystemRoleModel = new SystemRoleModel();
 
         // 定义查询条件映射（字段与查询方式的对应关系）
         $whereMap = [
             'id' => ['field' => 'id', 'search' => 'where'],
             'name' => ['field' => 'name', 'search' => 'like', 'operator' => 'like_after'],
+            'code' => ['field' => 'code', 'search' => 'like', 'operator' => 'like_after'],
             'status' => ['field' => 'status', 'search' => 'where'],
+            'created_at' => ['field' => 'created_at', 'search' => 'whereBetween'],
         ];
 
         // 定义需要查询的字段列表
-        $fields = ['id','snowflake_id','name','permission','type','sort','parent_id','path','icon','component','component_name','status',
-            'visible','keep_alive','always_show'];
+        $fields = [
+            'id', 'snowflake_id', 'name', 'code', 'sort', 'status', 'type', 'remark', 'created_at', 'created_by', 'updated_at', 'updated_by',
+        ];
 
         // 构建查询：设置字段、转换筛选条件、排序，获取多条记录（不分页）
-        $result = $systemMenuModel->setFields($fields)
+        $result = $SystemRoleModel->setFields($fields)
             ->convertConditions($params, $whereMap) // 将参数转换为模型可识别的查询条件
             ->setOrderBy(['id' => 'asc'])
             ->getMultipleRecord(); // 获取分页结果
@@ -47,8 +50,7 @@ class SystemRoleService extends BaseService
         // 补充枚举描述（类型名称、状态名称）
         if (!empty($result)){
             foreach ($result as &$item) {
-                $item['type_name'] = EnumSystemMenu::getTypeMap($item['type']); // 类型枚举值转名称（目录/菜单/按钮）
-                $item['status_name'] = EnumSystemMenu::getStatusMap($item['status']); // 状态枚举值转名称（启用/停用）
+                $item['status_name'] = EnumSystemRole::getStatusMap($item['status']); // 状态枚举值转名称（启用/停用）
             }
         }
 
@@ -69,19 +71,19 @@ class SystemRoleService extends BaseService
             // 开启数据库事务
             DB::beginTransaction();
 
-            // 参数验证（使用SystemMenuValidated验证器，场景为"add"）
-            $validated = new SystemMenuValidated($params, 'add');
+            // 参数验证（使用SystemRoleValidated验证器，场景为"add"）
+            $validated = new SystemRoleValidated($params, 'add');
             $messages = $validated->isRunFail();
             if (!empty($messages)){
                 throw new BusinessException($messages, '400000'); // 参数验证失败异常
             }
 
             // 过滤参数（仅保留模型允许批量赋值的字段）
-            $systemMenuMode = new SystemMenuModel();
+            $systemMenuMode = new SystemRoleModel();
             $params = CommonService::filterRecursive($params, $systemMenuMode->fillable);
 
             // 验证菜单数据有效性（名称唯一性、父菜单合法性等）
-            $params = $this->validatedMenu($params);
+            $params = $this->validatedRole($params);
 
             // 生成雪花ID（分布式唯一ID）
             $snowflake = new Snowflake(Common::getWorkerId());
@@ -90,27 +92,20 @@ class SystemRoleService extends BaseService
             $insertData[] = [
                 'snowflake_id' => $snowflake->next(),
                 'name' => $params['name'],
-                'permission' => $params['permission'],
-                'type' => $params['type'],
+                'code' => $params['code'],
                 'sort' => $params['sort'],
-                'parent_id' => $params['parent_id'],
-                'path' => $params['path'],
-                'icon' => $params['icon'] ?? '',
-                'component' => $params['component'] ?? '',
-                'component_name' => $params['component_name'] ?? '',
-                'status' => $params['status'] ?? EnumSystemMenu::STATUS_1, // 默认启用
-                'visible' => $params['visible'] ?? EnumSystemMenu::VISIBLE_1 , // 默认显示
-                'keep_alive' => $params['keep_alive'] ?? EnumSystemMenu::KEEP_ALIVE_1, // 默认缓存
-                'always_show' => $params['always_show'] ?? EnumSystemMenu::ALWAYS_SHOW_1, // 默认总是显示
+                'status' => $params['status'],
+                'remark' => $params['remark'] ?? '',
                 'created_by' => $this->userInfo['user_name'], // 创建人（当前登录用户）
                 'created_at' => date('Y-m-d H:i:s'), // 创建时间
                 'updated_by' => $this->userInfo['user_name'], // 更新人（当前登录用户）
                 'updated_at' => date('Y-m-d H:i:s'), // 更新时间
+                'tenant_id' => $this->userInfo['tenant_id'], // 租户编号
             ];
 
             // 执行数据插入
-            $systemMenuModel = new SystemMenuModel();
-            $result = $systemMenuModel->insert($insertData);
+            $SystemRoleModel = new SystemRoleModel();
+            $result = $SystemRoleModel->insert($insertData);
             if ($result !== true) {
                 throw new BusinessException(__('errors.600000'), '600000'); // 插入失败异常
             }
@@ -134,51 +129,27 @@ class SystemRoleService extends BaseService
      * @return array 验证通过的原始参数
      * @throws BusinessException 验证失败时抛出（如路径缺失、父菜单无效、名称重复等）
      */
-    public function validatedMenu(array $params , $menuInfo = null): array
+    public function validatedRole(array $params , $roleInfo = null): array
     {
-        $systemMenuModel = new SystemMenuModel();
 
-        // 验证菜单类型对应的必填字段（目录/菜单类型必须有路径）
-        switch ($params['type']){
-            case EnumSystemMenu::TYPE_1: // 目录
-            case EnumSystemMenu::TYPE_2: // 菜单
-                if (empty($params['path'])) throw new BusinessException(__('validated.300146').__('common.500002'), 500002);
-                break;
-        }
+        $systemRoleModel = new SystemRoleModel();
 
-        // 验证父菜单有效性（若存在父ID）
-        if (!empty($params['parent_id'])){
-            // 查询父菜单信息（仅获取类型、ID、名称）
-            $menu = $systemMenuModel->setFields(['type','id','name'])->getSingleRecord(['id' => $params['parent_id']]);
-            if (empty($menu)) throw new BusinessException(__('errors.500010'), 500010); // 父菜单不存在
-            if (!in_array($menu['type'], [EnumSystemMenu::TYPE_1, EnumSystemMenu::TYPE_2])) {
-                throw new BusinessException(__('errors.500011'), 500011); // 父菜单类型无效（仅允许目录/菜单作为父级）
+        if (empty($roleInfo)){
+            $exists = $systemRoleModel::query()->where('name',$params['name'])->where('tenant_id',$this->userInfo['tenant_id'])->exists();
+            if (!empty($exists)){
+                throw new BusinessException(__('errors.500037'), 500037); // 角色名称已存在
             }
-            if ($menu['name'] == $params['name']) throw new BusinessException(__('errors.500009'), 500010); // 子菜单名称与父菜单重复
-        }
-
-        // 验证菜单名称唯一性（新增/更新场景）
-        if (!empty($menuInfo)){
-            // 更新场景：检查除当前菜单外是否有同名菜单
-            $menu = $systemMenuModel->setFields(['type','id','name'])->getSingleRecord(['name' => $params['name']]);
-            if (!empty($menu) && $menu['id'] != $menuInfo['id']) throw new BusinessException(__('errors.500015'), 500015);
+            $exists = $systemRoleModel::query()->where('code',$params['code'])->where('tenant_id',$this->userInfo['tenant_id'])->exists();
         }else{
-            // 新增场景：检查是否已存在同名菜单
-            $exists = $systemMenuModel::query()->where('name', $params['name'])->exists();
-            if ($exists) throw new BusinessException(__('errors.500015'), 500015);
+            $exists = $systemRoleModel::query()->where('name',$params['name'])->where('tenant_id',$this->userInfo['tenant_id'])->where('snowflake_id','<>',$roleInfo['snowflake_id'])->exists();
+            if (!empty($exists)){
+                throw new BusinessException(__('errors.500037'), 500037); // 角色名称已存在
+            }
+            $exists = $systemRoleModel::query()->where('code',$params['code'])->where('tenant_id',$this->userInfo['tenant_id'])->where('snowflake_id','<>',$roleInfo['snowflake_id'])->exists();
         }
 
-        // 验证组件名称唯一性（若存在组件名称）
-        if (!empty($params['component_name'])){
-            if (!empty($menuInfo)){
-                // 更新场景：检查除当前菜单外是否有同组件名
-                $exists = $systemMenuModel::query()->where('component_name', $params['component_name'])
-                    ->where('id', '<>', $menuInfo['id'])->exists();
-            }else{
-                // 新增场景：检查是否已存在同组件名
-                $exists = $systemMenuModel::query()->where('component_name', $params['component_name'])->exists();
-            }
-            if ($exists) throw new BusinessException(__('errors.500013'), 500013);
+        if (!empty($exists)){
+            throw new BusinessException(__('errors.500038'), 500038); // 角色编码已存在
         }
 
         return  $params;
@@ -198,27 +169,38 @@ class SystemRoleService extends BaseService
             // 开启数据库事务
             DB::beginTransaction();
 
-            // 参数验证（使用SystemMenuValidated验证器，场景为"update"）
-            $validated = new SystemMenuValidated($params, 'update');
+            // 参数验证（使用SystemRoleValidated验证器，场景为"update"）
+            $validated = new SystemRoleValidated($params, 'update');
             $messages = $validated->isRunFail();
             if (!empty($messages)){
                 throw new BusinessException($messages, '400000'); // 参数验证失败异常
             }
 
             // 获取目标菜单信息（通过snowflake_id查询）
-            $systemMenuModel =  new SystemMenuModel();
-            $menu = (new SystemMenuModel())->getSingleRecord(['snowflake_id' => $params['snowflake_id']]);
-            if (empty($menu)) throw new BusinessException(__('errors.500014'), 500014); // 菜单不存在
+            $SystemRoleModel =  new SystemRoleModel();
+            $role = (new SystemRoleModel())->getSingleRecord(['snowflake_id' => $params['snowflake_id']]);
+            if (empty($role)) throw new BusinessException(__('errors.500039'), 500039);
 
             // 验证菜单数据有效性（传入原菜单信息用于唯一性校验）
-            $params = $this->validatedMenu($params,$menu);
+            $params = $this->validatedRole($params,$role);
 
             // 过滤更新参数（仅保留模型允许批量赋值的字段）
-            $systemMenuMode = new SystemMenuModel();
-            $updateData = CommonService::filterRecursive($params, $systemMenuMode->fillable);
+            $systemMenuMode = new SystemRoleModel();
+            $params = CommonService::filterRecursive($params, $systemMenuMode->fillable);
+
+            // 构造插入数据（包含基础信息、操作人及时间戳）
+            $updateData[] = [
+                'name' => $params['name'],
+                'code' => $params['code'],
+                'sort' => $params['sort'],
+                'status' => $params['status'],
+                'remark' => $params['remark'] ?? '',
+                'updated_by' => $this->userInfo['user_name'], // 更新人（当前登录用户）
+                'updated_at' => date('Y-m-d H:i:s'), // 更新时间
+            ];
 
             // 执行更新操作（根据snowflake_id定位记录）
-            $result = $systemMenuModel::query()->where('snowflake_id', $params['snowflake_id'])->update($updateData);
+            $result = $SystemRoleModel::query()->where('snowflake_id', $params['snowflake_id'])->update($updateData);
             if (!$result) {
                 throw new BusinessException(__('errors.600000'), '600000'); // 更新失败异常
             }
@@ -249,17 +231,17 @@ class SystemRoleService extends BaseService
             // 开启数据库事务
             DB::beginTransaction();
 
-            // 参数验证（使用SystemMenuValidated验证器，场景为"delete"）
-            $validated = new SystemMenuValidated($params, 'delete');
+            // 参数验证（使用SystemRoleValidated验证器，场景为"delete"）
+            $validated = new SystemRoleValidated($params, 'delete');
             $messages = $validated->isRunFail();
             if (!empty($messages)){
                 throw new BusinessException($messages, '400000'); // 参数验证失败异常
             }
 
             // 获取目标菜单信息（通过snowflake_id查询）
-            $systemMenuModel =  new SystemMenuModel();
-            $menu = (new SystemMenuModel())->getSingleRecord(['snowflake_id' => $params['snowflake_id']]);
-            if (empty($menu)) throw new BusinessException(__('errors.500014'), 500014); // 菜单不存在
+            $SystemRoleModel =  new SystemRoleModel();
+            $role = (new SystemRoleModel())->getSingleRecord(['snowflake_id' => $params['snowflake_id']]);
+            if (empty($role)) throw new BusinessException(__('errors.500039'), 500039); // 菜单不存在
 
             // 构造软删除标记数据（标记删除时间、操作人）
             $updateData = [
@@ -269,7 +251,7 @@ class SystemRoleService extends BaseService
             ];
 
             // 执行删除操作（更新删除标记）
-            $result = $systemMenuModel::query()->where('snowflake_id', $params['snowflake_id'])->update($updateData);
+            $result = $SystemRoleModel::query()->where('snowflake_id', $params['snowflake_id'])->update($updateData);
             if (!$result) {
                 throw new BusinessException(__('errors.600000'), '600000'); // 删除失败异常
             }
@@ -300,20 +282,21 @@ class SystemRoleService extends BaseService
             // 开启数据库事务
             DB::beginTransaction();
 
-            // 参数验证（使用SystemMenuValidated验证器，场景为"delete"）
-            $validated = new SystemMenuValidated($params, 'delete');
+            // 参数验证（使用SystemRoleValidated验证器，场景为"delete"）
+            $validated = new SystemRoleValidated($params, 'delete');
             $messages = $validated->isRunFail();
             if (!empty($messages)){
                 throw new BusinessException($messages, '400000'); // 参数验证失败异常
             }
 
             // 定义需要查询的字段列表
-            $fields = ['id','snowflake_id','name','permission','type','sort','parent_id','path','icon','component','component_name','status',
-                'visible','keep_alive','always_show'];
+            $fields = [
+                'id', 'snowflake_id', 'name', 'code', 'sort', 'status', 'type', 'remark', 'created_at', 'created_by', 'updated_at', 'updated_by',
+            ];
 
             // 查询单条菜单记录（通过snowflake_id）
-            $result = (new SystemMenuModel())->setFields($fields)->getSingleRecord(['snowflake_id' => $params['snowflake_id']]);
-            if (empty($result)) throw new BusinessException(__('errors.500014'), 500014); // 菜单不存在（注：原代码中$menu未定义，此处修正为检查$result）
+            $result = (new SystemRoleModel())->setFields($fields)->getSingleRecord(['snowflake_id' => $params['snowflake_id']]);
+            if (empty($result)) throw new BusinessException(__('errors.500039'), 500039); // 菜单不存在（注：原代码中$menu未定义，此处修正为检查$result）
 
             // 事务提交
             DB::commit();

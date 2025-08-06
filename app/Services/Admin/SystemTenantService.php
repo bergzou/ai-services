@@ -203,7 +203,23 @@ class SystemTenantService extends BaseService
 
             // 过滤更新参数（仅保留模型允许批量赋值的字段）
             $systemTenantModel = new SystemTenantModel();
-            $updateData = CommonService::filterRecursive($params, $systemTenantModel->fillable);
+            $params = CommonService::filterRecursive($params, $systemTenantModel->fillable);
+
+
+            // 构造插入数据（包含基础信息、操作人及时间戳）
+            $updateData[] = [
+                'name' => $params['name'],                   // 租户名称（必填）
+                'contact_user_id' => $params['contact_user_id'], // 联系人的用户编号（可选）
+                'contact_name' => $params['contact_name'],     // 联系人（必填）
+                'contact_mobile' => $params['contact_mobile'], // 联系手机（必填）
+                'website' => $params['website'],             // 绑定域名（可选）
+                'package_id' => $params['package_id'],         // 租户套餐编号（必填）
+                'expire_time' => $params['expire_time'],       // 过期时间（必填）
+                'account_count' => $params['account_count'],   // 账号数量（必填）
+                'status' => $params['status'],               // 状态（启用/停用，必填）
+                'updated_at' => date('Y-m-d H:i:s'),         // 更新时间（初始与创建时间一致）
+                'updated_by' => $this->userInfo['user_name'],// 更新人（当前登录用户）
+            ];
 
             // 执行更新操作（根据snowflake_id定位记录）
             $result = $SystemTenantModel::query()

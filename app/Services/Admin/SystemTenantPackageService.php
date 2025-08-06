@@ -181,7 +181,17 @@ class SystemTenantPackageService extends BaseService
 
             // 过滤更新参数（仅保留模型允许批量赋值的字段）
             $systemPackageModel = new SystemTenantPackageModel();
-            $updateData = CommonService::filterRecursive($params, $systemPackageModel->fillable);
+            $params = CommonService::filterRecursive($params, $systemPackageModel->fillable);
+
+            // 构造插入数据（包含基础信息、操作人及时间戳）
+            $updateData[] = [
+                'name' => $params['name'],                   // 套餐名称（必填）
+                'status' => $params['status'],               // 状态（启用/停用）
+                'remark' => $params['remark'] ?? '',         // 备注（可选）
+                'menu_ids' => json_encode($params['menu_ids']), // 关联的菜单编号（JSON格式存储）
+                'updated_at' => date('Y-m-d H:i:s'),         // 更新时间（初始与创建时间一致）
+                'updated_by' => $this->userInfo['user_name'],// 更新人（当前登录用户）
+            ];
 
             // 执行更新操作（根据snowflake_id定位记录）
             $result = $SystemTenantPackageModel::query()
