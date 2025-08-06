@@ -34,8 +34,4 @@ class SystemUserPostModel extends BaseModel
         'tenant_id' => 'integer', # 租户编号
     ];
 
-    public function where(string $string, $snowflake_id)
-    {
-    }
-
 }

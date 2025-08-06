@@ -22,7 +22,6 @@ use Illuminate\Support\Facades\DB;
 
 /**
  * 系统用户管理服务类
- *
  * 提供用户的增删改查、数据验证、状态枚举转换及部门/岗位关联管理功能
  */
 class SystemUsersService extends BaseService

@@ -25,7 +25,7 @@ class SystemPostModel extends BaseModel
         'code' => 'string', # 岗位编码
         'name' => 'string', # 岗位名称
         'sort' => 'integer', # 显示顺序
-        'status' => 'integer', # 状态（0正常 1停用）
+        'status' => 'integer', # 岗位状态： 1=正常， 2=停用
         'remark' => 'string', # 备注
         'created_at' => 'datetime', # 创建时间
         'created_by' => 'string', # 创建人名称

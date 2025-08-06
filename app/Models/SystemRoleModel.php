@@ -25,9 +25,9 @@ class SystemRoleModel extends BaseModel
         'name' => 'string', # 角色名称
         'code' => 'string', # 角色权限字符串
         'sort' => 'integer', # 显示顺序
-        'data_scope' => 'integer', # 数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）
+        'data_scope' => 'integer', # 数据范围：1=全部数据权限， 2=自定数据权限， 3=本部门数据权限， 4=本部门及以下数据权限
         'data_scope_dept_ids' => 'string', # 数据范围(指定部门数组)
-        'status' => 'integer', # 角色状态（0正常 1停用）
+        'status' => 'integer', # 角色状态： 1=正常， 2=停用
         'type' => 'integer', # 角色类型
         'remark' => 'string', # 备注
         'created_at' => 'datetime', # 创建时间
