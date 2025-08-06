@@ -54,10 +54,10 @@ class SystemDeptService extends BaseService
         $result = $systemDeptModel->setFields($fields)
             ->convertConditions($params, $whereMap) // 将参数转换为模型可识别的查询条件
             ->setOrderBy(['id' => 'asc'])
-            ->getMultipleRecord(); // 获取分页结果（注：实际可能为不分页，需根据模型实现确认）
+            ->getPaginateResults(); // 获取分页结果（注：实际可能为不分页，需根据模型实现确认）
 
-        if (!empty($result)){
-            foreach ($result as &$item) {
+        if (!empty($result['list'])){
+            foreach ($result['list'] as &$item) {
                 $item['status_name'] = EnumSystemDept::getStatusMap($item['status']); // 状态枚举值转名称（启用/停用）
             }
         }

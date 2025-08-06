@@ -9,6 +9,8 @@ class SystemDeptModel extends BaseModel
     # 使用Eloquent工厂模式
     use HasFactory;
 
+
+
     # 对应的数据库表名
     protected $table = 'system_dept';
 

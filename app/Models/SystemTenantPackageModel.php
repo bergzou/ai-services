@@ -16,7 +16,7 @@ class SystemTenantPackageModel extends BaseModel
     public $guarded = ['id','snowflake_id'];
 
     # 白名单，指定可以被批量赋值的字段（注意：如果同时定义了$fillable和$guarded，则只有$fillable生效）
-    public $fillable = ['name','status','remark','menu_ids','creator','created_by','updated_at','updated_by','is_deleted','deleted_at','deleted_by'];
+    public $fillable = ['name','status','remark','menu_ids','created_at','created_by','updated_at','updated_by','is_deleted','deleted_at','deleted_by'];
 
     # 属性类型转换（自动映射数据库类型到PHP类型）
     public $casts = [
@@ -26,7 +26,7 @@ class SystemTenantPackageModel extends BaseModel
         'status' => 'integer', # 套餐状态：1=正常， 2=停用
         'remark' => 'string', # 备注
         'menu_ids' => 'string', # 关联的菜单编号
-        'creator' => 'string', # 创建者
+        'created_at' => 'datetime', # 创建时间
         'created_by' => 'string', # 创建人名称
         'updated_at' => 'datetime', # 更新时间
         'updated_by' => 'string', # 更新人名称

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Scopes\NotDeletedScope;
 use App\Scopes\TenantScope;
 use App\Services\CommonService;
+use DateTimeInterface;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +16,20 @@ use Illuminate\Support\Facades\DB;
  */
 class BaseModel extends Model
 {
+
+
+    /**
+     * 重写日期序列化方法（自定义日期字段输出格式）
+     * 当模型调用toArray()/toJson()方法时，自动将DateTime对象序列化为指定格式的字符串
+     * 所有继承自BaseModel的模型（如SystemMenuModel、SystemDeptModel）都会使用此格式输出日期字段
+     * @param DateTimeInterface $date 待序列化的日期对象（由Eloquent自动传入）
+     * @return string 格式化后的日期字符串（格式：年-月-日 时:分:秒，如"2024-05-20 14:30:00"）
+     */
+    protected function serializeDate(DateTimeInterface $date): string
+    {
+        return $date->format('Y-m-d H:i:s');
+    }
+
     /**
      * 表别名（用于联表查询时标识主表）
      * @var string

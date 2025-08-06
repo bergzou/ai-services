@@ -74,7 +74,9 @@ class SystemTenantValidated extends BaseValidated implements ValidatesInterface
      */
     public function addParams(): array
     {
-        return [];
+        return [
+            'name','contact_user_id','contact_name','contact_mobile','status','website','package_id','expire_time','account_count'
+        ];
     }
 
     /**
@@ -83,7 +85,9 @@ class SystemTenantValidated extends BaseValidated implements ValidatesInterface
      */
     public function updateParams(): array
     {
-        return [];
+        return [
+            'snowflake_id','name','contact_user_id','contact_name','contact_mobile','status','website','package_id','expire_time','account_count'
+        ];
     }
 
     /**
@@ -92,7 +96,9 @@ class SystemTenantValidated extends BaseValidated implements ValidatesInterface
      */
     public function deleteParams(): array
     {
-        return [];
+        return [
+            'snowflake_id'
+        ];
     }
 
     /**
@@ -101,6 +107,8 @@ class SystemTenantValidated extends BaseValidated implements ValidatesInterface
      */
     public function detailParams(): array
     {
-        return [];
+        return [
+            'snowflake_id'
+        ];
     }
 }

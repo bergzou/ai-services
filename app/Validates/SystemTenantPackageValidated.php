@@ -64,7 +64,7 @@ class SystemTenantPackageValidated extends BaseValidated implements ValidatesInt
      */
     public function addParams(): array
     {
-        return [];
+        return ['name','status','menu_ids','remark'];
     }
 
     /**
@@ -73,7 +73,7 @@ class SystemTenantPackageValidated extends BaseValidated implements ValidatesInt
      */
     public function updateParams(): array
     {
-        return [];
+        return ['snowflake_id','name','status','menu_ids','remark'];
     }
 
     /**
@@ -82,7 +82,7 @@ class SystemTenantPackageValidated extends BaseValidated implements ValidatesInt
      */
     public function deleteParams(): array
     {
-        return [];
+        return ['snowflake_id'];
     }
 
     /**
@@ -91,6 +91,6 @@ class SystemTenantPackageValidated extends BaseValidated implements ValidatesInt
      */
     public function detailParams(): array
     {
-        return [];
+        return ['snowflake_id'];
     }
 }

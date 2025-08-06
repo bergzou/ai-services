@@ -16,8 +16,8 @@ class SystemUsersValidated extends BaseValidated implements ValidatesInterface
         return [
             'id' => 'required', # 用户ID
             'snowflake_id' => 'required', # 雪花Id
-            'username' => 'required', # 用户账号
-            'password' => 'required', # 密码
+            'username' => 'required|alpha_num|between:4,16', # 用户账号
+            'password' => 'required|between:4,16', # 密码
             'nickname' => 'required', # 用户昵称
             'remark' => 'nullable', # 备注
             'dept_id' => 'nullable', # 部门ID
@@ -84,7 +84,7 @@ class SystemUsersValidated extends BaseValidated implements ValidatesInterface
      */
     public function addParams(): array
     {
-        return [];
+        return ['nickname', 'dept_id', 'mobile', 'email', 'username', 'password', 'post_ids', 'remark', 'status', 'role_ids'];
     }
 
     /**
@@ -93,7 +93,7 @@ class SystemUsersValidated extends BaseValidated implements ValidatesInterface
      */
     public function updateParams(): array
     {
-        return [];
+        return ['snowflake_id','nickname', 'dept_id', 'mobile', 'email', 'username', 'post_ids', 'remark', 'status', 'role_ids'];
     }
 
     /**
@@ -102,7 +102,7 @@ class SystemUsersValidated extends BaseValidated implements ValidatesInterface
      */
     public function deleteParams(): array
     {
-        return [];
+        return ['snowflake_id'];
     }
 
     /**
@@ -111,6 +111,6 @@ class SystemUsersValidated extends BaseValidated implements ValidatesInterface
      */
     public function detailParams(): array
     {
-        return [];
+        return ['snowflake_id'];
     }
 }

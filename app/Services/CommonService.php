@@ -44,20 +44,32 @@ class CommonService extends BaseService
         $result = [];
 
         foreach ($params as $key => $value) {
-            // 检查当前键是否在允许列表中（严格类型检查）
             $keyAllowed = in_array($key, $allowedKeys, true);
 
-            // 处理数组值（递归过滤子数组）
             if (is_array($value)) {
-                // 递归调用自身处理子数组，得到子数组的过滤结果
-                $filtered = self::filterRecursive($value, $allowedKeys);
-                // 保留条件：子数组过滤结果非空 或 当前键本身在允许列表中（即使子数组为空也保留键）
+                // 检测是否为索引数组（所有键均为数字）
+                $isIndexArray = !array_filter(array_keys($value), 'is_string');
+
+                if ($isIndexArray) {
+                    // 索引数组：递归处理每个元素（如果元素是数组）
+                    $filtered = [];
+                    foreach ($value as $item) {
+                        if (is_array($item)) {
+                            $filtered[] = self::filterRecursive($item, $allowedKeys);
+                        } else {
+                            $filtered[] = $item;
+                        }
+                    }
+                } else {
+                    // 关联数组：递归过滤整个数组
+                    $filtered = self::filterRecursive($value, $allowedKeys);
+                }
+
+                // 保留条件：过滤后非空 或 当前键在允许列表中
                 if (!empty($filtered) || $keyAllowed) {
                     $result[$key] = $filtered;
                 }
-            }
-            // 处理非数组值（仅当键在允许列表中时保留）
-            elseif ($keyAllowed) {
+            } elseif ($keyAllowed) {
                 $result[$key] = $value;
             }
         }
