@@ -170,20 +170,60 @@ class GenerateValidatedFile extends Command
         );
     }
 
-    /**
-     * 获取四个额外方法的模板
-     * @return string
-     */
-    private function getAdditionalMethodsTemplate(): string
+
+
+
+    private function getAdditionalMethodsTemplate(array $columns = []): string
     {
-        return <<<'TEXT'
+        // 过滤规则
+        $excludeForAdd = [
+            'id',
+            'snowflake_id',
+            'created_at',
+            'created_by',
+            'updated_at',
+            'updated_by',
+            'is_deleted',
+            'deleted_at',
+            'deleted_by',
+        ];
+
+        $excludeForUpdate = [
+            'id',
+            'created_at',
+            'created_by',
+            'updated_at',
+            'updated_by',
+            'is_deleted',
+            'deleted_at',
+            'deleted_by',
+        ];
+
+        // 格式化数组（无键值，缩进对齐）
+        $formatArray = function (array $items) {
+            $lines = array_map(fn($v) => "            '{$v}',", $items); // 12 空格
+            return "[\n" . implode("\n", $lines) . "\n        ]"; // 8 空格
+        };
+
+        $fieldsForAdd = array_keys(array_filter($columns, function ($info, $field) use ($excludeForAdd) {
+            return !in_array($field, $excludeForAdd, true);
+        }, ARRAY_FILTER_USE_BOTH));
+
+        $fieldsForUpdate = array_keys(array_filter($columns, function ($info, $field) use ($excludeForUpdate) {
+            return !in_array($field, $excludeForUpdate, true);
+        }, ARRAY_FILTER_USE_BOTH));
+
+        $fieldsAddExport = $formatArray($fieldsForAdd);
+        $fieldsUpdateExport = $formatArray($fieldsForUpdate);
+
+        return <<<TEXT
     /**
      * 新增参数
      * @return array
      */
     public function addParams(): array
     {
-        return [];
+        return {$fieldsAddExport};
     }
 
     /**
@@ -192,7 +232,7 @@ class GenerateValidatedFile extends Command
      */
     public function updateParams(): array
     {
-        return [];
+        return {$fieldsUpdateExport};
     }
 
     /**
@@ -201,7 +241,9 @@ class GenerateValidatedFile extends Command
      */
     public function deleteParams(): array
     {
-        return [];
+        return [
+            'snowflake_id',
+        ];
     }
 
     /**
@@ -210,10 +252,16 @@ class GenerateValidatedFile extends Command
      */
     public function detailParams(): array
     {
-        return [];
+        return [
+            'snowflake_id',
+        ];
     }
 TEXT;
     }
+
+
+
+
 
     /**
      * 从注释中提取字段描述（去掉枚举值和规则部分）
@@ -314,7 +362,7 @@ TEXT;
     {
         $rules = $this->generateRules($columns);
         $attributes = $this->generateCustomAttributes($columns);
-        $additionalMethods = $this->getAdditionalMethodsTemplate();
+        $additionalMethods = $this->getAdditionalMethodsTemplate($columns);
 
         return <<<PHP
 <?php

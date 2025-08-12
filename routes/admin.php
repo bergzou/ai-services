@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\Admin\SystemAiProvidersController;
 use App\Http\Controllers\Admin\SystemDeptController;
 use App\Http\Controllers\Admin\SystemMenuController;
 use App\Http\Controllers\Admin\SystemPostController;
@@ -74,6 +75,13 @@ Route::namespace('App\Http\Controllers\Admin')->prefix('admin')->group( function
     Route::post('/system/tenant/package/delete', [SystemTenantPackageController::class, 'delete']); // 租户套餐管理-删除套餐
     Route::post('/system/tenant/package/detail', [SystemTenantPackageController::class, 'getDetail']); // 租户套餐管理-套餐详情
 
+
+    // AI服务商
+    Route::post('/system/ai/providers/list', [SystemAiProvidersController::class, 'getList']); // AI服务商-服务商列表
+    Route::post('/system/ai/providers/add', [SystemAiProvidersController::class, 'add']); // AI服务商-添加服务商
+    Route::post('/system/ai/providers/update', [SystemAiProvidersController::class, 'update']); // AI服务商-更新服务商
+    Route::post('/system/ai/providers/delete', [SystemAiProvidersController::class, 'delete']); // AI服务商-删除服务商
+    Route::post('/system/ai/providers/detail', [SystemAiProvidersController::class, 'getDetail']); // AI服务商-服务商详情
 
 
 

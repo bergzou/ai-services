@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\AuthController;
 
+use App\Services\Common\AiModel\AiModelManager;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Controller;
@@ -36,6 +37,18 @@ Route::middleware('auth:api')->group(function () {
     });
 });
 
+Route::post('/ai/test', function (AiModelManager $manager) {
+
+
+    $messages = [
+        ['role' => 'user', 'content' => '你好，帮我写一个笑话']
+    ];
+    $res1 = $manager->provider('zhipuai')->driver('chatglm')->chat($messages);
+
+    var_dump($res1);;die;
+
+
+});
 
 
 
