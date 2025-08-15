@@ -28,13 +28,26 @@ class GenerateEnumsFile extends Command
     public function handle()
     {
         // 获取命令选项参数
-        $connectionName = $this->option('connection') ?? Config::get('database.default');
         $prefix = $this->option('prefix');
-        $outputDir = $this->option('output');
+
         $force = $this->option('force');
 
+
+        $basePath = 'app/Enums';
+        $outputOption = $this->option('output');
+
+        if ($outputOption && $outputOption !== $basePath) {
+            $parts = array_map(function ($part) {
+                return Str::studly($part);
+            }, explode('/', trim($outputOption, '/')));
+            $outputDir = $basePath . '/' . implode('/', $parts);
+        } else {
+            $outputDir = $basePath;
+        }
+
+
         // 设置当前数据库连接
-        Config::set('database.default', $connectionName);
+        $connectionName = Config::get('database.default');
         $connection = DB::connection($connectionName);
 
         // 获取需要处理的表列表

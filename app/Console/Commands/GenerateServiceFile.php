@@ -19,10 +19,11 @@ class GenerateServiceFile extends Command
 
     public function handle()
     {
-        $connection   = $this->option('connection') ?: config('database.default');
+        $connection   =  config('database.default');
         $prefix       = $this->option('prefix') ?: '';
         $tablesOption = $this->option('tables');
         $force        = (bool)$this->option('force');
+
 
         // 获取表列表（与原逻辑兼容）
         if (!empty($tablesOption)) {
@@ -60,6 +61,23 @@ class GenerateServiceFile extends Command
 
         $this->info('Service 文件全部生成完成');
         return 0;
+    }
+
+
+    public function getServicePath($ucModel): string
+    {
+        $outputOption = $this->option('output');
+        if ($outputOption) {
+            // 将每一层目录首字母大写
+            $parts = array_map(function ($part) {
+                return Str::studly($part);
+            }, explode('/', trim($outputOption, '/')));
+            $subPath = implode('/', $parts);
+            $servicePath = app_path("Services/{$subPath}/{$ucModel}Service.php");
+        } else {
+            $servicePath = app_path("Services/{$ucModel}Service.php");
+        }
+        return $servicePath;
     }
 
     /**
@@ -120,7 +138,7 @@ class GenerateServiceFile extends Command
         $content .= "class {$className} extends BaseService\n{\n\n}\n";
 
         file_put_contents($filePath, $content);
-        $this->info("已生成基础服务类（版本1）：{$filePath}");
+        $this->info("已生成基础服务类：{$filePath}");
     }
 
     /**
@@ -316,7 +334,6 @@ TPL;
         }
 
         file_put_contents($filePath, $newContent);
-        $this->info("已在 {$filePath} 中追加 getList 方法（版本2）");
     }
 
 
@@ -325,11 +342,15 @@ TPL;
         $ucModel = Str::studly(str_replace($prefix, '', $originTableName)); // 保留复数
         $lcModel = Str::camel($ucModel);
 
-        $servicePath = app_path("Services/Admin/{$ucModel}Service.php");
+
+
+        $servicePath = $this->getServicePath($ucModel);
+
         if (!file_exists($servicePath)) {
             echo "Service 文件不存在，无法追加 add 方法: {$servicePath}\n";
             return;
         }
+
 
         $content = file_get_contents($servicePath);
         if (strpos($content, 'public function add(') !== false) {
@@ -439,7 +460,7 @@ PHP;
         $content = preg_replace('/}\s*$/', $addMethod . "}\n", $content);
 
         file_put_contents($servicePath, $content);
-        echo "已追加 add 方法(自动生成+固定字段值+排除软删除字段)和 validated{$ucModel} 方法到: {$servicePath}\n";
+
     }
 
 
@@ -448,7 +469,9 @@ PHP;
         $ucModel = Str::studly(str_replace($prefix, '', $originTableName)); // 保留复数
         $lcModel = Str::camel($ucModel);
 
-        $servicePath = app_path("Services/Admin/{$ucModel}Service.php");
+
+
+        $servicePath = $this->getServicePath($ucModel);
         if (!file_exists($servicePath)) {
             echo "Service 文件不存在，无法追加 update 方法: {$servicePath}\n";
             return;
@@ -565,7 +588,6 @@ PHP;
         $content = preg_replace('/}\s*$/', $updateMethod . "}\n", $content);
 
         file_put_contents($servicePath, $content);
-        echo "已追加 update 方法(完全表结构生成)到: {$servicePath}\n";
     }
 
     private function createDelete(string $originTableName, string $prefix, string $connection, bool $force = false): void
@@ -573,7 +595,10 @@ PHP;
         $ucModel = Str::studly(str_replace($prefix, '', $originTableName)); // 模型名
         $lcModel = Str::camel($ucModel);
 
-        $servicePath = app_path("Services/Admin/{$ucModel}Service.php");
+
+
+        $servicePath = $this->getServicePath($ucModel);
+
         if (!file_exists($servicePath)) {
             echo "Service 文件不存在，无法追加 delete 方法: {$servicePath}\n";
             return;
@@ -645,7 +670,6 @@ PHP;
         $content = preg_replace('/}\s*$/', $deleteMethod . "}\n", $content);
 
         file_put_contents($servicePath, $content);
-        echo "已追加 delete 方法到: {$servicePath}\n";
     }
 
 
@@ -654,7 +678,8 @@ PHP;
         $ucModel = Str::studly(str_replace($prefix, '', $originTableName)); // 保留复数或原表形式
         $lcModel = Str::camel($ucModel);
 
-        $servicePath = app_path("Services/Admin/{$ucModel}Service.php");
+
+        $servicePath = $this->getServicePath($ucModel);
         if (!file_exists($servicePath)) {
             echo "Service 文件不存在，无法追加 getDetail 方法: {$servicePath}\n";
             return;
@@ -667,7 +692,7 @@ PHP;
         }
 
         // 使用 DB 获取表字段（和 createAdd/createUpdate 保持一致，避免使用 Schema facade）
-        $columns = \DB::connection($connection)->select("SHOW FULL COLUMNS FROM {$originTableName}");
+        $columns = DB::connection($connection)->select("SHOW FULL COLUMNS FROM {$originTableName}");
 
         // 排除不需要查询的字段
         $excludeFields = ['is_deleted', 'deleted_at', 'deleted_by'];
@@ -737,7 +762,6 @@ PHP;
         // 插入到类的末尾
         $content = preg_replace('/}\s*$/', $getDetailMethod . "}\n", $content);
         file_put_contents($servicePath, $content);
-        echo "已追加 getDetail 方法到: {$servicePath}\n";
     }
 
 

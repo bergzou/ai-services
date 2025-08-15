@@ -12,27 +12,43 @@ class GenerateControllerFile extends Command
                             {--tables= : 指定表名（多个用逗号分隔，不指定则生成所有表）}
                             {--prefix= : 要移除的表前缀}
                             {--output= : 控制器输出目录（默认 app/Http/Controllers）}
-                            {--connection= : 数据库连接名称（默认 config/database.php 的 default 连接）}
                             {--force : 强制覆盖已存在文件}';
 
     protected $description = '根据表名生成控制器文件';
 
     public function handle()
     {
-        $connection = $this->option('connection') ?: config('database.default');
+        $connection =  config('database.default');
         $prefix = $this->option('prefix') ?: '';
         $tablesOption = $this->option('tables');
-        $output = trim($this->option('output'), '/');
         $force = $this->option('force');
 
-        // 默认输出路径
-        $namespaceSuffix = $output ? Str::studly($output) : '';
+
+        $output = trim($this->option('output'), '/');
+
+
+        $namespaceSuffix = '';
+        if ($output) {
+            $parts = array_map(function ($part) {
+                return Str::studly($part);
+            }, explode('/', $output));
+            $namespaceSuffix = implode('\\', $parts); // namespace 用 \
+            $pathSuffix = implode('/', $parts);       // 文件路径用 /
+        } else {
+            $pathSuffix = '';
+        }
+
+
         $baseNamespace = 'App\\Http\\Controllers' . ($namespaceSuffix ? '\\' . $namespaceSuffix : '');
-        $basePath = app_path('Http/Controllers' . ($namespaceSuffix ? '/' . $namespaceSuffix : ''));
+        $basePath = app_path('Http/Controllers' . ($pathSuffix ? '/' . $pathSuffix : ''));
 
         if (!is_dir($basePath)) {
             mkdir($basePath, 0755, true);
         }
+
+
+        $serviceNamespace = 'App\\Services' . ($namespaceSuffix ? '\\' . $namespaceSuffix : '');
+
 
         // 获取表名
         $tables = $tablesOption
@@ -78,7 +94,6 @@ class {$className} extends BaseController implements ControllerInterface
      * 获取数据列表
      * @param Request \$request 请求参数
      * @return JsonResponse 列表数据（JSON 格式）
-     * @throws BusinessException
      */
     public function getList(Request \$request): JsonResponse
     {

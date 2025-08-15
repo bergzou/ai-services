@@ -27,7 +27,6 @@ class GenerateModelFile extends Command
                             {--tables= : 指定表名（多个用逗号分隔，不指定则生成所有表）}
                             {--prefix= : 要移除的表前缀（如"tb_"会将"tb_users"转为"users"）}
                             {--output=app/Models : 模型输出目录（默认app/Models）}
-                            {--connection= : 数据库连接名称（默认使用config/database.php的default连接）}
                             {--force : 强制覆盖已存在的模型文件（默认跳过已存在文件）}';
 
     /**
@@ -44,15 +43,25 @@ class GenerateModelFile extends Command
     public function handle()
     {
         // 获取命令选项参数
-        $connectionName = $this->option('connection') ?? Config::get('database.default');
+
         $prefix = $this->option('prefix');
-        $outputDir = $this->option('output');
         $force = $this->option('force');
 
-        $isCustomConnection = $this->option('connection') !== null;
 
-        // 设置当前数据库连接（临时修改默认连接）
-        Config::set('database.default', $connectionName);
+        $basePath = 'app/Models';
+        $outputOption = $this->option('output');
+
+        if ($outputOption && $outputOption !== $basePath) {
+            $parts = array_map(function ($part) {
+                return Str::studly($part);
+            }, explode('/', trim($outputOption, '/')));
+            $outputDir = $basePath . '/' . implode('/', $parts);
+        } else {
+            $outputDir = $basePath;
+        }
+
+
+        $connectionName = Config::get('database.default');
         $connection = DB::connection($connectionName);
 
         // 获取需要处理的表列表（指定表或所有表）
@@ -87,7 +96,7 @@ class GenerateModelFile extends Command
             $modelContent = $this->generateModelContent(
                 $modelName,
                 $table,
-                $isCustomConnection ? $connectionName : null,
+                $connectionName,
                 $columns
             );
 

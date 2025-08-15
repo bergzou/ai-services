@@ -15,7 +15,6 @@ class GenerateValidatedFile extends Command
                             {--tables= : 指定表名（多个用逗号分隔，不指定则生成所有表）}
                             {--prefix= : 要移除的表前缀}
                             {--output=app/Validates : 输出目录}
-                            {--connection= : 数据库连接名称}
                             {--force : 强制覆盖已存在的验证器文件}
                             {--lang-start=3 : 多语言编码起始值}
                             {--lang-file=validated : 多语言文件名（不含扩展名）}';
@@ -30,14 +29,26 @@ class GenerateValidatedFile extends Command
 
     public function handle()
     {
-        // 获取命令选项参数
-        $connectionName = $this->option('connection') ?? Config::get('database.default');
+
         $prefix = $this->option('prefix');
-        $outputDir = $this->option('output');
         $force = $this->option('force');
 
-        // 设置当前数据库连接
-        Config::set('database.default', $connectionName);
+
+
+
+        $basePath = 'app/Validates';
+        $outputOption = $this->option('output');
+
+        if ($outputOption && $outputOption !== $basePath) {
+            $parts = array_map(function ($part) {
+                return Str::studly($part);
+            }, explode('/', trim($outputOption, '/')));
+            $outputDir = $basePath . '/' . implode('/', $parts);
+        } else {
+            $outputDir = $basePath;
+        }
+
+        $connectionName =  Config::get('database.default');
         $connection = DB::connection($connectionName);
 
         // 获取需要处理的表列表
