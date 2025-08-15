@@ -1,7 +1,7 @@
 <?php
 
 
-use App\Http\Controllers\Admin\SystemAiProvidersController;
+
 use App\Http\Controllers\Admin\SystemDeptController;
 use App\Http\Controllers\Admin\SystemMenuController;
 use App\Http\Controllers\Admin\SystemPostController;
@@ -12,7 +12,7 @@ use App\Http\Controllers\Admin\SystemUsersController;
 use Illuminate\Support\Facades\Route;
 
 
-//Route::get('/system/tenant/get-by-website', [SystemController::class, 'tenantGetByWebsite']);
+
 
 Route::namespace('App\Http\Controllers\Admin')->prefix('admin')->group( function (){
 
