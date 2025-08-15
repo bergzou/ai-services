@@ -80,9 +80,10 @@ class GenerateServiceFile extends Command
         return $servicePath;
     }
 
+
     /**
      * 版本1：生成基础 Service 文件（header、use 等）
-     * - 保持你指定的头部 import 顺序
+     * - Service、Model、Validated 命名空间根据 output 自动加载
      * - 如果 Enum 文件存在，则在头部添加 use App\Enums\EnumX;
      */
     protected function createBase(string $originTableName, string $prefix, string $connection, bool $force)
@@ -98,17 +99,23 @@ class GenerateServiceFile extends Command
         $validateName = $classBase . 'Validated';
         $enumName     = 'Enum' . $classBase;
 
-        // 输出目录与命名空间：默认 app/Services，--output 为子目录（只拼接到 app/Services 下）
+        // 输出目录与命名空间：默认 app/Services，--output 为子目录
         $outputSubPath = trim($this->option('output') ?: '', '/');
-        $outputPath = app_path('Services' . ($outputSubPath ? '/' . Str::studly($outputSubPath) : ''));
-        $namespace = 'App\\Services' . ($outputSubPath ? '\\' . str_replace('/', '\\', Str::studly($outputSubPath)) : '');
+        $servicePath   = app_path('Services' . ($outputSubPath ? '/' . Str::studly($outputSubPath) : ''));
+        $serviceNs     = 'App\\Services' . ($outputSubPath ? '\\' . str_replace('/', '\\', Str::studly($outputSubPath)) : '');
 
-        if (!is_dir($outputPath)) {
-            mkdir($outputPath, 0755, true);
-            $this->info("创建目录：{$outputPath}");
+        $modelPath     = app_path('Models' . ($outputSubPath ? '/' . Str::studly($outputSubPath) : ''));
+        $modelNs       = 'App\\Models' . ($outputSubPath ? '\\' . str_replace('/', '\\', Str::studly($outputSubPath)) : '');
+
+        $validatePath  = app_path('Validates' . ($outputSubPath ? '/' . Str::studly($outputSubPath) : ''));
+        $validateNs    = 'App\\Validates' . ($outputSubPath ? '\\' . str_replace('/', '\\', Str::studly($outputSubPath)) : '');
+
+        if (!is_dir($servicePath)) {
+            mkdir($servicePath, 0755, true);
+            $this->info("创建目录：{$servicePath}");
         }
 
-        $filePath = $outputPath . '/' . $className . '.php';
+        $filePath = $servicePath . '/' . $className . '.php';
         if (file_exists($filePath) && ! $force) {
             $this->warn("跳过 {$className}（文件已存在）：{$filePath}");
             return;
@@ -123,15 +130,15 @@ class GenerateServiceFile extends Command
 
         // 生成基础文件内容（严格保持头部 use 顺序）
         $content = "<?php\n\n";
-        $content .= "namespace {$namespace};\n\n";
+        $content .= "namespace {$serviceNs};\n\n";
         $content .= "use App\\Exceptions\\BusinessException;\n";
         $content .= "use App\\Enums\\EnumCommon;\n";
         $content .= "use App\\Libraries\\Common;\n";
         $content .= "use App\\Libraries\\Snowflake;\n";
-        $content .= "use App\\Models\\{$modelName};\n";
+        $content .= "use {$modelNs}\\{$modelName};\n";
         $content .= "use App\\Services\\BaseService;\n";
         $content .= "use App\\Services\\CommonService;\n";
-        $content .= "use App\\Validates\\{$validateName};\n";
+        $content .= "use {$validateNs}\\{$validateName};\n";
         $content .= $enumUseLine;
         $content .= "use Exception;\n";
         $content .= "use Illuminate\\Support\\Facades\\DB;\n\n";
@@ -141,6 +148,7 @@ class GenerateServiceFile extends Command
         $this->info("已生成基础服务类：{$filePath}");
     }
 
+
     /**
      * 版本2：在基础 Service 文件上追加 getList 方法（如果不存在）
      * - 自动根据表字段生成 $whereMap 和 $fields（排除 is_deleted/deleted_at/deleted_by）
@@ -149,6 +157,8 @@ class GenerateServiceFile extends Command
      * - 如果 Enum 文件在磁盘上存在，且枚举类定义了对应的 get<Field>Map 方法，则为该字段生成 映射行（生成时检测）
      * - 不在此方法中变动头部 use（createBase 负责 enum use）
      */
+
+
     protected function createGetList(string $originTableName, string $prefix, string $connection, bool $force)
     {
         $table = $originTableName;
@@ -156,27 +166,27 @@ class GenerateServiceFile extends Command
             $table = Str::replaceFirst($prefix, '', $originTableName);
         }
 
-        $classBase    = Str::studly($table);                  // e.g. AiProviders
-        $className    = $classBase . 'Service';
-        $modelName    = $classBase . 'Model';
-        $enumName     = 'Enum' . $classBase;
+        $classBase = Str::studly($table); // e.g. SystemUsers
+        $className = $classBase . 'Service';
+        $modelName = $classBase . 'Model';
+        $enumName  = 'Enum' . $classBase;
 
-        // 输出目录与命名空间（与 createBase 保持一致）
         $outputSubPath = trim($this->option('output') ?: '', '/');
-        $outputPath = app_path('Services' . ($outputSubPath ? '/' . Str::studly($outputSubPath) : ''));
-        $namespace = 'App\\Services' . ($outputSubPath ? '\\' . str_replace('/', '\\', Str::studly($outputSubPath)) : '');
 
-        $filePath = $outputPath . '/' . $className . '.php';
+        // Service 文件路径
+        $filePath = app_path('Services' . ($outputSubPath ? '/' . Str::studly($outputSubPath) : '') . '/' . $className . '.php');
         if (!file_exists($filePath)) {
             $this->warn("基础服务文件不存在，跳过追加 getList: {$filePath}");
             return;
         }
 
-        // 读取表字段（Doctrine）
+        // 枚举文件路径（根据 --output）
+        $enumPath = app_path('Enums' . ($outputSubPath ? '/' . Str::studly($outputSubPath) : '') . '/' . $enumName . '.php');
+
+        // 读取表字段
         try {
             $schemaManager = DB::connection($connection)->getDoctrineSchemaManager();
             $platform = $schemaManager->getDatabasePlatform();
-            // ensure enum mapped as string
             $platform->registerDoctrineTypeMapping('enum', 'string');
             $columns = $schemaManager->listTableColumns($originTableName);
         } catch (\Throwable $e) {
@@ -184,21 +194,16 @@ class GenerateServiceFile extends Command
             return;
         }
 
-        // 生成 whereMap 与 fields（排除 is_deleted/deleted_at/deleted_by；跳过 text / longtext）
         $skipFields = ['is_deleted', 'deleted_at', 'deleted_by'];
-        $whereMap = []; // assoc field => ['field'=>..., 'search'=>..., 'operator'=>...?]
+        $whereMap = [];
         $fieldsArr = [];
 
         foreach ($columns as $colObj) {
             $colName = $colObj->getName();
             $typeName = strtolower($colObj->getType()->getName());
 
-            if (in_array($colName, $skipFields, true)) {
-                continue;
-            }
-            if (in_array($typeName, ['text', 'longtext'])) {
-                continue;
-            }
+            if (in_array($colName, $skipFields, true)) continue;
+            if (in_array($typeName, ['text', 'longtext'])) continue;
 
             $fieldsArr[] = $colName;
 
@@ -213,12 +218,9 @@ class GenerateServiceFile extends Command
             }
         }
 
-        // 格式化 whereMap 文本（对齐美观）
+        // 格式化 whereMap
         $maxKeyLen = 0;
-        foreach ($whereMap as $k => $_) {
-            $len = strlen($k);
-            if ($len > $maxKeyLen) $maxKeyLen = $len;
-        }
+        foreach ($whereMap as $k => $_) $maxKeyLen = max($maxKeyLen, strlen($k));
         $whereLines = [];
         foreach ($whereMap as $k => $v) {
             $quotedKey = "'{$k}'";
@@ -227,76 +229,57 @@ class GenerateServiceFile extends Command
             foreach ($v as $innerK => $innerV) {
                 $innerParts[] = "'{$innerK}' => '{$innerV}'";
             }
-            $valueText = "[" . implode(', ', $innerParts) . "]";
-            $whereLines[] = "            {$padQuoted} => {$valueText},";
+            $whereLines[] = "            {$padQuoted} => [" . implode(', ', $innerParts) . "],";
         }
         $whereText = "[\n" . implode("\n", $whereLines) . "\n        ]";
 
-        // 格式化 fields 文本（单行风格与示例一致）
-        // 示例期望 ['id','snowflake_id','code',...]
-        $fieldsQuoted = array_map(function($f){ return "'{$f}'"; }, $fieldsArr);
+        // 格式化 fields
+        $fieldsQuoted = array_map(fn($f) => "'{$f}'", $fieldsArr);
         $fieldsText = "[" . implode(',', $fieldsQuoted) . "]";
 
-        // 枚举映射：如果枚举文件存在，则尝试加载并判断 enum 类中是否存在 get<Field>Map 方法
-        $enumFilePath = app_path("Enums/{$enumName}.php");
+        // 枚举映射文本
         $enumMappingLines = [];
-        if (file_exists($enumFilePath)) {
-            // 尝试包含枚举文件以便在生成阶段检测方法（require_once 防止重复声明）
-            try {
-                require_once $enumFilePath;
-            } catch (\Throwable $e) {
-                // 忽略包含时的错误（仅代表无法在生成器环境下检查方法）
-            }
-            $enumFullClass = "App\\Enums\\{$enumName}";
-            if (class_exists($enumFullClass)) {
-                foreach ($fieldsArr as $f) {
-                    $method = 'get' . Str::studly($f) . 'Map';
-                    if (method_exists($enumFullClass, $method)) {
-                        // 直接生成映射行（无需在运行时再判断）
-                        $enumMappingLines[] = "                \$item['{$f}_name'] = {$enumName}::{$method}(\$item['{$f}'] ?? null);";
-                    }
+        if (file_exists($enumPath)) {
+            require_once $enumPath;
+            if (class_exists($enumName)) {
+                if (method_exists($enumName, 'getStatusMap')) {
+                    $enumMappingLines[] = "                \$item['status_name'] = {$enumName}::getStatusMap(\$item['status'] ?? null);";
+                }
+                if (method_exists($enumName, 'getLevelMap')) {
+                    $enumMappingLines[] = "                \$item['level_name']  = {$enumName}::getLevelMap(\$item['level'] ?? null);";
                 }
             }
         }
-        // 如果没有任何字段映射到 enum，但常见的 status 字段通常需要映射：尝试单独处理 status（兼容旧示例）
-        if (empty($enumMappingLines) && !empty($whereMap) && array_key_exists('status', $whereMap) && file_exists($enumFilePath)) {
-            // 仅当枚举类存在且有 getStatusMap 方法时，添加 status 映射（兼容旧示例）
-            $enumFullClass = "App\\Enums\\{$enumName}";
-            if (class_exists($enumFullClass) && method_exists($enumFullClass, 'getStatusMap')) {
-                $enumMappingLines[] = "                \$item['status_name'] = {$enumName}::getStatusMap(\$item['status'] ?? null);";
-            }
-        }
-
         $enumMappingText = $enumMappingLines ? implode("\n", $enumMappingLines) . "\n" : '';
 
-        // 生成 getList 方法文本（使用 nowdoc 模板，替换占位符）
+        // 生成 getList 方法模板
         $getListTemplate = <<<'TPL'
 
     /**
      * 获取{{CLASS_BASE}}列表（带筛选和状态枚举转换）
      * @param array $params 筛选参数（支持字段映射）
-     * @return array 列表数据（包含可能的 *_name 枚举名称字段）
+     * @return array 列表数据（包含 *_name 枚举名称字段）
      */
     public function getList(array $params): array
     {
         // 初始化模型
-        {{MODEL_VAR}} = new {{MODEL_CLASS}}();
+        $model = new {{MODEL_CLASS}}();
 
-        // 定义查询条件映射（字段与查询方式的对应关系）
+        // 定义查询条件映射
         $whereMap = {{WHERE_MAP}};
 
-        // 定义需要查询的字段列表（包含基础信息及时间戳）
+        // 定义需要查询的字段列表
         $fields = {{FIELDS}};
 
-        // 构建查询：设置字段、转换筛选条件、按ID升序排序，获取多条记录（不分页）
-        $result = {{MODEL_VAR}}
+        // 构建查询：设置字段、转换筛选条件、按ID升序排序，获取多条记录
+        $result = $model
             ->setFields($fields)
             ->convertConditions($params, $whereMap)
             ->setOrderBy(['id' => 'asc'])
             ->getPaginateResults();
 
-        // 补充枚举描述（仅为生成时已检测到的枚举方法生成映射行）
-        if (!empty($result['list'])){
+        // 补充枚举描述
+        if (!empty($result['list'])) {
             foreach ($result['list'] as &$item) {
 {{ENUM_MAPPING}}            }
         }
@@ -306,35 +289,36 @@ class GenerateServiceFile extends Command
 
 TPL;
 
-        $modelVarName = lcfirst($classBase) . 'Model'; // e.g. aiProvidersModel -> $aiProvidersModel
-        $modelVarDecl = '$' . $modelVarName;
-
         $replacements = [
             '{{CLASS_BASE}}' => $classBase,
-            '{{MODEL_VAR}}'  => $modelVarDecl,
             '{{MODEL_CLASS}}'=> $modelName,
             '{{WHERE_MAP}}'  => $whereText,
             '{{FIELDS}}'     => $fieldsText,
             '{{ENUM_MAPPING}}'=> $enumMappingText,
         ];
+
         $getListMethod = str_replace(array_keys($replacements), array_values($replacements), $getListTemplate);
 
-        // 读取现有文件并插入 getList 方法（若不存在）
+        // 插入 getList 方法
         $fileContent = file_get_contents($filePath);
         if (strpos($fileContent, 'function getList') !== false) {
             $this->warn("getList 已存在于 {$filePath}，跳过追加");
             return;
         }
 
-        // 将方法插入到类结尾（替换最后一个右花括号）
         $newContent = preg_replace('/}\s*$/', $getListMethod . "\n}\n", $fileContent);
         if ($newContent === null) {
-            $this->error("插入 getList 方法失败（preg_replace 返回 null）：{$filePath}");
+            $this->error("插入 getList 方法失败：{$filePath}");
             return;
         }
 
         file_put_contents($filePath, $newContent);
+        $this->info("已追加 getList 方法：{$filePath}");
     }
+
+
+
+
 
 
     private function createAdd(string $originTableName, string $prefix, string $connection, bool $force = false): void
